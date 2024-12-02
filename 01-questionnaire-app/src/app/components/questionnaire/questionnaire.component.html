@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12 text-center h1 mt-4">
+                <span>{{question.text}}</span>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <!--Los @for se pueden poner en cualquier sitio
+            track es obligatorio-->
+            <!--Creamos unas variables dentro del for-->
+            @for(answer of question.answerOptions; track answer; let index = $index){
+                <!--[ngClass] quiere decir que tiene que participar el que es programacion no es html-->
+                <!--col-md es para que en el movil me lo ponga aliniado-->
+               <div class="col-12 mt-2 mb-2" [ngClass]="'col-md-' + (12 / question.answerOptions.length)">
+               <!-- Dentro de los {{}} ponemos la respuesta-->
+                <!--Le vamos a dar un evento de click-->
+                <button class="btn btn-primary w-100" (click)="checkAnswer(index)">{{answer}}</button>
+
+            </div> 
+            
+            }
+            <!--Esta es la manera con ngFor
+            track no es obligatorio en ngFor
+            Para que ngFor no me tire error lo importo en el ts
+            <div class="col-3" *ngFor=" let answer of question.answerOptions; track answer">
+                <button class="btn btn-primary w-100">{{answer}}</button>
+            </div>-->
+
+            <!--Para dar respuesta al usuario-->
+            @if(answerChosed){
+                <div class="row">
+                    <div class="col-12 text-center mt-4">
+                        @if(answerCorrect){
+                            <div class="alert alert-success" role="alert">
+                                ¡Has acertado!
+                            </div>
+                        }@else {
+                            <div class="alert alert-danger" role="alert">
+                                ¡Has fallado vuelvelo a intentar!
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            <!--Para dar respuesta al usuario con ngIf y hay que importarlo que sino da error
+            <div class="row" *ngIf="answerChosed">
+                <div class="col-12 text-center mt-4">
+                        <div class="alert alert-success" role="alert" *ngIf="answerChosed">
+                            ¡Has acertado!
+                        </div>
+                        <div class="alert alert-danger" role="alert" *ngIf="!answerChosed">
+                            ¡Has fallado vuelvelo a intentar!
+                        </div>                    
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
