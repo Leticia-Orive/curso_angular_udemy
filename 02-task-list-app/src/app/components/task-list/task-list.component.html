@@ -1,1 +1,26 @@
-<p>task-list works!</p>
+<div class="row mt-2 mb-2">
+    <div class="col-12">
+        <div class="row">
+            <div class="clo-12">
+                <h1>Tareas pendientes</h1>
+                @for(task of taskListPending; track task){
+
+                }@empty {
+                    <span>¡Felicidades! No tienes tareas pendientes</span>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="clo-12">
+                <h1>Tareas completadas</h1>
+                @for(task of taskListCompleted; track task){
+
+                }@empty {
+                    <span> No tienes tareas completadas</span>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

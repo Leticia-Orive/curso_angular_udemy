@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ITask } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-list',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent {
+
+  public taskListPending: ITask[] = [];
+  public taskListCompleted: ITask[] = [];
 
 }
