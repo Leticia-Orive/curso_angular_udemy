@@ -6,8 +6,24 @@
                 @for(task of taskListPending; track task){
 
                 }@empty {
-                    <span>¡Felicidades! No tienes tareas pendientes</span>
+                    <span class="d-block">¡Felicidades! No tienes tareas pendientes</span>
                 }
+                @if(showInputTask){
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" #taskInput>
+                        <button class="btn btn-primary" type="button" (click)="createTask(taskInput.value)">
+                         <i class="bi bi-plus"></i>
+                        <span>Añadir </span>
+                        </button>
+                      </div>
+
+                }@else {
+                    <button class="btn btn-primary mb-2 mt-2" (click)="showInputTextTask()">
+                        <i class="bi bi-plus"></i>
+                        <span>Añadir tarea</span>
+                    </button>
+                }
+                
             </div>
         </div>
 
