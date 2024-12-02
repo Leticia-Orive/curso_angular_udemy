@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ITask } from '../../models/task.model';
+import { TaskComponent } from "./components/task/task.component";
 
 @Component({
   selector: 'app-task-list',
-  imports: [],
+  imports: [TaskComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
