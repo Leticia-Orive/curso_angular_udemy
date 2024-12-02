@@ -23,6 +23,11 @@
                         <span>Añadir tarea</span>
                     </button>
                 }
+                @if(errorInputTask){
+                    <div class="alert alert-danger" role="alert">
+                        La tarea no puede estar vacía
+                      </div>
+                }
                 
             </div>
         </div>
