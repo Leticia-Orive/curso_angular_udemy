@@ -34,6 +34,12 @@ export class TaskListComponent {
       this.errorInputTask = true;
     }
     }
+    removeTask(index: number){
+      console.log(index);
+    }
+    completeTask(index: number){
+      console.log(index);
+    }
     
 
 }

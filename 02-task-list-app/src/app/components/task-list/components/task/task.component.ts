@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ITask } from '../../../../models/task.model';
 import { DatePipe } from '@angular/common';
 
@@ -17,5 +17,17 @@ export class TaskComponent {
 
   @Input({required: true}) task!: ITask;
   @Input() index: number = 0;
+//Output es para emitir eventos pero creados por nosotros, nos recomienda 
+//que el nombre del evento sea el mismo que el nombre de la funcion y que sea un EventEmitter y que sea de tipo number
+//Es mejor que lo llamemos con acciones
+@Output() remove: EventEmitter<number> = new EventEmitter<number>();
+@Output() complete: EventEmitter<number> = new EventEmitter<number>();
 
+//Creamos una funcion que se encargue de emitir el evento
+removeTask(): void {
+  this.remove.emit(this.index);
+}
+completeTask(): void {
+  this.complete.emit(this.index);
+}
 }

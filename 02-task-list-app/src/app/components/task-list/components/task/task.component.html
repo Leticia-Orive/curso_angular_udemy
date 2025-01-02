@@ -15,7 +15,7 @@ mb: separacion entre la columna de arriba y de abajo-->
 
     </div>
     <div class="col-2 text-end">
-        <i class="task__icon bi bi-pencil-fill text-success"></i>
-        <i class="task__icon bi bi-trash-fill text-danger"></i>
+        <i class="task__icon bi bi-pencil-fill text-success" (click)="completeTask()"></i>
+        <i class="task__icon bi bi-trash-fill text-danger" (click)="removeTask()"></i>
     </div>
 </div>

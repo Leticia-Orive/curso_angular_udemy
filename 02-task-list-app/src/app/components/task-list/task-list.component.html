@@ -4,7 +4,7 @@
             <div class="clo-12">
                 <h1>Tareas pendientes</h1>
                 @for(task of taskListPending; track task; let index = $index){
-                    <app-task [task]="task" [index]="index" />
+                    <app-task [task]="task" [index]="index" (remove)="removeTask($event)" (complete)="completeTask($event)" />
 
                 }@empty {
                     <span class="d-block">¡Felicidades! No tienes tareas pendientes</span>
