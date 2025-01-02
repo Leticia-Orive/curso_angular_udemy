@@ -7,7 +7,10 @@ mb: separacion entre la columna de arriba y de abajo-->
 
         <span>{{task.date | date: 'dd/MM/YYYY'}}</span> 
     </div>
-    <div class="col-8 m-auto">
+    <!--text-truncate: sirve para trucar el texto pero no vemos entero el texto para ello 
+    vamos a añadir un atributo 
+    que le decimos que queremos ver todo el texto-->
+    <div class="col-8 m-auto text-truncate" [title]="task.description">
         <span>{{task.description}}</span>
 
     </div>
