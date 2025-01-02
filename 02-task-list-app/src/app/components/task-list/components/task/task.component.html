@@ -1,7 +1,7 @@
 <!--Para aliniar algo en con bootstrap se añade g-0 y se le quita el padding que tenga
 mb: separacion entre la columna de arriba y de abajo-->
-<div class="row g-0 border rounded mb-2">
-    <div class="col-2">
+<div class="row g-0 border rounded mb-2 p-2">
+    <div class="col-2 text-center">
         <!--Para añadir la fecha actual y no estar como en bucle y en el ts 
         hay que importar el DateTime porque sino daria error-->
 
@@ -11,5 +11,8 @@ mb: separacion entre la columna de arriba y de abajo-->
         <span>{{task.description}}</span>
 
     </div>
-    <div class="col-2"></div>
+    <div class="col-2 text-end">
+        <i class="bi bi-pencil-fill text-success"></i>
+        <i class="bi bi-trash-fill text-danger"></i>
+    </div>
 </div>
