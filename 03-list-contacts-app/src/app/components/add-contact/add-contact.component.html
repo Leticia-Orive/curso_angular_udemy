@@ -1,1 +1,36 @@
-<p>add-contact works!</p>
+<div class="row">
+    <div class="col-md-4 col-sm-6 col-12">
+        <!--cuando haga un submit ponemos un evento con una funcion que haga lo de añadir contacto-->
+        <!--[(ngModel)] asocia una variable que ahora mismo va ser de entrada y salida por eso son los corchotes y 
+        parentesis -->
+        <form (ngSubmit)="addContact()" >
+            <div class="mb-2">
+                <!--pongo el * porque va ser requerido-->
+                <label for="name" class="form-label">Nombre (*)</label>
+                <input type="text" name="name" id="name"  required placeholder="Escribe un nombre..." 
+                [(ngModel)]="contact.name"
+                class="form-control">
+
+            </div>
+            <div class="mb-2">
+                <!--pongo el * porque va ser requerido-->
+                <label for="surname" class="form-label">Apellidos (*)</label>
+                <input type="text" name="surname" id="surname"  required placeholder="Escribe sus apellidos..." 
+                [(ngModel)]="contact.surname"
+                class="form-control"> 
+            </div>
+            <div class="mb-2">
+                <label for="telephone" class="form-label">Telefono (*)</label>
+                <input type="text" name="telephone" id="telephone"  required placeholder="Escribe un telefono..."
+                [(ngModel)]="contact.telephone" 
+                class="form-control"> 
+            </div>
+
+            <div class="mb-2">
+                <button class="btn btn-primary" type="submit">Añadir contacto</button>
+            </div>
+            
+            
+        </form>
+    </div>
+</div>
