@@ -3,6 +3,11 @@
         <!--cuando haga un submit ponemos un evento con una funcion que haga lo de añadir contacto-->
         <!--[(ngModel)] asocia una variable que ahora mismo va ser de entrada y salida por eso son los corchotes y 
         parentesis -->
+        <!--pattern significa dar formato a algo
+        ^ y $ significa que tienen que salir en ese orden
+        \+ significa el simbolo tal cual
+        \d significa los numeros
+        ? significa opcional-->
         <form (ngSubmit)="addContact()" >
             <div class="mb-2">
                 <!--pongo el * porque va ser requerido-->
@@ -21,7 +26,9 @@
             </div>
             <div class="mb-2">
                 <label for="telephone" class="form-label">Telefono (*)</label>
-                <input type="text" name="telephone" id="telephone"  required placeholder="Escribe un telefono..."
+                <input type="text" name="telephone" id="telephone"
+                pattern="^((\+\d\d)? ?)?(\d\d\d) ?(\d\d) ?(\d\d) ?(\d\d)$"  
+                required placeholder="Escribe un telefono..."
                 [(ngModel)]="contact.telephone" 
                 class="form-control"> 
             </div>
