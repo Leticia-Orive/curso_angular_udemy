@@ -36,6 +36,8 @@ export class TaskListComponent {
     }
     removeTask(index: number){
       console.log(index);
+      //eliminamos la tarea de la lista de pendientes
+      this.taskListPending.splice(index, 1);
     }
     completeTask(index: number){
       console.log(index);
