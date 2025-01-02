@@ -14,6 +14,7 @@ export class TaskListComponent {
   public taskListCompleted: ITask[] = [];
   public showInputTask: boolean = false;
   public errorInputTask: boolean = false;
+  public showCompleted: boolean = false;
 
   showInputTextTask(){
     this.showInputTask = true;
@@ -52,6 +53,11 @@ export class TaskListComponent {
       this.taskListPending.splice(index, 1);
       //añadimos la tarea a la lista de completadas
       this.taskListCompleted.push(task);
+    }
+
+    toggleShowComplete(){
+      //! invierte el valor de la variable
+      this.showCompleted = !this.showCompleted;
     }
     
 

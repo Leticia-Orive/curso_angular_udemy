@@ -34,13 +34,26 @@
         </div>
 
         <div class="row">
-            <div class="clo-12">
+            <div class="col-12">
                 <h1>Tareas completadas</h1>
-                @for(task of taskListCompleted; track task){
-                    <app-task [task]="task"  />
+                <button class="btn btn-primary mt-2 mb-2" (click)="toggleShowComplete()">
+                    @if(showCompleted){
+                        <i class="bi bi-eye-slash me-1"></i>
+                        <span>Ocultar tareas completadas</span>
 
-                }@empty {
-                    <span> No tienes tareas completadas</span>
+                    }@else{
+                        <i class="bi bi-eye me-1" ></i>
+                        <span>Mostrar tareas completadas</span>
+                    }
+                </button>
+                @if(showCompleted){
+                    
+                    @for(task of taskListCompleted; track task){
+                        <app-task [task]="task"  />
+
+                    }@empty {
+                        <span class="d-block"> No tienes tareas completadas</span>
+                    }
                 }
             </div>
         </div>
