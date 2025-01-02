@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
 import { IContact } from '../../models/contact.model';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-contacts',
-  imports: [],
+  imports: [TitleCasePipe],
   templateUrl: './list-contacts.component.html',
   styleUrl: './list-contacts.component.scss'
 })

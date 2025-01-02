@@ -4,7 +4,7 @@
         <div class="card" >
             <div class="card-body">
               <h5 class="card-title">{{contact.surname + ", " +
-                contact.name}}</h5>
+                contact.name | titlecase}}</h5>
               <p class="card-text"><i class="bi bi-telephone-fill me-1"></i>{{contact.telephone}}</p>
               <a  class="btn btn-danger"><i class="bi bi-trash me-1"></i>Borrar</a>
             </div>
