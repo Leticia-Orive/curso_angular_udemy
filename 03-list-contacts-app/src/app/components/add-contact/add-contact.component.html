@@ -8,21 +8,57 @@
         \+ significa el simbolo tal cual
         \d significa los numeros
         ? significa opcional-->
-        <form (ngSubmit)="addContact()" >
+        <!--name.dirty && esto se pone para que el usuario no salga erroneo-->
+        <form #form="ngForm" (ngSubmit)="addContact()" >
             <div class="mb-2">
                 <!--pongo el * porque va ser requerido-->
                 <label for="name" class="form-label">Nombre (*)</label>
                 <input type="text" name="name" id="name"  required placeholder="Escribe un nombre..." 
-                [(ngModel)]="contact.name"
-                class="form-control">
+                [(ngModel)]="contact.name" 
+                class="form-control" #name="ngModel"
+                [ngClass]="{'is-valid':name.dirty && !name.errors,
+                    'is-invalid':name.dirty && name.errors
+                }">
+
+                <div class="valid-feedback">
+                    <span>Correcto</span>
+                </div>
+                <div class="invalid-feedback">
+                    <!--Asi se puede poner pero hay que importar el jsonPipe en el app.module.ts
+                    {{name.errors | json}} y esto se utiliza mas para tema de depuracion en html-->
+                    @if(name.errors){
+                        @if(name.errors['required']){
+                            <span>Valor requerido</span>
+
+                        }
+                    }
+
+                </div>
 
             </div>
             <div class="mb-2">
-                <!--pongo el * porque va ser requerido-->
+                
                 <label for="surname" class="form-label">Apellidos (*)</label>
                 <input type="text" name="surname" id="surname"  required placeholder="Escribe sus apellidos..." 
                 [(ngModel)]="contact.surname"
-                class="form-control"> 
+                class="form-control" #surname="ngModel"
+                [ngClass]="{'is-valid':surname.dirty && !surname.errors,
+                    'is-invalid':surname.dirty && surname.errors
+                }"> 
+
+                <div class="valid-feedback">
+                    <span>Correcto</span>
+                </div>
+                <div class="invalid-feedback">
+                    
+                    @if(surname.errors){
+                        @if(surname.errors['required']){
+                            <span>Valor requerido</span>
+
+                        }
+                    }
+
+                </div>
             </div>
             <div class="mb-2">
                 <label for="telephone" class="form-label">Telefono (*)</label>
@@ -30,11 +66,31 @@
                 pattern="^((\+\d\d)? ?)?(\d\d\d) ?(\d\d) ?(\d\d) ?(\d\d)$"  
                 required placeholder="Escribe un telefono..."
                 [(ngModel)]="contact.telephone" 
-                class="form-control"> 
+                class="form-control" #telephone="ngModel"
+                [ngClass]="{'is-valid':telephone.dirty && !telephone.errors,
+                    'is-invalid':telephone.dirty && telephone.errors
+                }"> 
+            
+                <div class="valid-feedback">
+                    <span>Correcto</span>
+                </div>
+                <div class="invalid-feedback">
+                    @if(telephone.errors){
+                        @if(telephone.errors['required']){
+                            <span>Valor requerido</span>
+                        }
+                        <!--Esto es para el pattern-->
+                        @if(telephone.errors['pattern']){
+                            <span>Formato incorrecto</span>
+
+                        }
+                    }
+
+                </div>
             </div>
 
             <div class="mb-2">
-                <button class="btn btn-primary" type="submit">Añadir contacto</button>
+                <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Añadir contacto </button>
             </div>
             
             

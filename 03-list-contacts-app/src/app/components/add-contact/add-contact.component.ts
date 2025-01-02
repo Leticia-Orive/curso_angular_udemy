@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IContact } from '../../models/contact.model';
 import { FormsModule } from '@angular/forms';
+import {  NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-add-contact',
-  imports: [FormsModule],
+  imports: [FormsModule, NgClass, ],
   templateUrl: './add-contact.component.html',
   styleUrl: './add-contact.component.scss'
 })
