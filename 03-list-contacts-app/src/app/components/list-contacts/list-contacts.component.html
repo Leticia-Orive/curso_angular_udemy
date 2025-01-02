@@ -1,1 +1,18 @@
-<p>list-contacts works!</p>
+<div class="row">
+   @for(contact of listContacts; track contact){
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <div class="card" >
+            <div class="card-body">
+              <h5 class="card-title">{{contact.surname + ", " +
+                contact.name}}</h5>
+              <p class="card-text"><i class="bi bi-telephone-fill me-1"></i>{{contact.telephone}}</p>
+              <a  class="btn btn-danger"><i class="bi bi-trash me-1"></i>Borrar</a>
+            </div>
+          </div>
+    </div>
+   } @empty {
+    <div class="col-12">
+        <span>No hay contactos disponibles</span>
+    </div>
+   }
+</div>

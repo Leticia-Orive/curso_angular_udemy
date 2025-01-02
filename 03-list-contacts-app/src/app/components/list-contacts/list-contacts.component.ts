@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
+import { IContact } from '../../models/contact.model';
 
 @Component({
   selector: 'app-list-contacts',
@@ -10,5 +11,7 @@ import { ContactService } from '../../services/contact.service';
 export class ListContactsComponent {
 
   private contactService: ContactService = inject(ContactService);
+
+  public listContacts: IContact[] = this.contactService.listContacts;
 
 }
