@@ -2,8 +2,10 @@
 mb: separacion entre la columna de arriba y de abajo-->
 <div class="row g-0 border rounded mb-2">
     <div class="col-2">
-        <span></span>
+        <!--Para añadir la fecha actual y no estar como en bucle y en el ts 
+        hay que importar el DateTime porque sino daria error-->
 
+        <span>{{task.date | date: 'dd/MM/YYYY'}}</span> 
     </div>
     <div class="col-8">
         <span>{{task.description}}</span>

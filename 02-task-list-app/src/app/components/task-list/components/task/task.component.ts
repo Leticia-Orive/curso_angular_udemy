@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { ITask } from '../../../../models/task.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-task',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
