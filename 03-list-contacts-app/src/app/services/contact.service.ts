@@ -12,4 +12,7 @@ export class ContactService {
  addContact(contact: IContact){
   this.listContacts.push(contact);
  }
+ deleteContact(index: number){
+  this.listContacts.splice(index, 1);
+ }
 }

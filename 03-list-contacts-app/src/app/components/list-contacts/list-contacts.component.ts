@@ -15,4 +15,8 @@ export class ListContactsComponent {
 
   public listContacts: IContact[] = this.contactService.listContacts;
 
+  deleteContact(index:number){
+    this.contactService.deleteContact(index);
+  }
+
 }
