@@ -26,5 +26,9 @@ export class AddContactComponent {
 //funcion
 addContact(){
   console.log(this.contact);
+  //Sirve para hacer una copia de un objeto vacio {} y le añade los valores de this.contact
+  const contact = Object.assign({}, this.contact);
+  this.contactService.addContact(contact);
+  console.log(this.contactService.listContacts);
 }
 }

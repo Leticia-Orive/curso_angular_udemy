@@ -9,5 +9,7 @@ export class ContactService {
   //Añadimos una propiedad
   public listContacts: IContact[] = [];
 
-  constructor() { }
+ addContact(contact: IContact){
+  this.listContacts.push(contact);
+ }
 }
