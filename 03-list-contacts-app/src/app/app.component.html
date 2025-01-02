@@ -1,4 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 border rounded mt-2 mb-2 p-2 ">
+      <nav class="navbar navbar-expand">
+        <ul class="navbar-nav">
+              <li class="nav-item">
+                <!--El routerLink redirige a la pagina que queremos ver se pone el nombre del componente
+                tambien lo vamos a ver colocado asi los input [[routerLink]="'nombre del componente'"]-->
+                <!--El routerLinkActive es para que se vea que esta activo el link, cuando esta active le podemos
+                añadir una clase como lo vamos hacer ahora-->
+                <a class="nav-link" routerLinkActive="active" routerLink="add-contact">Añadir</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" routerLink="list-contacts">Listar</a>
+              </li>
+              
+            </ul>
+          
+      </nav>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+     <router-outlet />
+    </div>
+</div>
+  
 
 
 
-<router-outlet />
