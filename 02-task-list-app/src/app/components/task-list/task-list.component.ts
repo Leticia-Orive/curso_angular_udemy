@@ -39,6 +39,17 @@ export class TaskListComponent {
     }
     completeTask(index: number){
       console.log(index);
+      //Para saber que tarea se ha completado
+      const task = this.taskListPending[index];
+      //decir que la tarea esta completada
+      task.completed = true;
+      //podemos actualizar la fecha
+      task.date = new Date();
+      //la eliminamos de la lista de pendientes
+      //splice es para eliminar elementos de un array
+      this.taskListPending.splice(index, 1);
+      //añadimos la tarea a la lista de completadas
+      this.taskListCompleted.push(task);
     }
     
 
