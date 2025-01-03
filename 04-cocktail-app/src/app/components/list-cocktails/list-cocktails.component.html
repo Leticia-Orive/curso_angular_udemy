@@ -43,5 +43,23 @@
             </div>
         </div>
 
+        <div class="row">
+            @for(cocktail of listCocktails; track cocktail.id){
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4 mb-4">
+                    <div class="card">
+                        <img [src]="cocktail.img" class="card-img-top" [alt]="cocktail.name">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text text-center">{{cocktail.name}}</p>
+                         
+                        </div>
+                        <div class="card-footer d-grid gap-2">
+                            <a class="btn btn-primary" [routerLink]="['/detail-cocktail', cocktail.id]">Ver detalles</a>
+                          </div>
+                      </div>
+                </div>
+            }
+        </div>
+
     </div>
 </div>

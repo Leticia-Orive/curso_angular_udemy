@@ -8,7 +8,7 @@ import { ICocktail } from '../models/cocktail.model';
   providedIn: 'root'
 })
 export class CocktailService {
-  private URL_BASE = 'https://www.thecocktaildb.com/api/json/v1/1/';
+  private URL_BASE = "https://www.thecocktaildb.com/api/json/v1/1/";
 private http = inject(HttpClient);
 
 //Creamos un metodo para obtener los cocktails
