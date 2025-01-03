@@ -1,1 +1,47 @@
-<p>list-cocktails works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <form (ngSubmit)="filterData()">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="search" class="form-label">Buscar por</label>
+                            <select name="search" id="search" class="form-control" [(ngModel)]="filter.searchBy">
+                                <option value="name">Nombre</option>
+                                <option value="glass">Vaso</option>
+                                <option value="ingredient">Ingrediente</option>
+                                <option value="category">Categoria</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label for="value" class="form-label">
+                                @switch(filter.searchBy) {
+                                    @case('name'){
+                                        Nombre
+                                    }
+                                    @case('glass'){
+                                        Vaso
+                                    }
+                                    @case('ingredient'){
+                                        Ingrediente
+                                    }
+                                    @case('category'){
+                                        Categoria
+                                    }
+                                }
+                            </label>
+                            <input type="text" name="value" id="value" class="form-control" [(ngModel)]="filter.value" >
+                        </div>
+                        <div class="col-4 align-self-end">
+                            <button class="btn btn-primary w-100" type="submit"><i class="bi bi-search me-1"
+                                ></i>
+                                Filtrar</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
