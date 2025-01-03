@@ -16,6 +16,7 @@ export class ListCocktailsComponent {
   private cocktailService = inject(CocktailService);
 
   public listCocktails: ICocktail[] = [];
+  public searched: boolean = false;
 
   public filter: IFilter = {
     searchBy: 'name', 
@@ -24,6 +25,7 @@ export class ListCocktailsComponent {
 
   filterData(){
     console.log(this.filter);
+    this.searched = true;
     this.cocktailService.getCocktails(this.filter).subscribe({
       next: (ListCocktails: ICocktail[]) => {
         this.listCocktails = ListCocktails;

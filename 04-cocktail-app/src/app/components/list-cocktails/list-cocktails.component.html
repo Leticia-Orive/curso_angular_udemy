@@ -58,6 +58,15 @@
                           </div>
                       </div>
                 </div>
+            }@empty {
+                <div class="col-12 text-center p-5">
+                    @if(searched){
+                        <span>No se han encontrado resultados</span>
+                    } @else {
+                        <span>Introduce los parametros de busqueda</span>
+                    }
+                    
+                </div>
             }
         </div>
 
