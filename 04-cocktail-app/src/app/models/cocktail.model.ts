@@ -4,6 +4,6 @@ export interface ICocktail {
     img: string,
     glass: string,
     ingredients: string[],
-    intructions: string,
+    instructions: string,
     measures: string[],
 }

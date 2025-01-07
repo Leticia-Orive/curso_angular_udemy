@@ -62,7 +62,7 @@ private parseDrinks(data:any): ICocktail[]{
       name: drink['strDrink'],
       glass: drink['strGlass'],
       img: drink['strDrinkThumb'],
-      intructions: drink['strInstructionsES'] || drink['strInstructions'],
+      instructions: drink['strInstructionsES'] || drink['strInstructions'],
       ingredients: this.parseArray(drink, 'strIngredient'),
       measures: this.parseArray(drink, 'strMeasure')
     } as ICocktail
