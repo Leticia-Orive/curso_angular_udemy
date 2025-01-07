@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { first } from 'rxjs';
+import { first, switchMap } from 'rxjs';
 import { CocktailService } from '../../services/cocktail.service';
 import { ICocktail } from '../../models/cocktail.model';
 
@@ -19,19 +19,19 @@ export class DetailCocktailsComponent {
   ngOnInit(){
 
     this.activatedRoute.params.pipe(
-      first()
-     ).subscribe({
-      next: (params: Params)=>{
+      first(),
+      switchMap((params: Params) => {
+        // Recogemos el id de la URL
         const id = params['id'];
         console.log(id);
-
-        this.cocktailService.getCocktailById(id).subscribe({
-          next: (cocktail: ICocktail)=>{
-            this.cocktail = cocktail
-            console.log(cocktail);
-          }
-        })
-      }
-     })
+        return this.cocktailService.getCocktailById(id)
+      })
+     ).subscribe({
+      next: (cocktail: ICocktail)=>{
+        this.cocktail = cocktail
+        console.log(cocktail);
+        }
+      })
     }
+     
 }
