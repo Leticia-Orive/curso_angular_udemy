@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { first, switchMap } from 'rxjs';
 import { CocktailService } from '../../services/cocktail.service';
 import { ICocktail } from '../../models/cocktail.model';
 
 @Component({
   selector: 'app-detail-cocktails',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './detail-cocktails.component.html',
   styleUrl: './detail-cocktails.component.scss'
 })
