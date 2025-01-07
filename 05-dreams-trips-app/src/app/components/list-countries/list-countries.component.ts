@@ -18,7 +18,11 @@ export class ListCountriesComponent {
   public listCountriesToVisit: ICountry[] = [];
 
   public subregions$: Observable<string[]> = this.countryService.getAllSubregions();
-  public subregionSelected ='Southeast Europe';
+  public subregionSelected ='Southern Europe';
+
+  ngOnInit(){
+    this.filterCountries();
+  }
 
   filterCountries(){
     console.log(this.subregionSelected);
