@@ -4,6 +4,7 @@
         <div class="row">
             <div class="col-12">
 
+                <!-- Filtro de cocktails -->
                 <form (ngSubmit)="filterData()">
 
                     <div class="row">
@@ -18,6 +19,7 @@
                         </div>
 
                         <div class="col-4">
+                            <!-- Segun una propiedad, el nombre sera uno u otro -->
                             <label for="value" class="form-label">
                                 @switch(filter.searchBy){
                                 @case('name'){
@@ -52,6 +54,7 @@
         <div class="row">
 
             @if(loadCocktails){
+            <!-- Cocktails paginados -->
             @for(cocktail of listCocktails | paginate: { itemsPerPage, currentPage }; track cocktail.id) {
             <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4 mb-4">
                 <div class="card">
@@ -66,6 +69,7 @@
             </div>
             } @empty {
             <div class="col-12 text-center p-5">
+                <!-- Segun si se ha buscado alguna vez, se muestra un mensaje diferente -->
                 @if(searched){
                 <span>No se han encontrado resultados.</span>
                 } @else{
@@ -75,6 +79,7 @@
             </div>
             }
             }@else{
+            <!-- Spinner -->
             <div class="col-12 text-center p-5">
                 <div class="spinner-border" role="status">
                     <span class="visually-hidden">Loading...</span>
@@ -82,21 +87,17 @@
             </div>
             }
 
-
         </div>
 
+        <!-- Controles de la paginacion, solo si hay mas de itemsPerPage -->
         @if(listCocktails.length > itemsPerPage){
-            <div class="row">
-                <div class="col-12 text-center">
-                    <pagination-controls
-                        previousLabel="Anterior"
-                        nextLabel="Siguiente"
-                        (pageChange)="pageChange($event)"
-                    />
-                </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="pageChange($event)" />
             </div>
+        </div>
         }
-      
+
 
 
     </div>

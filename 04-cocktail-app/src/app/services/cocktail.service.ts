@@ -32,15 +32,30 @@ getCocktails(filter: IFilter) {
     //tambien se puede ver como take(1) y significa dame el primer valor y ya
     //cuando no lo cerraremos cuando estemos pendiente de algo ejemplo cambio de idioma, eventos etc
     first(),
-    map((data:any) => this.parseDrinks(data))
+    map((data:any) =>{
+      const listCocktails = this.parseDrinks(data)
+      return listCocktails[0];
+    }) 
   );
+}
+getCocktailById(id: string){
+  const additionalUrl = `lookup.php?i=${id}`;
+  return this.http.get(this.URL_BASE + `lookup.php?i=${id}`).pipe(
+    first(),
+    map((data:any) => this.parseDrinks(data)[0])
+  )
 }
 private parseDrinks(data:any): ICocktail[]{
   //si data es null o no tiene drinks
-  if(!data || !data['drinks']){
+  //if(!data || !data['drinks']){
+ if(!data){
     return [];
   }
   const drinks = data['drinks'] as any[];
+  if(!drinks){
+    return [];
+
+  }
   return drinks.map(drink => {
     return {
       id: drink['idDrink'],
