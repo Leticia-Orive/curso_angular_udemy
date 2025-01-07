@@ -1,8 +1,11 @@
 <div class="row">
     <div class="col-12">
+
         <div class="row">
             <div class="col-12">
+
                 <form (ngSubmit)="filterData()">
+
                     <div class="row">
                         <div class="col-4">
                             <label for="search" class="form-label">Buscar por</label>
@@ -13,31 +16,34 @@
                                 <option value="category">Categoria</option>
                             </select>
                         </div>
+
                         <div class="col-4">
                             <label for="value" class="form-label">
-                                @switch(filter.searchBy) {
-                                    @case('name'){
-                                        Nombre
-                                    }
-                                    @case('glass'){
-                                        Vaso
-                                    }
-                                    @case('ingredient'){
-                                        Ingrediente
-                                    }
-                                    @case('category'){
-                                        Categoria
-                                    }
+                                @switch(filter.searchBy){
+                                @case('name'){
+                                Nombre
+                                }
+                                @case('glass'){
+                                Vaso
+                                }
+                                @case('ingredient'){
+                                Ingrediente
+                                }
+                                @case('category'){
+                                Categoria
+                                }
                                 }
                             </label>
-                            <input type="text" name="value" id="value" class="form-control" [(ngModel)]="filter.value" >
+                            <input type="text" name="value" class="form-control" id="value" [(ngModel)]="filter.value">
                         </div>
+
                         <div class="col-4 align-self-end">
-                            <button class="btn btn-primary w-100" type="submit"><i class="bi bi-search me-1"
-                                ></i>
-                                Filtrar</button>
+                            <button class="btn btn-primary w-100" type="submit"><i
+                                    class="bi bi-search me-1"></i>Filtrar</button>
                         </div>
+
                     </div>
+
                 </form>
 
             </div>
@@ -45,41 +51,53 @@
 
         <div class="row">
 
-            @if(loadCocktails){ 
-                @for(cocktail of listCocktails; track cocktail.id){
-                <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4 mb-4">
-                    <div class="card">
-                        <img [src]="cocktail.img" class="card-img-top" [alt]="cocktail.name">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text text-center">{{cocktail.name}}</p>
-                         
-                        </div>
-                        <div class="card-footer d-grid gap-2">
-                            <a class="btn btn-primary" [routerLink]="['/detail-cocktail', cocktail.id]">Ver detalles</a>
-                          </div>
-                      </div>
+            @if(loadCocktails){
+            @for(cocktail of listCocktails | paginate: { itemsPerPage, currentPage }; track cocktail.id) {
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4 mb-4">
+                <div class="card">
+                    <img [src]="cocktail.img" class="card-img-top" [alt]="cocktail.name">
+                    <div class="card-body">
+                        <p class="card-text text-center">{{cocktail.name}}</p>
+                    </div>
+                    <div class="card-footer d-grid gap-2">
+                        <a class="btn btn-primary" [routerLink]="['/detail-cocktail', cocktail.id]">Ver detalles</a>
+                    </div>
                 </div>
-            }@empty {
-                <div class="col-12 text-center p-5">
-                    @if(searched){
-                        <span>No se han encontrado resultados</span>
-                    } @else {
-                        <span>Introduce los parametros de busqueda</span>
-                    }
-                    
-                </div>
+            </div>
+            } @empty {
+            <div class="col-12 text-center p-5">
+                @if(searched){
+                <span>No se han encontrado resultados.</span>
+                } @else{
+                <span>Introduce los parametros de busqueda.</span>
+                }
+
+            </div>
             }
-        }@else {
+            }@else{
             <div class="col-12 text-center p-5">
                 <div class="spinner-border" role="status">
                     <span class="visually-hidden">Loading...</span>
-                  </div>
+                </div>
+            </div>
+            }
 
+
+        </div>
+
+        @if(listCocktails.length > itemsPerPage){
+            <div class="row">
+                <div class="col-12 text-center">
+                    <pagination-controls
+                        previousLabel="Anterior"
+                        nextLabel="Siguiente"
+                        (pageChange)="pageChange($event)"
+                    />
+                </div>
             </div>
         }
-           
-        </div>
+      
+
 
     </div>
 </div>
