@@ -10,7 +10,11 @@ export class CountryService {
   private URL_BASE = 'https://restcountries.com/v3.1';
   private http = inject(HttpClient);
 
+  /**
+   * Obtenemos todas las subregiones que tenemos en el fichero json
+   * @returns 
+   */
   getAllSubregions(){
-    return this.http.get<string[]>(`/data/subregion.json`).pipe(first());
+    return this.http.get<string[]>(`/data/subregions.json`).pipe(first());
   };
 }
