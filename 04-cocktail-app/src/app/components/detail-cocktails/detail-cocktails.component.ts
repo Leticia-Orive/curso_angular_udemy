@@ -16,6 +16,7 @@ export class DetailCocktailsComponent {
   private cocktailService = inject(CocktailService);
 
   public cocktail!: ICocktail;
+  public loadCocktail: boolean = false;
   ngOnInit(){
 
     this.activatedRoute.params.pipe(
@@ -30,8 +31,10 @@ export class DetailCocktailsComponent {
       next: (cocktail: ICocktail)=>{
         this.cocktail = cocktail
         console.log(cocktail);
-        }
+        },
+        complete:(()=>{
+          this.loadCocktail = true;
       })
-    }
-     
+    })
+  }  
 }
