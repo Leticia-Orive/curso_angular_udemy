@@ -13,7 +13,11 @@
             } 
         } 
     }
-
-    
-
+}
+.cdk-drop-list-dragging{
+    cursor: grabbing;
+}
+.cdk-drag-preview{
+   cursor: grabbing;
+   overflow: hidden;
 }

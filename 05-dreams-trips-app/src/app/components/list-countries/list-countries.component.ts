@@ -4,10 +4,11 @@ import { count, finalize, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ICountry } from '../../models/country.model';
+import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-list-countries',
-  imports: [AsyncPipe, FormsModule],
+  imports: [AsyncPipe, FormsModule,CdkDropList,CdkDrag],
   templateUrl: './list-countries.component.html',
   styleUrl: './list-countries.component.scss'
 })
@@ -37,6 +38,18 @@ export class ListCountriesComponent {
           console.log(this.listCountries);
       }
     });
+  }
+  drop(event: CdkDragDrop<ICountry[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 
 }

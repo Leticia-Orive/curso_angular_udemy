@@ -1,17 +1,20 @@
 <div class="row list-countries">
     <div class="col-12">
+
+
         <div class="row">
             <div class="col-md-5 col-12">
                 @if(subregions$ | async; as listSubregions){
-                    <select name="subregions" class="form-control" [(ngModel)]="subregionSelected"
-                     placeholder="Selecciona una región" (change)="filterCountries()">
-                        @for(subregion of listSubregions; track subregion){
-                            <option [value]="subregion">{{subregion}}</option>
-                        }
-                    </select>
+                <select name="subregions" class="form-control" [(ngModel)]="subregionSelected"
+                    placeholder="Selecciona una region" (change)="filterCountries()">
+                    @for(subregion of listSubregions; track subregion){
+                    <option [value]="subregion">{{subregion}}</option>
+                    }
+                </select>
                 }
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-5 col-12">
 
@@ -20,51 +23,76 @@
                         <span class="h1">Paises</span>
                     </div>
                 </div>
+
                 <div class="row border rounded">
-                   <div class="col-12 list-countries__drop-list">
-                     @if(loadCountries){
-                       @for(country of listCountries; track country.name){
-                            <div class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
-                                <div class="col-3">
-                                    <img class="img-fluid" [src]="country.flag" alt="country.name" >
-                                </div>
-                                <div class="col-9 text-center align-content-center">
-                                    <span>{{country.name}}</span>
-                                </div>
+                    <div 
+                        cdkDropList
+                        #lCountries="cdkDropList"
+                        [cdkDropListData]="listCountries"
+                        [cdkDropListConnectedTo]="[lCountriesToVisit]"
+                        (cdkDropListDropped)="drop($event)"
+                        class="col-12 list-countries__drop-list">
+                        @if(loadCountries){
+                        @for(country of listCountries; track country.name){
+
+                        <div cdkDrag class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
+                            <div class="col-3">
+                                <img class="img-fluid" [src]="country.flag" [alt]="country.name">
                             </div>
+                            <div class="col-9 text-center align-content-center h5">
+                                <span>{{country.name}}</span>
+                            </div>
+                        </div>
+
                         }
-                    }@else{
+                        } @else{
                         <div class="row justify-content-center align-items-center">
                             <div class="col-12 spinner-border" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                    }
-                   </div> 
+                        }
+
+                    </div>
                 </div>
+
             </div>
 
             <div class="offset-md-2 col-md-5 col-12">
+
                 <div class="row mt-4 mb-4">
                     <div class="col-12">
                         <span class="h1">Paises a visitar</span>
                     </div>
                 </div>
+
                 <div class="row border rounded">
-                   <div class="col-12 list-countries__drop-list">
-                       @for(country of listCountries; track country.name){
-                            <div class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
-                                <div class="col-3">
-                                    <img class="img-fluid" [src]="country.flag" alt="country.name" >
-                                </div>
-                                <div class="col-9 text-center align-content-center">
-                                    <span>{{country.name}}</span>
-                                </div>
+                    <div
+                        cdkDropList
+                        #lCountriesToVisit="cdkDropList"
+                        [cdkDropListData]="listCountriesToVisit"
+                        [cdkDropListConnectedTo]="[lCountries]"
+                        (cdkDropListDropped)="drop($event)"
+                        class="col-12 list-countries__drop-list">
+                        @for(country of listCountriesToVisit; track country.name){
+
+                        <div cdkDrag class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
+                            <div class="col-3">
+                                <img class="img-fluid" [src]="country.flag" [alt]="country.name">
                             </div>
-                        }   
-                   </div> 
+                            <div class="col-9 text-center align-content-center h5">
+                                <span>{{country.name}}</span>
+                            </div>
+                        </div>
+
+                        }
+                    </div>
                 </div>
+
             </div>
+
         </div>
+
+
     </div>
 </div>
