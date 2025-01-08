@@ -1,4 +1,4 @@
-<header class="row mb-4 border-bottom">
+<header class="row align-items-center mb-4 border-bottom">
     <!--Header-->
     <nav class="navbar navbar-expand-md col-md-9 col-8">
         <div class="container-fluid">
@@ -23,7 +23,12 @@
       </nav>
 
       <!--Tema de banderitas-->
-      <div class="col-md-3 col-4">
+      <div class="col-md-3 col-4 text-end">
+        @for(language of languages; track language){
+          <img [src]="'/flags/' + language + '.png'" alt="language" width="32" height="32" 
+          class="me-2 mb-md-0 mb-2" (click)="changeLanguage(language)">
+        }
+        <button type="button" class="btn btn-outline-primary me-2" routerLink="login">{{'login' | translate}}</button>
 
       </div>
 
