@@ -1,13 +1,19 @@
 .list-countries{
 
-    &__country{
+    &__drop-list{
+        min-height: 300px;
+       &__country{
         height: 60px;
+        cursor: grab;
 
-        img {
+            img {
             height: 58px;
             width: 80px;
 
+            } 
         } 
     }
+
+    
 
 }
