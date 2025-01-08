@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { CountryService } from '../../services/country.service';
 import { count, finalize, Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe,  NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ICountry } from '../../models/country.model';
 import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-list-countries',
-  imports: [AsyncPipe, FormsModule,CdkDropList,CdkDrag],
+  imports: [AsyncPipe, FormsModule,CdkDropList,CdkDrag, NgTemplateOutlet],
   templateUrl: './list-countries.component.html',
   styleUrl: './list-countries.component.scss'
 })

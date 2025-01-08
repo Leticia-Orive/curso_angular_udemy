@@ -25,23 +25,23 @@
                 </div>
 
                 <div class="row border rounded">
-                    <div 
-                        cdkDropList
-                        #lCountries="cdkDropList"
-                        [cdkDropListData]="listCountries"
-                        [cdkDropListConnectedTo]="[lCountriesToVisit]"
-                        (cdkDropListDropped)="drop($event)"
+                    <div cdkDropList #lCountries="cdkDropList" [cdkDropListData]="listCountries"
+                        [cdkDropListConnectedTo]="[lCountriesToVisit]" (cdkDropListDropped)="drop($event)"
                         class="col-12 list-countries__drop-list">
                         @if(loadCountries){
                         @for(country of listCountries; track country.name){
 
-                        <div cdkDrag class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
+                        <!-- <div cdkDrag class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
                             <div class="col-3">
                                 <img class="img-fluid" [src]="country.flag" [alt]="country.name">
                             </div>
                             <div class="col-9 text-center align-content-center h5">
                                 <span>{{country.name}}</span>
                             </div>
+                        </div> -->
+                        <div cdkDrag>
+                            <ng-container [ngTemplateOutlet]="templateCountry"
+                                [ngTemplateOutletContext]="{ $implicit: country }"></ng-container>
                         </div>
 
                         }
@@ -67,23 +67,26 @@
                 </div>
 
                 <div class="row border rounded">
-                    <div
-                        cdkDropList
-                        #lCountriesToVisit="cdkDropList"
-                        [cdkDropListData]="listCountriesToVisit"
-                        [cdkDropListConnectedTo]="[lCountries]"
-                        (cdkDropListDropped)="drop($event)"
+                    <div cdkDropList #lCountriesToVisit="cdkDropList" [cdkDropListData]="listCountriesToVisit"
+                        [cdkDropListConnectedTo]="[lCountries]" (cdkDropListDropped)="drop($event)"
                         class="col-12 list-countries__drop-list">
                         @for(country of listCountriesToVisit; track country.name){
 
-                        <div cdkDrag class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
+                        <!-- <div cdkDrag class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
                             <div class="col-3">
                                 <img class="img-fluid" [src]="country.flag" [alt]="country.name">
                             </div>
                             <div class="col-9 text-center align-content-center h5">
                                 <span>{{country.name}}</span>
                             </div>
+                        </div> -->
+
+                        <div cdkDrag>
+                            <ng-container [ngTemplateOutlet]="templateCountry"
+                                [ngTemplateOutletContext]="{ $implicit: country }"></ng-container>
                         </div>
+
+
 
                         }
                     </div>
@@ -92,6 +95,17 @@
             </div>
 
         </div>
+
+        <ng-template #templateCountry let-country>
+            <div class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
+                <div class="col-3">
+                    <img class="img-fluid" [src]="country.flag" [alt]="country.name">
+                </div>
+                <div class="col-9 text-center align-content-center h5">
+                    <span>{{country.name}}</span>
+                </div>
+            </div>
+        </ng-template>
 
 
     </div>
