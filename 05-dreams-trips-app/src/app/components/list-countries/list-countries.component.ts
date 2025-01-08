@@ -5,10 +5,11 @@ import { AsyncPipe,  NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ICountry } from '../../models/country.model';
 import { CdkDropList, CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { MapCountriesComponent } from './components/map-countries/map-countries.component';
 
 @Component({
   selector: 'app-list-countries',
-  imports: [AsyncPipe, FormsModule,CdkDropList,CdkDrag, NgTemplateOutlet],
+  imports: [AsyncPipe, FormsModule,CdkDropList,CdkDrag, NgTemplateOutlet, MapCountriesComponent],
   templateUrl: './list-countries.component.html',
   styleUrl: './list-countries.component.scss'
 })
