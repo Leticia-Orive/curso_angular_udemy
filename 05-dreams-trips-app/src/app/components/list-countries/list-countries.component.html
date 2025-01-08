@@ -5,15 +5,14 @@
         <div class="row mb-2">
             <div class="col-12">
                 @defer {
-                  <app-map-countries [markers]="markers" />  
-                }@loading{
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-12 spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
+                <app-map-countries [markers]="markers" />
+                } @loading {
+                <div class="row justify-content-center align-items-center h-100">
+                    <div class="col-12 spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
+                </div>
                 }
-                
             </div>
         </div>
 
@@ -40,10 +39,7 @@
                 </div>
 
                 <div class="row border rounded bg-white">
-                    <div cdkDropList 
-                        id="lCountries"
-                        #lCountries="cdkDropList" 
-                        [cdkDropListData]="listCountries"
+                    <div cdkDropList id="lCountries" #lCountries="cdkDropList" [cdkDropListData]="listCountries"
                         [cdkDropListConnectedTo]="[lCountriesToVisit]" (cdkDropListDropped)="drop($event)"
                         class="col-12 list-countries__drop-list">
                         @if(loadCountries){
@@ -56,7 +52,11 @@
 
                         }
                         } @else{
-                        
+                        <div class="row justify-content-center align-items-center h-100">
+                            <div class="col-12 spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         }
 
                     </div>
@@ -73,13 +73,9 @@
                 </div>
 
                 <div class="row border rounded bg-white">
-                    <div cdkDropList 
-                        id="lCountriesToVisit"
-                        #lCountriesToVisit="cdkDropList" 
-                        [cdkDropListData]="listCountriesToVisit"
-                        [cdkDropListConnectedTo]="[lCountries]" 
-                        (cdkDropListDropped)="drop($event)"
-                        class="col-12 list-countries__drop-list">
+                    <div cdkDropList id="lCountriesToVisit" #lCountriesToVisit="cdkDropList"
+                        [cdkDropListData]="listCountriesToVisit" [cdkDropListConnectedTo]="[lCountries]"
+                        (cdkDropListDropped)="drop($event)" class="col-12 list-countries__drop-list">
                         @for(country of listCountriesToVisit; track country.name){
 
                         <div cdkDrag>
@@ -96,6 +92,7 @@
         </div>
 
         <ng-template #templateCountry let-country>
+            @defer (on viewport) {
             <div class="row g-0 list-countries__drop-list__country border mb-2 mt-2">
                 <div class="col-3">
                     <img class="img-fluid" [src]="country.flag" [alt]="country.name">
@@ -104,6 +101,10 @@
                     <span>{{country.name}}</span>
                 </div>
             </div>
+            } @placeholder {
+            <span class="d-block">{{country.name}}</span>
+            }
+
         </ng-template>
 
 
