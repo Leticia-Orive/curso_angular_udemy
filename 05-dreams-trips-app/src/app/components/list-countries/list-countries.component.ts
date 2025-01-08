@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CountryService } from '../../services/country.service';
-import { count, Observable } from 'rxjs';
+import { count, finalize, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ICountry } from '../../models/country.model';
@@ -19,14 +19,18 @@ export class ListCountriesComponent {
 
   public subregions$: Observable<string[]> = this.countryService.getAllSubregions();
   public subregionSelected ='Southern Europe';
+  public loadCountries: boolean = false;
 
   ngOnInit(){
     this.filterCountries();
   }
 
   filterCountries(){
+    this.loadCountries = false;
     console.log(this.subregionSelected);
-    this.countryService.getCountriesBySubregion(this.subregionSelected).subscribe({
+    this.countryService.getCountriesBySubregion(this.subregionSelected).pipe(
+      finalize(() => this.loadCountries = true)
+    ).subscribe({
       next: (countries: ICountry[]) => {
         this.listCountries = countries.filter(country => !this.listCountriesToVisit.some(countryVisit =>
           country.name == countryVisit.name))
