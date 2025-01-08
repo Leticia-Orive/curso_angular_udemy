@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row list-countries">
     <div class="col-12">
         <div class="row">
             <div class="col-md-5 col-12">
@@ -15,20 +15,20 @@
         <div class="row">
             <div class="col-md-5 col-12">
 
-                <div class="row">
+                <div class="row mt-4 mb-4">
                     <div class="col-12">
                         <span class="h1">Paises</span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row border rounded">
                    <div class="col-12">
                     @for(country of listCountries; track country.name){
-                        <div class="row">
+                        <div class="row g-0 list-countries__country border mb-2 mt-2">
                             <div class="col-3">
                                 <img class="img-fluid" [src]="country.flag" alt="country.name" >
 
                             </div>
-                            <div class="col-9">
+                            <div class="col-9 text-center align-content-center">
                                 <span>{{country.name}}</span>
 
                             </div>
