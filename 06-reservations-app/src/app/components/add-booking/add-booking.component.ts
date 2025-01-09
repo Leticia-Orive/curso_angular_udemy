@@ -2,6 +2,10 @@ import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { HaircaresService } from '../../services/haircares.service';
+import { HoursService } from '../../services/hours.service';
+import { IHaircare } from '../../models/haircare.model';
+import { IHour } from '../../models/hour.model';
 
 @Component({
   selector: 'app-add-booking',
@@ -15,11 +19,18 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class AddBookingComponent {
 
-  public formBuilder: FormBuilder = inject(FormBuilder);
-  
-  public datePipe: DatePipe = inject(DatePipe);
+  private formBuilder: FormBuilder = inject(FormBuilder);
+  private datePipe: DatePipe = inject(DatePipe);
+ /**Esto es una forma de ponerlo
+  * private haircaresService: HaircaresService = new HaircaresService();
+  */
+ /**Y esto otra */
+  private haircaresService = inject(HaircaresService);
+  private hourService = inject(HoursService);
 
   public formGroup: FormGroup = new FormGroup({});
+  public haircares: IHaircare[] = [];
+  public hours: IHour[] = [];
 
   ngOnInit() {
 
@@ -29,7 +40,40 @@ export class AddBookingComponent {
       time: new FormControl('', Validators.required),
       haircare: new FormControl('', Validators.required)
     })
+
+    /** Lo vamos a obtener */
+    this.haircaresService.getHaircares().subscribe({
+      next: (haircares: IHaircare[]) => {
+        this.haircares = haircares;
+        this.controlHaircare?.setValue(this.haircares[0].value);//quiere decir que el primer valor del array es el que se va a seleccionar
+       
+      }
+    })
+
+    this.hourService.getHours().subscribe({
+      next: (hour: IHour[]) => {
+        this.hours = hour;
+        this.controlTime?.setValue(this.hours[0].value);
+      }
+    })
   }
+//esto no es necesario pero te ayuda a que no se te olvide nada
+  get controlName(){
+    return this.formGroup.get('name');
+  }
+
+  get controlDate(){
+    return this.formGroup.get('date');
+  }
+
+  get controlHaircare(){
+    return this.formGroup.get('haircare');
+  }
+
+  get controlTime(){
+    return this.formGroup.get('time');
+  }
+
   addBooking(){
     console.log(this.formGroup.value);
   }
