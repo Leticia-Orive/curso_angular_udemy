@@ -1,13 +1,14 @@
 import { DatePipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HaircaresService } from '../../services/haircares.service';
 import { HoursService } from '../../services/hours.service';
 import { IHaircare } from '../../models/haircare.model';
 import { IHour } from '../../models/hour.model';
 import { EventsService } from '../../services/events.service';
 import { IBooking } from '../../models/booking.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-booking',
@@ -31,6 +32,9 @@ export class AddBookingComponent {
   private hourService = inject(HoursService);
   /**Añadimos nuestro evento */
   private eventService = inject(EventsService);
+
+  private toastrService = inject(ToastrService);
+  private translateService = inject(TranslateService);
 
   public formGroup: FormGroup = new FormGroup({});
   public haircares: IHaircare[] = [];
@@ -85,10 +89,19 @@ export class AddBookingComponent {
 
     this.eventService.createEvent(booking).subscribe({
       next: (event) => {
-        console.log('Evento creado', event);
+        console.log('Evento creado');
+        //muestra un mensaje de que se ha creado el evento
+        this.toastrService.success(
+          this.translateService.instant('add.booking.success'),
+          this.translateService.instant('success')
+        );
       }, 
       error: (error) => {
         console.error('habido un error');
+        this.toastrService.error(
+          this.translateService.instant('booking.exists'),
+          this.translateService.instant('error')
+        );
       }
     })
   }
