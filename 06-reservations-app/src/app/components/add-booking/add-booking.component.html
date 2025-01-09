@@ -1,1 +1,37 @@
-<p>add-booking works!</p>
+<div class="row">
+    <div class="col-12">
+        <form >
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <label for="name" class="form-label">{{'name' | translate}}*</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="col-md-6 col-12">
+                    <label for="haircare" class="form-label">{{'haircare' | translate}}*</label>
+                    <select id="haircare" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-md-6 col-12">
+                    <label for="date" class="form-label">{{'date' | translate}}*</label>
+                    <input type="date" class="form-control" id="date">
+                </div>
+                <div class="col-md-6 col-12">
+                    <label for="hour" class="form-label">{{'hour' | translate}}*</label>
+                    <select id="hour" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 text-end">
+                    <button class="btn btn-primary">{{'add.booking' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
