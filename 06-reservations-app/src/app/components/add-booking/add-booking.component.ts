@@ -86,6 +86,9 @@ export class AddBookingComponent {
     this.eventService.createEvent(booking).subscribe({
       next: (event) => {
         console.log('Evento creado', event);
+      }, 
+      error: (error) => {
+        console.error('habido un error');
       }
     })
   }
