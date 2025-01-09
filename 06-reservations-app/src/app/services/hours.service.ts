@@ -1,9 +1,19 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { IHour } from '../models/hour.model';
+import { HttpClient } from '@angular/common/http';
+import { first } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HoursService {
 
-  constructor() { }
+   private URL_BASE = `${environment.urlServer}/hours`;
+  
+    private http = inject(HttpClient);
+  
+    getHaircares() {
+      return this.http.get<IHour[]>(this.URL_BASE).pipe(first())
+    }
 }
