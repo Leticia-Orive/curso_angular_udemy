@@ -13,7 +13,7 @@ export class HoursService {
   
     private http = inject(HttpClient);
   
-    getHaircares() {
+    getHours() {
       return this.http.get<IHour[]>(this.URL_BASE).pipe(first())
     }
 }
