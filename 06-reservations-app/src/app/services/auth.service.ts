@@ -26,4 +26,9 @@ export class AuthService {
     }
     return of(success).pipe(first());
   }
+  logout(){
+    localStorage.removeItem('isLogged');
+    this.subjectAuth.next(false);
+    return of(true).pipe(first());
+  };
 }
