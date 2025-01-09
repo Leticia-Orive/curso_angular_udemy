@@ -4,6 +4,5 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class HaircaresService {
-
-  constructor() { }
+  private URL_BASE = '${environment.urlServer}/haircares';
 }
