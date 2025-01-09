@@ -13,9 +13,12 @@
               <li class="nav-item">
                 <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="add-booking">{{'add.booking' | translate}}</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active" routerLink="events-calendar">{{'events' | translate}}</a>
-              </li>
+              @if(isAutheticated$ | async ){
+                <li class="nav-item">
+                  <a class="nav-link" routerLinkActive="active" routerLink="events-calendar">{{'events' | translate}}</a>
+                </li>
+              }
+              
               
             </ul>
           </div>
@@ -28,7 +31,14 @@
           <img [src]="'/flags/' + language + '.png'" alt="language" width="32" height="32" 
           class="me-2 mb-md-0 mb-2" (click)="changeLanguage(language)">
         }
-        <button type="button" class="btn btn-outline-primary me-2" routerLink="login">{{'login' | translate}}</button>
+        @if(isAutheticated$ | async ){
+          <button type="button" class="btn btn-outline-primary me-2" routerLink="logout">
+            {{'logout' | translate}}</button>
+        }@else{
+          <button type="button" class="btn btn-outline-primary me-2" routerLink="login">
+            {{'login' | translate}}</button> 
+          }
+        
 
       </div>
 
