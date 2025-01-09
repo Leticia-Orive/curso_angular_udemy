@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,7 +10,7 @@ import { IHour } from '../../models/hour.model';
 @Component({
   selector: 'app-add-booking',
   standalone: true,
-  imports: [TranslateModule, ReactiveFormsModule],
+  imports: [TranslateModule, ReactiveFormsModule, NgClass],
   templateUrl: './add-booking.component.html',
   styleUrl: './add-booking.component.scss',
   providers: [
