@@ -1,3 +1,5 @@
+//siempre para que se muestre un dato y lo borremos tenemos que volver a ejecutar el servicio
+//npm run start-server
 {
   "events": [
     
