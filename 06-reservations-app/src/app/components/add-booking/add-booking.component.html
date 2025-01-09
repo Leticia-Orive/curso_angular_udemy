@@ -10,7 +10,7 @@
                     <label for="haircare" class="form-label">{{'haircare' | translate}}*</label>
                     <select id="haircare" class="form-control" formControlName="haircare">
                         @for(haircare of haircares; track haircare.value){
-                            <option [value]="haircare.value">{{haircare.value}}</option>
+                            <option [value]="haircare.value">{{haircare.value | translate}}</option>
                         }
                        
                     </select>
