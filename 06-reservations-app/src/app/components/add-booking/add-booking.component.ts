@@ -6,6 +6,8 @@ import { HaircaresService } from '../../services/haircares.service';
 import { HoursService } from '../../services/hours.service';
 import { IHaircare } from '../../models/haircare.model';
 import { IHour } from '../../models/hour.model';
+import { EventsService } from '../../services/events.service';
+import { IBooking } from '../../models/booking.model';
 
 @Component({
   selector: 'app-add-booking',
@@ -27,6 +29,8 @@ export class AddBookingComponent {
  /**Y esto otra */
   private haircaresService = inject(HaircaresService);
   private hourService = inject(HoursService);
+  /**Añadimos nuestro evento */
+  private eventService = inject(EventsService);
 
   public formGroup: FormGroup = new FormGroup({});
   public haircares: IHaircare[] = [];
@@ -75,7 +79,15 @@ export class AddBookingComponent {
   }
 
   addBooking(){
-    console.log(this.formGroup.value);
+    
+    const booking: IBooking = this.formGroup.value;
+    console.log(booking);
+
+    this.eventService.createEvent(booking).subscribe({
+      next: (event) => {
+        console.log('Evento creado', event);
+      }
+    })
   }
 
   }
