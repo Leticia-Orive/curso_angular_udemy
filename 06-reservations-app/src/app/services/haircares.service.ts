@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { first } from 'rxjs';
+import { first, map } from 'rxjs';
 import { IHaircare } from '../models/haircare.model';
 import { environment } from '../../environments/environment';
 @Injectable({
@@ -13,5 +13,12 @@ export class HaircaresService {
 
   getHaircares() {
     return this.http.get<IHaircare[]>(this.URL_BASE).pipe(first())
+  }
+
+  getColor(haircare: string){
+    return this.http.get<IHaircare[]>(`${this.URL_BASE}?value=${haircare}`).pipe(
+      first(),
+      map ((haircares: IHaircare[]) => haircares[0]?.color)
+    )
   }
 }
