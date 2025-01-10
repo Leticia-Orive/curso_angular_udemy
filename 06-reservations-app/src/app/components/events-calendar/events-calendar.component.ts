@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { EventsService } from '../../services/events.service';
 import { AsyncPipe, NgStyle } from '@angular/common';
 import { HaircaresService } from '../../services/haircares.service';
-
+import { Tooltip } from 'bootstrap';
 @Component({
   selector: 'app-events-calendar',
   standalone: true,
@@ -31,6 +31,15 @@ export class EventsCalendarComponent {
     headerToolbar: {
       left: 'title',
       right: 'prev,next'
+    },
+    eventDidMount: (e) => {
+      
+      new Tooltip(e.el, {
+        title: this.translateService.instant(e.event.extendedProps['description']),
+        placement: 'top',
+        trigger: 'hover',
+        
+      })
     }
   };
 
