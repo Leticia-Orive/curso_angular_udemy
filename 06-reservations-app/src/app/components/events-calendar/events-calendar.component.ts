@@ -2,15 +2,16 @@ import { Component, inject } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core/index.js';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { EventsService } from '../../services/events.service';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgStyle } from '@angular/common';
+import { HaircaresService } from '../../services/haircares.service';
 
 @Component({
   selector: 'app-events-calendar',
   standalone: true,
-  imports: [FullCalendarModule, AsyncPipe],
+  imports: [FullCalendarModule, AsyncPipe, NgStyle, TranslateModule],
   templateUrl: './events-calendar.component.html',
   styleUrl: './events-calendar.component.scss'
 })
@@ -18,9 +19,10 @@ export class EventsCalendarComponent {
 
   private translateService = inject(TranslateService)
   private eventsService = inject(EventsService)
+  private haircaresService = inject(HaircaresService)
 
   public events$ = this.eventsService.getEvents();
-
+  public haircares$ = this.haircaresService.getHaircares();
   public calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin],
@@ -31,6 +33,7 @@ export class EventsCalendarComponent {
       right: 'prev,next'
     }
   };
+
   private subscription: Subscription = new Subscription();
 
   ngOnInit() {
@@ -49,5 +52,5 @@ export class EventsCalendarComponent {
     this.subscription.unsubscribe();
   }
 
-
 }
+
