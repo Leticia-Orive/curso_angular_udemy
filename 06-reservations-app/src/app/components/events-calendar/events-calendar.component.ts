@@ -12,7 +12,13 @@ export class EventsCalendarComponent {
 
   public calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
-   plugins: [dayGridPlugin]
+   plugins: [dayGridPlugin],
+   firstDay: 1,
+   locale: 'es',
+   headerToolbar: {
+     left: 'title',
+     right: 'prev,next'
+   },
 
 };
 }
