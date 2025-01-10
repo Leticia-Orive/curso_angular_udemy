@@ -3,6 +3,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core/index.js';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-events-calendar',
@@ -25,10 +26,11 @@ export class EventsCalendarComponent {
       right: 'prev,next'
     }
   };
+  private subscription: Subscription = new Subscription();
 
   ngOnInit() {
 
-    this.translateService.onLangChange.asObservable().subscribe({
+    this.subscription = this.translateService.onLangChange.asObservable().subscribe({
       next: (event: LangChangeEvent) => {
         this.calendarOptions.locale = event.lang;
         console.log(event.lang);
@@ -37,5 +39,10 @@ export class EventsCalendarComponent {
 
 
   }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+
 
 }
