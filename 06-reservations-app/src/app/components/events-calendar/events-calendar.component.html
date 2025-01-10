@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-12">
-            <full-calendar  [options]="calendarOptions"/>
+            <full-calendar  [options]="calendarOptions" [events]="events$ | async"/>
         </div>
     </div>
 </div>

@@ -40,6 +40,11 @@ export class EventsService {
     )
   }
 
+  //Mostrar eventos
+  getEvents() {
+    return this.http.get<IEvent[]>(this.URL_BASE).pipe(first())
+  }
+
   private existsEvent(date: string) {
     return this.http.get<IEvent[]>(`${this.URL_BASE}?start=${date}`).pipe(
       first(),
