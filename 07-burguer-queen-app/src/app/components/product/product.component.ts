@@ -6,11 +6,13 @@ import { ProductsService } from '../../services/products.service';
 import { AsyncPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatDivider } from '@angular/material/divider';
+import { MatButton, MatMiniFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [AsyncPipe, TranslateModule, MatDivider],
+  imports: [AsyncPipe, TranslateModule, MatDivider, MatMiniFabButton, MatIcon, MatButton],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
@@ -29,5 +31,9 @@ export class ProductComponent {
       }
     })
   }
+
+  addProduct(product: IProduct){}
+
+  goBack(){}
 
 }

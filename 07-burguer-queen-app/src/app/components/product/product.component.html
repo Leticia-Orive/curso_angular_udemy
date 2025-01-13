@@ -16,8 +16,21 @@
                         <div class="col-7">
                             <span class="h4">{{'label.price' | translate}}: {{product.price}} €</span>
                         </div>
-                        <div class="col-5"></div>
+                        <div class="col-5">
+                            <button mat-mini-fab class="me-2">
+                                <mat-icon>remove</mat-icon>
+                            </button>
+                            <span class="h4 ms-2 me-2">1</span>
+                            <button mat-mini-fab class="ms-2">
+                                <mat-icon>add</mat-icon>
+                            </button>  
+                        </div>
                     </div>
+                    <button mat-flat-button class="me-2" 
+                    (click)="addProduct(product)">{{'label.add.product' | translate}}</button>
+
+                    <button mat-flat-button class="me-2" 
+                    (click)="goBack()">{{'label.back' | translate}}</button>
                 </div>
             </div>
         }
