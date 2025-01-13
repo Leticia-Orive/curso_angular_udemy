@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, first } from 'rxjs';
 import { IProduct } from '../../models/product.model';
@@ -22,6 +22,7 @@ export class ProductComponent {
   private productsService = inject(ProductsService);
 
   public product$: Observable<IProduct> = new Observable<IProduct>();
+  public quantitySignal: WritableSignal<number> = signal(1);
 
   ngOnInit(){
     this.activatedRoute.params.pipe(first()).subscribe({
@@ -35,5 +36,12 @@ export class ProductComponent {
   addProduct(product: IProduct){}
 
   goBack(){}
+
+  oneLessProduct(){
+    this.quantitySignal.update(value => value - 1);
+  }
+  oneMoreProduct(){
+    this.quantitySignal.update(value => value + 1);
+  }
 
 }
