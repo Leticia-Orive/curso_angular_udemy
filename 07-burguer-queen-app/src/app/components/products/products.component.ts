@@ -2,15 +2,18 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { first, Observable } from 'rxjs';
 import { IProduct } from '../../models/product.model';
+import { ProductsService } from '../../services/products.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-products',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
   private activatedRoute = inject(ActivatedRoute);
+  private productsService = inject(ProductsService);
 
   public products$: Observable<IProduct[]> = new Observable<IProduct[]>();
 
@@ -19,6 +22,7 @@ export class ProductsComponent {
       next: (params: Params) => {
         const categoryId = params['categoryId'];
         //Peticion al servidor
+        this.products$ = this.productsService.getProducts(categoryId);
 
 
       }
