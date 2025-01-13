@@ -4,11 +4,13 @@ import { Observable, first } from 'rxjs';
 import { IProduct } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
 import { AsyncPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, TranslateModule, MatDivider],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })

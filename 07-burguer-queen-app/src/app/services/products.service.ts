@@ -15,4 +15,8 @@ export class ProductsService {
   getProducts(categoryId: string) {
     return this.http.get<IProduct[]>(`${this.URL_BASE}/category/${categoryId}`).pipe(first());
   }
+
+  getProduct(id: string) {
+    return this.http.get<IProduct>(`${this.URL_BASE}/${id}`).pipe(first());
+  }
 }

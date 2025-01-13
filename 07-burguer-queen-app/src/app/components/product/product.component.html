@@ -1,1 +1,25 @@
-<p>product works!</p>
+<div class="row">
+    <div class="col-12">
+        @if(product$ | async; as product){
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <span class="h1 ">{{product.name | translate}}</span>
+                    <mat-divider class="mt-4 mb-4" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 h-100 text-center">
+                    <img [src]="'/img/products/' + product.img" [alt]="product.name | translate" />
+
+                    <div class="row mt-4 mb-4">
+                        <div class="col-7">
+                            <span class="h4">{{'label.price' | translate}}: {{product.price}} €</span>
+                        </div>
+                        <div class="col-5"></div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
