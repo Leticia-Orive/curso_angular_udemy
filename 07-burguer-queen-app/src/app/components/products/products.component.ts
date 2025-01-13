@@ -1,13 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { first, Observable } from 'rxjs';
 import { IProduct } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
 import { AsyncPipe } from '@angular/common';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-products',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, MatCard, MatCardContent, TranslateModule, RouterLink],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
