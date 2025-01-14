@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, first } from 'rxjs';
 import { IProduct } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatButton, MatMiniFabButton } from '@angular/material/button';
@@ -20,6 +20,7 @@ export class ProductComponent {
 
   private activatedRoute = inject(ActivatedRoute);
   private productsService = inject(ProductsService);
+  private location: Location = inject(Location);
 
   public product$: Observable<IProduct> = new Observable<IProduct>();
   public quantitySignal: WritableSignal<number> = signal(1);
@@ -35,7 +36,9 @@ export class ProductComponent {
 
   addProduct(product: IProduct){}
 
-  goBack(){}
+  goBack(){
+    this.location.back();
+  }
 
   oneLessProduct(){
     this.quantitySignal.update(value => value - 1);
