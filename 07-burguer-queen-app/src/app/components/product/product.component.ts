@@ -1,5 +1,5 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, first } from 'rxjs';
 import { IProduct, IProductExtraOption } from '../../models/product.model';
 import { ProductsService } from '../../services/products.service';
@@ -14,6 +14,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import {MatRadioChange, MatRadioModule} from '@angular/material/radio';
 import { ExtraSelectedPipe } from '../../pipes/extra-selected.pipe';
 import { CalculateTotalPricePipe } from '../../pipes/calculate-total-price.pipe';
+import { UserOrderService } from '../../services/user-order.service';
 @Component({
   selector: 'app-product',
   standalone: true,
@@ -27,6 +28,8 @@ export class ProductComponent {
   private activatedRoute = inject(ActivatedRoute);
   private productsService = inject(ProductsService);
   private location: Location = inject(Location);
+  private UserOrderService = inject(UserOrderService);
+  private router = inject(Router);
 
   public product$: Observable<IProduct> = new Observable<IProduct>();
   public quantitySignal: WritableSignal<number> = signal(1);
@@ -42,6 +45,9 @@ export class ProductComponent {
 
   addProduct(product: IProduct){
     console.log(product)
+    this.UserOrderService.addProduct(product, this.quantitySignal());
+    console.log(this.UserOrderService.productsSignals());
+    this.router.navigateByUrl('/categories');
   }
   
   goBack(){
