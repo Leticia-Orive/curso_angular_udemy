@@ -9,11 +9,14 @@ import { MatDivider } from '@angular/material/divider';
 import { MatButton, MatMiniFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatCard, MatCardContent } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [AsyncPipe, TranslateModule, MatDivider, MatMiniFabButton, MatIcon, MatButton, NgClass,MatCard, MatCardContent],
+  imports: [AsyncPipe, TranslateModule, MatDivider, MatMiniFabButton, MatIcon, MatButton, NgClass,
+    MatCard, MatCardContent, FormsModule, MatCheckbox],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })

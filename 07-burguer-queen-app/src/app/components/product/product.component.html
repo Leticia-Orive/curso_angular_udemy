@@ -58,7 +58,11 @@
                                                 <mat-card class="bg-white text-center h-100">
                                                     <img mat-card-image class="p-1" [src]="'/img/products/' + block.img" alt="">
                                                     <mat-card-content>
-                                                        
+                                                        <span class="d-block">{{block.name | translate}}</span>
+                                                        @if(block.options.length == 1){
+                                                            <span class="d-block">{{block.options[0].activate ? block.options[0].price : '0'}} €</span>
+                                                            <mat-checkbox [(ngModel)]="block.options[0].activate"></mat-checkbox>
+                                                        }
                                                     </mat-card-content>
                                                 </mat-card>
                                             </div>
