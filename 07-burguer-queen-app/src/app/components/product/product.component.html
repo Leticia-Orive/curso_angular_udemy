@@ -64,6 +64,7 @@
                                                             <mat-checkbox [(ngModel)]="block.options[0].activate"></mat-checkbox>
                                                         }
                                                         @if(block.options.length > 1){
+                                                            <span class="d-block">{{(block.options | extraSelected)?.price }} €</span>
                                                             <mat-radio-group class="d-flex flex-column text-start" (change)="changeOption(block.options, $event)">
                                                                 @for(option of block.options; track option){
                                                                    <mat-radio-button [checked]="option.activate" 
