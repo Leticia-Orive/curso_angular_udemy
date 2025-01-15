@@ -39,4 +39,10 @@ export class Order{
     private totalOrder(){
         return this._productsSignal().reduce((acum: number, value: IQuantityProduct) => this.CalculateTotalPricePipe.transform(value.product, value.quantity) + acum, 0 );
     }
+
+    //Metodo
+    private numProducts(){
+        return this._productsSignal().reduce(
+            (acum: number, value: IQuantityProduct) => value.quantity + acum, 0);
+    }
 }
