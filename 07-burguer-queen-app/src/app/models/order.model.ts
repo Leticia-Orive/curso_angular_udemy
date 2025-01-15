@@ -39,7 +39,7 @@ export class Order{
         // set: setea un nuevo valor de un signal
         this._productsSignal.set([...products]);
     }
-        //Un producto mas
+    //Un producto mas
         public oneMoreProduct(product: IProduct){
             const productFound = this.searchProduct(product);
             if(productFound){
@@ -54,12 +54,16 @@ export class Order{
         }
 
     //Un producto menos
-    public oneLessProduct(product: IProduct){
-    const productFound = this.searchProduct(product);
-    if(productFound){
-        productFound.quantity++;
-        this._productsSignal.set([...this._productsSignal()]);
-    }
+        public oneLessProduct(product: IProduct){
+        const productFound = this.searchProduct(product);
+            if(productFound){
+                productFound.quantity++;
+                this._productsSignal.set([...this._productsSignal()]);
+            }
+        }
+    //resetear el pedido
+    public resetOrder(){
+        this._productsSignal.set([]);
     }
 
     //eliminar producto
