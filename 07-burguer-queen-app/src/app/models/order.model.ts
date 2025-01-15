@@ -39,6 +39,29 @@ export class Order{
         // set: setea un nuevo valor de un signal
         this._productsSignal.set([...products]);
     }
+        //Un producto mas
+        public oneMoreProduct(product: IProduct){
+            const productFound = this.searchProduct(product);
+            if(productFound){
+                productFound.quantity--;
+                this._productsSignal.set([...this._productsSignal()]);
+                if(productFound.quantity === 0){
+                    this.removeProduct(product);
+                }else{
+                    this._productsSignal.set([...this._productsSignal()]);
+                }
+            }
+        }
+
+    //Un producto menos
+    public oneLessProduct(product: IProduct){
+    const productFound = this.searchProduct(product);
+    if(productFound){
+        productFound.quantity++;
+        this._productsSignal.set([...this._productsSignal()]);
+    }
+    }
+
     //eliminar producto
     private removeProduct(productRemove: IProduct){
         this._productsSignal.update(products => products.filter((productQuantity: IQuantityProduct) => JSON.stringify(productRemove) !== JSON.stringify(productQuantity.product)));

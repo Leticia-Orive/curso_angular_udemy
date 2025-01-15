@@ -15,4 +15,12 @@ export class UserOrderService {
   public addProduct(product: IProduct, quantity: number = 1){
     this._order.addProduct(product, quantity);
   }
+
+  public oneMoreProduct(product: IProduct){
+    this._order.oneMoreProduct(product);
+  }
+
+  public oneLessProduct(product: IProduct){
+    this._order.oneLessProduct(product);
+  }
 }
