@@ -39,6 +39,10 @@ export class Order{
         // set: setea un nuevo valor de un signal
         this._productsSignal.set([...products]);
     }
+    //eliminar producto
+    private removeProduct(productRemove: IProduct){
+        this._productsSignal.update(products => products.filter((productQuantity: IQuantityProduct) => JSON.stringify(productRemove) !== JSON.stringify(productQuantity.product)));
+    }
 
     private searchProduct(product: IProduct) : IQuantityProduct | undefined {
         return this._productsSignal().find((productQuantity: IQuantityProduct) => JSON.stringify(product) === JSON.stringify(productQuantity.product));
