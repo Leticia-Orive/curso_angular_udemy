@@ -8,7 +8,7 @@
             <img [src]="'/img/flags/' + language + '.png'" [alt]="language" 
             width="32px" height="32px" class="me-2" (click)="changeLang(language)">
         }
-        <mat-icon aria-hidden="false" matBadge="0" aria-label="shopping cart" 
+        <mat-icon aria-hidden="false" [matBadge]="numProductsSignal()" aria-label="shopping cart" 
             fontIcon="shopping_cart" routerLink="/pay-order">
         </mat-icon>
     </div>
