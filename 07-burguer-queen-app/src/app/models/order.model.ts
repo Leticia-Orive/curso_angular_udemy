@@ -1,4 +1,4 @@
-import { inject, Signal, signal, WritableSignal } from "@angular/core";
+import { computed, inject, Signal, signal, WritableSignal } from "@angular/core";
 import { IQuantityProduct } from "./quantity-product.model";
 import { IProduct } from "./product.model";
 import { CalculateTotalPricePipe } from "../pipes/calculate-total-price.pipe";
@@ -9,11 +9,19 @@ export class Order{
     //Signal significa que no se puede modificar
 
     private _productsSignal: WritableSignal<IQuantityProduct[]> = signal<IQuantityProduct[]>([]);
+    private _numProductsSignal: Signal<number> = computed(() => this.numProducts());
+    private _totalOrderSignal: Signal<number> = computed(() => this.totalOrder());
     //Ojo que luego cuando usemos el servicio veremos que puede dar algunos problemas lo vemos mas adelante
     private CalculateTotalPricePipe= inject(CalculateTotalPricePipe);
 
     public get productsSignal(): Signal<IQuantityProduct[]> {
         return this._productsSignal.asReadonly();
+    }
+    public get  numProductsSignal(): Signal<number> {
+        return this._numProductsSignal;
+    }
+    public get  totalOrderSignal(): Signal<number> {
+        return this._totalOrderSignal;
     }
     
 
