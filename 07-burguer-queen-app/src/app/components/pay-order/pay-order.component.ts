@@ -1,7 +1,7 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious } from '@angular/material/stepper';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OrderStatusComponent } from './components/order-status/order-status.component';
 import { injectStripe, StripeElementsDirective, StripePaymentElementComponent } from 'ngx-stripe';
 import { environment } from '../../../environments/environment.development';
@@ -14,6 +14,7 @@ import { ICreatePaymentIntent } from '../../models/create-payment-intent.model';
 import { UserOrderService } from '../../services/user-order.service';
 import { IPayment } from '../../models/payment.model';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pay-order',
@@ -36,10 +37,12 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 export class PayOrderComponent {
 
   @ViewChild(StripePaymentElementComponent)
-  paymentElement!: StripePaymentElementComponent;
+  paymentElement!: StripePaymentElementComponent
 
   private stripeService = inject(StripeService);
   private userOrderService = inject(UserOrderService);
+  private translateService = inject(TranslateService);
+  private snackBar = inject(MatSnackBar)
 
   public stripe = injectStripe(environment.stripe.publishKey);
   public elementsOptions: StripeElementsOptions = {
@@ -84,11 +87,44 @@ export class PayOrderComponent {
   }
 
   payOrder(){
-    console.log(this.paymentElement);
     
+    this.stripe
+    .confirmPayment({
+      elements: this.paymentElement.elements,
+      redirect: 'if_required'
+    })
+    .subscribe(result => {
+      if (result.error) {
+        this.snackBar.open(
+          this.translateService.instant('label.payment.error'),
+          this.translateService.instant('label.error'),
+          {
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            duration: 5000
+          }
+        )
+      } else {
+        if (result.paymentIntent.status === 'succeeded') {
+          this.snackBar.open(
+            this.translateService.instant('label.payment.ok'),
+            this.translateService.instant('label.ok'),
+            {
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+              duration: 5000
+            }
+          )
+          this.createOrder();
+        }
+      }
+    });
+
+  }
+
+  createOrder(){
+
   }
 
 
 }
-
-
