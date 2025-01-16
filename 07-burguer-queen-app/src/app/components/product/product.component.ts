@@ -20,7 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-product',
   standalone: true,
   imports: [AsyncPipe, TranslateModule, MatDivider, MatMiniFabButton, MatIcon, MatButton, NgClass,
-    MatCard, MatCardContent, FormsModule, MatCheckbox, MatRadioModule, ExtraSelectedPipe, JsonPipe, CalculateTotalPricePipe],
+    MatCard, MatCardContent, FormsModule, MatCheckbox, MatRadioModule, ExtraSelectedPipe, CalculateTotalPricePipe,  ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
