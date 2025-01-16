@@ -16,6 +16,9 @@ import { IPayment } from '../../models/payment.model';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IOrder } from '../../models/order.model';
+import { AuthService } from '../../services/auth.service';
+import { switchMap } from 'rxjs';
+import { IAuthCredentials } from '../../models/auth-credentials';
 
 @Component({
   selector: 'app-pay-order',
@@ -43,7 +46,8 @@ export class PayOrderComponent {
   private stripeService = inject(StripeService);
   private userOrderService = inject(UserOrderService);
   private translateService = inject(TranslateService);
-  private snackBar = inject(MatSnackBar)
+  private snackBar = inject(MatSnackBar);
+  private authService = inject(AuthService);
 
   public stripe = injectStripe(environment.stripe.publishKey);
   public elementsOptions: StripeElementsOptions = {
@@ -133,6 +137,15 @@ export class PayOrderComponent {
       },
       products: this.userOrderService.productsSignals(),
     }
+
+   /**  this.authService.login(order.user).pipe(
+      switchMap((data: IAuthCredentials) =>)
+    ).subscribe({
+      next: (order: IOrder) => {
+
+      }
+    })*/
+    
 
   }
 
