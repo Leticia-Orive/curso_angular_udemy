@@ -11,7 +11,7 @@ export class UserOrderService {
   private _order: Order = new Order();
 
   public productsSignals: Signal<IQuantityProduct[]> = this._order.productsSignal;
-  public numProductsSignal: Signal<number> = this._order.numProductsSignal;
+  public numProductsSignals: Signal<number> = this._order.numProductsSignal;
   public totalOrderSignal: Signal<number> = this._order.totalOrderSignal;
   
   public addProduct(product: IProduct, quantity: number = 1){

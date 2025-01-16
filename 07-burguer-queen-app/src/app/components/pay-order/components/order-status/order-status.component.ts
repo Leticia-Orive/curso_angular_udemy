@@ -41,7 +41,7 @@ export class OrderStatusComponent {
 
 
   public productsSignal = this.UserOrderService.productsSignals;
-  public totalOrderSignal = this.UserOrderService.totalProductsSignals;
+  public totalOrderSignal = this.UserOrderService.totalOrderSignal;
   public displayedColumns: string[] = ['name', 'price', 'quantity', 'total'];
 
   oneLessProduct(event: MouseEvent, product: IProduct) {
