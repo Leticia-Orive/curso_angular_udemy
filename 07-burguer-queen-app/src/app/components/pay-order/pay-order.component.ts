@@ -15,6 +15,7 @@ import { UserOrderService } from '../../services/user-order.service';
 import { IPayment } from '../../models/payment.model';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { IOrder } from '../../models/order.model';
 
 @Component({
   selector: 'app-pay-order',
@@ -123,6 +124,15 @@ export class PayOrderComponent {
   }
 
   createOrder(){
+    const order: IOrder = {
+      address: 'Calle Falsa 123',
+      user:{
+        //El email tiene que ser ese, a no ser que os creeis otro en el backend
+        email: 'test@gmail.com',
+        password: '123456'
+      },
+      products: this.userOrderService.productsSignals(),
+    }
 
   }
 
