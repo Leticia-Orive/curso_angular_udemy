@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious } from '@angular/material/stepper';
 import { TranslateModule } from '@ngx-translate/core';
@@ -34,6 +34,9 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
   styleUrl: './pay-order.component.scss'
 })
 export class PayOrderComponent {
+
+  @ViewChild(StripePaymentElementComponent)
+  paymentElement!: StripePaymentElementComponent;
 
   private stripeService = inject(StripeService);
   private userOrderService = inject(UserOrderService);
@@ -81,6 +84,7 @@ export class PayOrderComponent {
   }
 
   payOrder(){
+    console.log(this.paymentElement);
     
   }
 
