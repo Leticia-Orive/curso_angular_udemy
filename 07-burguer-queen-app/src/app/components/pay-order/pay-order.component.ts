@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious } from '@angular/material/stepper';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,6 +9,11 @@ import {
   StripeElementsOptions, 
   StripePaymentElementOptions
 } from '@stripe/stripe-js';
+import { StripeService } from '../../services/stripe.service';
+import { ICreatePaymentIntent } from '../../models/create-payment-intent.model';
+import { UserOrderService } from '../../services/user-order.service';
+import { IPayment } from '../../models/payment.model';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-pay-order',
@@ -30,6 +35,9 @@ import {
 })
 export class PayOrderComponent {
 
+  private stripeService = inject(StripeService);
+  private userOrderService = inject(UserOrderService);
+
   public stripe = injectStripe(environment.stripe.publishKey);
   public elementsOptions: StripeElementsOptions = {
     locale: 'en',
@@ -46,10 +54,37 @@ export class PayOrderComponent {
     }
   };
 
+  public totalOrderSignal = this.userOrderService.totalOrderSignal;
+  private lastTotal: number = 0;
+
+  createPaymentIntent(event: StepperSelectionEvent){
+
+    if(event.selectedIndex == 1 && (!this.elementsOptions.clientSecret || this.lastTotal != this.totalOrderSignal())){
+
+      this.lastTotal = this.totalOrderSignal();
+      const amount = this.totalOrderSignal() * 100;
+
+      const paymentIntent: ICreatePaymentIntent = {
+        secretKey: environment.stripe.secretKey,
+        amount: +amount.toFixed(0),
+        currency: 'EUR',
+        customer_id: environment.stripe.customer_id
+      }
+  
+      this.stripeService.createPaymentSheet(paymentIntent).subscribe({
+        next: (paymentIntent: IPayment) =>{
+          this.elementsOptions.clientSecret = paymentIntent.paymentIntentClientSecret;
+        }
+      })
+    }
+
+  }
+
   payOrder(){
     
   }
 
 
 }
+
 
