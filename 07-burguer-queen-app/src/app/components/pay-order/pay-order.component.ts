@@ -19,6 +19,8 @@ import { IOrder } from '../../models/order.model';
 import { AuthService } from '../../services/auth.service';
 import { switchMap } from 'rxjs';
 import { IAuthCredentials } from '../../models/auth-credentials';
+import { OrdersService } from '../../services/orders.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pay-order',
@@ -48,6 +50,8 @@ export class PayOrderComponent {
   private translateService = inject(TranslateService);
   private snackBar = inject(MatSnackBar);
   private authService = inject(AuthService);
+  private orderService = inject(OrdersService);
+  private router = inject(Router);
 
   public stripe = injectStripe(environment.stripe.publishKey);
   public elementsOptions: StripeElementsOptions = {
@@ -138,13 +142,16 @@ export class PayOrderComponent {
       products: this.userOrderService.productsSignals(),
     }
 
-   /**  this.authService.login(order.user).pipe(
-      switchMap((data: IAuthCredentials) =>)
+   this.authService.login(order.user).pipe(
+      switchMap((data: IAuthCredentials) => this.orderService.createOrder(order, data.accessToken))
     ).subscribe({
       next: (order: IOrder) => {
+        console.log(order);
+        this.userOrderService.resetOrder();
+        this.router.navigateByUrl('/categories');
 
       }
-    })*/
+    })
     
 
   }
