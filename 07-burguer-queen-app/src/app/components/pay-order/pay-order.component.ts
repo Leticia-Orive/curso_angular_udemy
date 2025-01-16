@@ -17,10 +17,13 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IOrder } from '../../models/order.model';
 import { AuthService } from '../../services/auth.service';
-import { switchMap } from 'rxjs';
+import { first, switchMap } from 'rxjs';
 import { IAuthCredentials } from '../../models/auth-credentials';
 import { OrdersService } from '../../services/orders.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogTicketComponent } from '../dialogs/dialog-ticket/dialog-ticket.component';
+
 
 @Component({
   selector: 'app-pay-order',
@@ -49,6 +52,7 @@ export class PayOrderComponent {
   private userOrderService = inject(UserOrderService);
   private translateService = inject(TranslateService);
   private snackBar = inject(MatSnackBar);
+  private dialog = inject(MatDialog);
   private authService = inject(AuthService);
   private orderService = inject(OrdersService);
   private router = inject(Router);
@@ -148,7 +152,16 @@ export class PayOrderComponent {
       next: (order: IOrder) => {
         console.log(order);
         this.userOrderService.resetOrder();
-        this.router.navigateByUrl('/categories');
+        this.dialog.open(DialogTicketComponent, {
+          data: {
+            ticket: order.ticket
+          }
+        }).afterClosed().pipe(first()).subscribe({
+          next: () => {
+            this.router.navigateByUrl('/categories');
+          }
+        })
+        
 
       }
     })
