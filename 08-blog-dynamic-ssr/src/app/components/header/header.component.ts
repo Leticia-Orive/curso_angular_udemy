@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ThemeDirective } from '../directives/theme.directive';
+import { Theme } from '../../types';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class HeaderComponent {
 
   public themeSelected = 'light';
 
-  changeTheme(theme: string){
+  changeTheme(theme: Theme){
     this.themeSelected = theme;
   }
 
