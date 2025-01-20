@@ -13,29 +13,41 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                
+                                @if(categories$ | async; as categories){
 
-                               @if(categories$ | async; as categories ){
-                                    <ng-template *ngTemplateOutlet="templateMenu; context: {
-                                        categories, orientation: 'down'}"></ng-template>
-                                    
-                                    <ng-template #templateMenu let-categories="categories"
-                                        let-orientation="orientation">
+                                    <ng-template *ngTemplateOutlet="templateMenu; context: { categories, orientation: 'down'}"></ng-template>
+
+                                    <ng-template #templateMenu let-categories="categories" let-orientation="orientation">
                                         @for(category of categories; track category._id){
+
                                             <li class="nav-item" [ngClass]="{
                                                 'dropdown': category.children.length > 0,
+                                                'dropend': orientation == 'right'
                                             }">
                                                 <a class="nav-link" role="button" [ngClass]="{
-                                                    'dropdown-toggle': category.children.length > 0,
-                                                }" >{{category.name}}</a>
+                                                    'dropdown-toggle': category.children.length > 0
+                                                }">{{category.name}}</a>
+
+                                                @if(category.children.length > 0){
+
+                                                    <ul class="dropdown-menu" [ngClass]="{
+                                                        'start-100 top-0': orientation == 'right'
+                                                    }">
+                                                        <ng-template *ngTemplateOutlet="templateMenu; context: { categories: category.children, orientation: 'right'}"></ng-template>
+                                                    </ul>
+
+                                                }
 
                                             </li>
 
                                         }
 
+                                    </ng-template>
 
-                                </ng-template>
-                               } 
-                            
+
+                                }
+
                             </ul>
                         </div>
                     </nav>
