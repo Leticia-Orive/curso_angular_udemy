@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:08-blog-dynamic-ssr": "node dist/08-blog-dynamic-ssr/server/server.mjs"
+    "serve:ssr:08-blog-dynamic-ssr": "node dist/08-blog-dynamic-ssr/server/server.mjs",
+    "start-docker": "docker-compose -p=dynamic up -d"
   },
   "private": true,
   "dependencies": {
