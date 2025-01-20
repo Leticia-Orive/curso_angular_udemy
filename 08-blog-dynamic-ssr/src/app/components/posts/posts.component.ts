@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -7,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './posts.component.scss'
 })
 export class PostsComponent {
+  private route = inject(ActivatedRoute);
+
+  ngOnInit(){
+    this.route.data.subscribe({
+      next: (data: Data['posts']) => {
+        console.log(data['posts']);
+      }
+    })
+  }
 
 }
