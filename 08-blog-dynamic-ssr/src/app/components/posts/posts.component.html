@@ -1,1 +1,21 @@
-<p>posts works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            @for(post of posts; track post._id){
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="card mb-4" >
+                        <img [src]="'http://localhost:3000/images/posts/' + post.img" class="card-img-top rounded" [alt]="post.title">
+                        <div class="card-body">
+                          <h5 class="card-title">{{post.title}}</h5>
+                          <p class="card-text">
+                            <i class="bi bi-clock">{{post.publishedDate | date:'dd/MM/YYYY'}}</i>
+                            {{post.content}}
+                        </p>
+                          
+                        </div>
+                      </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
