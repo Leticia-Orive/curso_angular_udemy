@@ -5,10 +5,11 @@ import { Observable } from 'rxjs';
 import { ICategory } from '../../models/category.model';
 import { CategoriesService } from '../../services/categories.service';
 import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import { HoverDirective } from '../directives/hover.directive';
 
 @Component({
   selector: 'app-header',
-  imports: [ThemeDirective, AsyncPipe, NgClass, NgTemplateOutlet],
+  imports: [ThemeDirective, AsyncPipe, NgClass, NgTemplateOutlet, HoverDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

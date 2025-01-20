@@ -24,14 +24,14 @@
                                             <li class="nav-item" [ngClass]="{
                                                 'dropdown': category.children.length > 0,
                                                 'dropend': orientation == 'right'
-                                            }">
+                                            }" appHover hoverClass="show" hoverTargetSelector=".dropdown-menu">
                                                 <a class="nav-link" role="button" [ngClass]="{
                                                     'dropdown-toggle': category.children.length > 0
                                                 }">{{category.name}}</a>
 
                                                 @if(category.children.length > 0){
 
-                                                    <ul class="dropdown-menu" [ngClass]="{
+                                                    <ul class="dropdown-menu p-0" [ngClass]="{
                                                         'start-100 top-0': orientation == 'right'
                                                     }">
                                                         <ng-template *ngTemplateOutlet="templateMenu; context: { categories: category.children, orientation: 'right'}"></ng-template>
@@ -64,18 +64,3 @@
 
                 </div>
             </div>
-
-
-        </div>
-
-        <div class="row mb-2">
-            <div class="col-12 text-center">
-                <img class="img-fluid mt-4 mb-4" src="/img/logo.png" alt="logo">
-            </div>
-        </div>
-
-
-    </div>
-</div>
-
-
