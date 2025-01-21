@@ -22,6 +22,12 @@
                 </div>
 
                 <div class="col-sm-2 col-3 text-end fs-4">
+                    <!-- Cambio de theme -->
+                    @if(themeSelected == 'light'){
+                        <i class="bi bi-moon-fill" appTheme theme="dark" (themeSelected)="changeTheme($event)"></i>
+                    }@else{
+                        <i class="bi bi-brightness-high-fill" appTheme theme="light" (themeSelected)="changeTheme($event)"></i>
+                    }
 
                     
                 </div>
