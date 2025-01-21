@@ -7,6 +7,7 @@ import { DatePipe, NgClass, NgOptimizedImage, SlicePipe } from '@angular/common'
 import { EnvironmentPipe } from '../../pipes/environment.pipe';
 
 import { Subject, takeUntil } from 'rxjs';
+import { SlugifyPipe } from '../../pipes/slugify.pipe';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -14,7 +15,8 @@ import { Subject, takeUntil } from 'rxjs';
     DatePipe, 
     SlicePipe, 
     EnvironmentPipe, 
-    NgOptimizedImage, 
+    NgOptimizedImage,
+    SlugifyPipe, 
    
     RouterLink, 
     
