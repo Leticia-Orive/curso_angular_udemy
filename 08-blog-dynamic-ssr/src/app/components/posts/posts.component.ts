@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Data, ParamMap } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+
 
 @Component({
   selector: 'app-posts',
@@ -7,5 +10,20 @@ import { Component } from '@angular/core';
   styleUrl: './posts.component.scss'
 })
 export class PostsComponent {
+  private route = inject(ActivatedRoute);
+
+  
+  ngOnInit(){
+
+    // Nos subscribimos a data para los cambios de datos
+    this.route.data.subscribe({
+      next: (data: Data) => {
+        console.log(data['posts']);
+        
+      }
+    });
+
+  }
+
 
 }

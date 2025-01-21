@@ -1,9 +1,15 @@
 import { Routes } from '@angular/router';
+import { postsAllResolver } from './resolvers/posts-all.resolver';
 
 export const routes: Routes = [
     {
         path: '',
         loadComponent: () => import('./components/posts/posts.component').then(c => c.PostsComponent),
+        resolve: {
+            posts: postsAllResolver
+        },
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange'
+
         
     },
     {
