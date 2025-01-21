@@ -25,39 +25,38 @@
                                         @for(category of categories; track category._id){
 
                                             <li class="nav-item" [ngClass]="{
-                                                'dropdown': category.children.length > 0
+                                                'dropdown': category.children.length > 0,
+                                                'dropend': orientation == 'right'
                                             }">
                                                 <a class="nav-link" role="button" [ngClass]="{
                                                     'dropdown-toggle': category.children.length > 0
                                                 }">{{category.name}}</a>
+                                                    @if(category.children.length > 0){
+                                                        <ul class="dropdown-menu p-0" [ngClass]="{
+                                                            'start-100 top-0': orientation == 'right'
+                                                        }">
+                                                            <!-- Volvemos a llamar al template con otras categorias -->
+                                                            <ng-template *ngTemplateOutlet="templateMenu; context: { categories: category.children, orientation: 'right'}"></ng-template>
+                                                        </ul>
+                                                    }
                                             </li>
-
                                         }
-
                                     </ng-template>
-
-
                                 }
                         
                             </ul>
                         </div>
                     </nav>
-
                 </div>
-
                 <div class="col-sm-2 col-3 text-end fs-4">
                     <!-- Cambio de theme -->
                     @if(themeSelected == 'light'){
                         <i class="bi bi-moon-fill" appTheme theme="dark" (themeSelected)="changeTheme($event)"></i>
                     }@else{
                         <i class="bi bi-brightness-high-fill" appTheme theme="light" (themeSelected)="changeTheme($event)"></i>
-                    }
-
-                    
+                    }                    
                 </div>
             </div>
-
-
         </div>
         <div class="row mb-2">
             <div class="col-12 text-center">
