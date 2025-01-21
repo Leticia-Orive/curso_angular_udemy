@@ -5,10 +5,13 @@ import { Subject, takeUntil } from 'rxjs';
 import { IPage } from '../../models/page.model';
 import { IPost } from '../../models/post.model';
 
+import { EnvironmentPipe } from '../../pipes/environment.pipe';
+
+
 
 @Component({
   selector: 'app-posts',
-  imports: [DatePipe, SlicePipe],
+  imports: [DatePipe, SlicePipe, EnvironmentPipe],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
 })
