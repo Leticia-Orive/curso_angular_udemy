@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ThemeDirective } from '../../directives/theme.directive';
+import { Theme } from '../../types';
 
 
 
@@ -28,7 +29,7 @@ export class HeaderComponent {
    * Cambiamos de theme para mostrar el icono correcto
    * @param theme 
    */
-  changeTheme(theme: string){
+  changeTheme(theme: Theme){
     this.themeSelected = theme;
   }
 
