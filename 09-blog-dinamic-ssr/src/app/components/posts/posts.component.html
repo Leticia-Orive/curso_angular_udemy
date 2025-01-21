@@ -12,12 +12,14 @@
                             <img ngSrc="/img/default_image.png" class="card-img-top rounded img-fluid" width="400" height="225" [priority]="first" [alt]="post.title">
                         }
                         <div class="card-body">
+                          <!-- Titulo del post -->
                           <h5 class="card-title">{{post.title}}</h5>
                           <p class="card-text">
                             <i class="bi bi-clock me-1"></i>
                             <span>{{post.publishedDate | date: 'dd/MM/YYYY'}}</span>
-                            {{post.content | slice:0:80}} ...
-                        </p>
+                          </p>
+                          <!-- Parte del contenido -->
+                          <div [innerHtml]="((post.content | slice:0:80) + '...') | sanitizeHtml"></div>
                         </div>
                       </div>
                 </div>

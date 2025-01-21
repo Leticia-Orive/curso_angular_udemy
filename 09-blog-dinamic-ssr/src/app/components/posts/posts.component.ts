@@ -8,6 +8,7 @@ import { EnvironmentPipe } from '../../pipes/environment.pipe';
 
 import { Subject, takeUntil } from 'rxjs';
 import { SlugifyPipe } from '../../pipes/slugify.pipe';
+import { SanitizeHtmlPipe } from '../../pipes/sanitize-html.pipe';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -17,10 +18,9 @@ import { SlugifyPipe } from '../../pipes/slugify.pipe';
     EnvironmentPipe, 
     NgOptimizedImage,
     SlugifyPipe, 
-   
     RouterLink, 
+    SanitizeHtmlPipe,
     
-    NgClass
   ],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
