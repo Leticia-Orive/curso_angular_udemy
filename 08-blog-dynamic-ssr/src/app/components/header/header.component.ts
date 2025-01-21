@@ -4,7 +4,8 @@ import { Theme } from '../../types';
 import { Observable } from 'rxjs';
 import { ICategory } from '../../models/category.model';
 import { CategoriesService } from '../../services/categories.service';
-
+import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
+import { RouterLink, Router } from '@angular/router';
 
 
 @Component({
@@ -12,11 +13,16 @@ import { CategoriesService } from '../../services/categories.service';
   standalone: true,
   imports: [
     ThemeDirective,
+    AsyncPipe,
+    NgClass,
+    NgTemplateOutlet,
+   
     
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   providers: [
+    
     
   ]
 })
@@ -30,6 +36,12 @@ export class HeaderComponent {
   // Obtenemos las categorias
   public categories$: Observable<ICategory[]> = this.categoryService.getCategoriesPublic()
  
+ /**
+   * Mostramos los posts de una categoria
+   * @param category 
+   */
+ 
+
 
   /**
    * Cambiamos de theme para mostrar el icono correcto
@@ -38,5 +50,7 @@ export class HeaderComponent {
   changeTheme(theme: Theme){
     this.themeSelected = theme;
   }
+
+
 
 }
