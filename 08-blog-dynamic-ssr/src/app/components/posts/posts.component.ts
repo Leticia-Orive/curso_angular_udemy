@@ -1,4 +1,4 @@
-import { DatePipe, SlicePipe } from '@angular/common';
+import { DatePipe, NgOptimizedImage, SlicePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,7 +11,7 @@ import { EnvironmentPipe } from '../../pipes/environment.pipe';
 
 @Component({
   selector: 'app-posts',
-  imports: [DatePipe, SlicePipe, EnvironmentPipe],
+  imports: [DatePipe, SlicePipe, EnvironmentPipe, NgOptimizedImage],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
 })

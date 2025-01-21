@@ -2,10 +2,10 @@
     <div class="col-12">
 
         <div class="row">
-            @for(post of posts; track post._id){
+            @for(post of posts; track post._id; let first = $first){
                 <div class="col-lg-3 col-md-3 col-12">
                     <div class="card mb-4 border-0">
-                        <img [src]="('urlServerImages' | environment) + post.img" class="card-img-top rounded" [alt]="post.title">
+                        <img [ngSrc]="('urlServerImages' | environment) + post.img" class="card-img-top rounded img-fluid" width="400" height="225" [priority]="first" [alt]="post.title">
                         <div class="card-body">
                           <h5 class="card-title">{{post.title}}</h5>
                           <p class="card-text">
