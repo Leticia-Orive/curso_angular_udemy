@@ -23,8 +23,40 @@
                         </div>
                       </div>
                 </div>
+            } @empty {
+                <!-- Mensaje cuando no hay entradas -->
+                <div class="col-12 text-center">
+                    <span class="h1">No hay entradas</span>
+                </div>
             }
         </div>
+
+        <!-- Paginacion -->
+        @if(pagination.totalPages > 1){
+            <div class="row">
+                <div class="col-12">
+                    <nav>
+                    <ul class="pagination justify-content-center">
+                        <!-- Boton anterior -->
+                        @if(pagination.hasPrevPage){
+                            <li class="page-item"><a class="page-link" [routerLink]="[]" [queryParams]="{ page: currentPage - 1 }" queryParamsHandling="merge">Anterior</a></li>
+                        }
+                        <!-- Botones de pagina -->
+                        @for(page of pages; track page){
+                            <li class="page-item" [ngClass]="{'active': currentPage === page}">
+                                <a class="page-link" [routerLink]="[]" [queryParams]="{ page }" queryParamsHandling="merge">{{page}}</a></li>
+                        }
+                        <!-- Boton siguiente -->
+                        @if(pagination.hasNextPage){
+                            <li class="page-item"><a class="page-link" [routerLink]="[]" [queryParams]="{ page: currentPage + 1 }" queryParamsHandling="merge">Siguiente</a></li>
+                        }
+                        
+                    </ul>
+                    </nav>
+                </div>
+            </div>
+        }
+        
 
     </div>
 </div>

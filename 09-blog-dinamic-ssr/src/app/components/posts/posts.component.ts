@@ -1,14 +1,13 @@
-
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, RouterLink } from '@angular/router';
 import { IPage } from '../../models/page.model';
 import { IPost } from '../../models/post.model';
 import { DatePipe, NgClass, NgOptimizedImage, SlicePipe } from '@angular/common';
 import { EnvironmentPipe } from '../../pipes/environment.pipe';
-
-import { Subject, takeUntil } from 'rxjs';
 import { SlugifyPipe } from '../../pipes/slugify.pipe';
 import { SanitizeHtmlPipe } from '../../pipes/sanitize-html.pipe';
+import { Subject, takeUntil } from 'rxjs';
+
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -16,11 +15,11 @@ import { SanitizeHtmlPipe } from '../../pipes/sanitize-html.pipe';
     DatePipe, 
     SlicePipe, 
     EnvironmentPipe, 
-    NgOptimizedImage,
+    NgOptimizedImage, 
     SlugifyPipe, 
     RouterLink, 
-    SanitizeHtmlPipe,
-    
+    SanitizeHtmlPipe, 
+    NgClass
   ],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
