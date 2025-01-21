@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { ThemeDirective } from '../../directives/theme.directive';
 import { Theme } from '../../types';
+import { Observable } from 'rxjs';
+import { ICategory } from '../../models/category.model';
+import { CategoriesService } from '../../services/categories.service';
 
 
 
@@ -18,11 +21,14 @@ import { Theme } from '../../types';
   ]
 })
 export class HeaderComponent {
+  private categoryService = inject(CategoriesService)
 
  
 
   // Theme inicial
   public themeSelected = 'light';
+  // Obtenemos las categorias
+  public categories$: Observable<ICategory[]> = this.categoryService.getCategoriesPublic()
  
 
   /**
