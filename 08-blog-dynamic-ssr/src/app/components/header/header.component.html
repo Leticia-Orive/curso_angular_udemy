@@ -27,7 +27,7 @@
                                             <li class="nav-item" [ngClass]="{
                                                 'dropdown': category.children.length > 0,
                                                 'dropend': orientation == 'right'
-                                            }">
+                                            }"  appHover hoverClass="show" hoverTargetSelector=".dropdown-menu">
                                                 <a class="nav-link" role="button" [ngClass]="{
                                                     'dropdown-toggle': category.children.length > 0
                                                 }">{{category.name}}</a>

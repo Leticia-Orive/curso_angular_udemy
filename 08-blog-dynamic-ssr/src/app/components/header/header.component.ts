@@ -6,6 +6,7 @@ import { ICategory } from '../../models/category.model';
 import { CategoriesService } from '../../services/categories.service';
 import { AsyncPipe, NgClass, NgTemplateOutlet } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
+import { HoverDirective } from '../../directives/hover.directive';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { RouterLink, Router } from '@angular/router';
     AsyncPipe,
     NgClass,
     NgTemplateOutlet,
+    HoverDirective,
    
     
   ],
