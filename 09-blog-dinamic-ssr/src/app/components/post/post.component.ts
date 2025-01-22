@@ -5,6 +5,7 @@ import { IPost } from '../../models/post.model';
 import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { SanitizeHtmlPipe } from '../../pipes/sanitize-html.pipe';
 import { EnvironmentPipe } from '../../pipes/environment.pipe';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post',
@@ -14,6 +15,7 @@ import { EnvironmentPipe } from '../../pipes/environment.pipe';
 })
 export class PostComponent {
   private route = inject(ActivatedRoute)
+  private meta = inject(Meta);
   
 
   public post!: IPost;
@@ -24,8 +26,16 @@ export class PostComponent {
     this.post = this.route.snapshot.data['post'];
     console.log(this.post);
 
-    
-    
+     // Añadimos el tag title
+     this.meta.addTag({
+      name: 'title',
+      content: this.post.title
+    })
+  
+  }
+  ngOnDestroy(){
+    // eliminamos el tag añadido
+    this.meta.removeTag('name=title')
   }
 
   
