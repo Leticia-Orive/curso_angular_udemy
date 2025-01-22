@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Data, ParamMap, RouterLink } from '@angular/router';
+import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/router';
 import { IPage } from '../../models/page.model';
 import { IPost } from '../../models/post.model';
 import { DatePipe, NgClass, NgOptimizedImage, SlicePipe } from '@angular/common';
@@ -27,6 +27,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class PostsComponent {
 
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   public pagination!: IPage<IPost>;
   public posts: IPost[] = [];
@@ -48,13 +49,33 @@ export class PostsComponent {
       }
     });
 
-    // Nos subscribimos a los queryparams para detectar el cambio de pagina
+    /* Nos subscribimos a los queryparams para detectar el cambio de pagina
     this.route.queryParamMap.pipe(takeUntil(this.unsubscribe$)).subscribe({
+      next: (params: ParamMap) => {
+        this.currentPage = +params.get('page')! || 1;
+      }
+    })*/
+    this.route.queryParamMap.subscribe({
       next: (params: ParamMap) => {
         this.currentPage = +params.get('page')! || 1;
       }
     })
 
+  }
+  pre(){
+    this.changePage(this.currentPage - 1);
+  }
+  next(){
+    this.changePage(this.currentPage + 1);
+  }
+
+  changePage(page: number){
+    this.router.navigate([], {
+      queryParams: {page},
+      queryParamsHandling: 'merge',
+      relativeTo: this.route
+
+    })
   }
 
   ngOnDestroy(){
