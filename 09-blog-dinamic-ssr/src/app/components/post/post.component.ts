@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+
+import { ActivatedRoute } from '@angular/router';
+import { IPost } from '../../models/post.model';
 
 @Component({
   selector: 'app-post',
@@ -7,5 +10,21 @@ import { Component } from '@angular/core';
   styleUrl: './post.component.scss'
 })
 export class PostComponent {
+  private route = inject(ActivatedRoute)
+  
+
+  public post!: IPost;
+
+  ngOnInit(){
+
+    // Obtenemos el post
+    this.post = this.route.snapshot.data['post'];
+    console.log(this.post);
+
+    
+    
+  }
+
+  
 
 }

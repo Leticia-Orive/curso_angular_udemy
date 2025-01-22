@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { postsAllResolver } from './resolvers/posts-all.resolver';
+import { postResolver } from './resolvers/post.resolver';
 
 
 export const routes: Routes = [
@@ -21,6 +22,11 @@ export const routes: Routes = [
     {
         path: 'post/:id/:name',
         loadComponent: () => import('./components/post/post.component').then(c => c.PostComponent),
+        resolve: {
+            post: postResolver
+        },
+        runGuardsAndResolvers: 'paramsOrQueryParamsChange'
+
        
     },
     {
