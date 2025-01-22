@@ -10,6 +10,7 @@ import { ThemeDirective } from '../../directives/theme.directive';
 import { ICategory } from '../../models/category.model';
 import { CategoriesService } from '../../services/categories.service';
 import { Theme } from '../../types';
+import { SlugifyPipe } from '../../pipes/slugify.pipe';
 
 
 
@@ -22,18 +23,23 @@ import { Theme } from '../../types';
     NgClass,
     NgTemplateOutlet,
     HoverDirective,
+    RouterLink,
+    
+    
    
     
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   providers: [
-    
+    SlugifyPipe
     
   ]
 })
 export class HeaderComponent {
-  private categoryService = inject(CategoriesService)
+  private categoryService = inject(CategoriesService);
+  private router = inject(Router);
+  private slugifyPipe = inject(SlugifyPipe);
 
  
 
@@ -46,7 +52,9 @@ export class HeaderComponent {
    * Mostramos los posts de una categoria
    * @param category 
    */
- 
+    showPosts(category: ICategory){
+      this.router.navigate(['category', category._id, this.slugifyPipe.transform(category.name)])
+    }
 
 
   /**

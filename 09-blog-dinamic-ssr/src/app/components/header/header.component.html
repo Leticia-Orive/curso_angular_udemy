@@ -30,7 +30,7 @@
                                             }"  appHover hoverClass="show" hoverTargetSelector=".dropdown-menu">
                                                 <a class="nav-link" role="button" [ngClass]="{
                                                     'dropdown-toggle': category.children.length > 0
-                                                }">{{category.name}}</a>
+                                                }" (click)="showPosts(category)">{{category.name}}</a>
                                                     @if(category.children.length > 0){
                                                         <ul class="dropdown-menu p-0" [ngClass]="{
                                                             'start-100 top-0': orientation == 'right'
@@ -58,9 +58,10 @@
                 </div>
             </div>
         </div>
+        <!-- Logo -->
         <div class="row mb-2">
             <div class="col-12 text-center">
-                <img class="img-fluid mt-4 mb-4" src="/img/logo.png" alt="logo">
+                <img class="img-fluid mt-4 mb-4" src="/img/logo.png" routerLink="/" alt="logo">
             </div>
         </div>
 
