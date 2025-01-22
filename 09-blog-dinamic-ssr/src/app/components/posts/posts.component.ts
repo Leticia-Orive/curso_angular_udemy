@@ -39,7 +39,18 @@ export class PostsComponent {
   ngOnInit(){
 
     // Nos subscribimos a data para los cambios de datos
-    this.route.data.pipe(takeUntil(this.unsubscribe$)).subscribe({
+   /** this.route.data.subscribe({
+      next: (data: Data) => {
+        console.log(data['posts']);
+        this.pagination = data['posts'];
+        this.posts = this.pagination.content;
+        console.log(...Array(this.pagination.totalPages).keys());
+        this.pages = [...Array(this.pagination.totalPages).keys()].map(key => key + 1);
+      }
+    });*/
+
+
+     this.route.data.pipe(takeUntil(this.unsubscribe$)).subscribe({
       next: (data: Data) => {
         console.log(data['posts']);
         this.pagination = data['posts'];
@@ -49,17 +60,20 @@ export class PostsComponent {
       }
     });
 
-    /* Nos subscribimos a los queryparams para detectar el cambio de pagina
-    this.route.queryParamMap.pipe(takeUntil(this.unsubscribe$)).subscribe({
+    // Nos subscribimos a los queryparams para detectar el cambio de pagina
+
+    /*this.route.queryParamMap.subscribe({
       next: (params: ParamMap) => {
         this.currentPage = +params.get('page')! || 1;
       }
     })*/
-    this.route.queryParamMap.subscribe({
+
+    this.route.queryParamMap.pipe(takeUntil(this.unsubscribe$)).subscribe({
       next: (params: ParamMap) => {
         this.currentPage = +params.get('page')! || 1;
       }
     })
+    
 
   }
   pre(){
