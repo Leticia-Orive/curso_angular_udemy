@@ -1,1 +1,18 @@
-<p>search works!</p>
+@if(!showSearch){
+    <!-- Icono lupa -->
+    <i class="bi bi-search ms-4" (click)="openInputSearch()"></i>
+}@else{
+
+    <!-- Input -->
+    <div class="position-absolute translate-middle input-group input-group-lg mb-3 w-50 end-0 z-2">
+        <input type="text" class="form-control" (keydown.enter)="searchPosts(search.value)" #search>
+        <button class="btn btn-secondary" type="button" (click)="searchPosts(search.value)">
+            <i class="bi bi-search"></i> Buscar
+        </button>
+    </div>
+
+    <!-- Overlay -->
+    <div class="position-fixed bg-secondary w-100 h-100 top-0 start-0 opacity-50 z-1" (click)="closeInputSearch()"></div>
+
+}
+
