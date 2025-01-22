@@ -1,1 +1,37 @@
-<p>post works!</p>
+<div class="row post">
+    <div class="col-12">
+
+        <!-- Imagen del post -->
+        @if(post.img){
+            <div class="row">
+                <div class="col-12 position-relative post__img">
+                    <img class="img-fluid" [ngSrc]="('urlServerImages' | environment) + post.img" [alt]="post.title" fill priority>
+                </div>
+            </div>
+        }
+
+        <!-- Titulo del post -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <span class="h1">{{post.title}}</span>
+            </div>
+        </div>
+
+        <!-- Fecha del post -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <p>
+                    <i class="bi bi-clock me-2"></i>{{post.publishedDate | date: 'dd/MM/YYYY'}}
+                </p>
+            </div>
+        </div>
+
+        <!-- Contenido del post -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div [innerHtml]="post.content | sanitizeHtml"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
