@@ -6,6 +6,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import {provideToastr} from 'ngx-toastr';
 import { provideStore } from '@ngxs/store';
 import { AuthState } from './state/auth/auth.state';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
@@ -15,5 +16,6 @@ export const appConfig: ApplicationConfig = {
      provideStore([
       AuthState
      ],), 
+     provideHttpClient()
   ]
 };
