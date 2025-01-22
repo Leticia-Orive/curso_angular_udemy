@@ -35,6 +35,9 @@ export class PostsService {
     return this.http.get<IPage<IPost>>(url);
 
   }
+  getPostById(id: string){
+    return this.http.get<IPost>(`${this.URL_BASE}/${id}`)
+  }
 
   
 }
