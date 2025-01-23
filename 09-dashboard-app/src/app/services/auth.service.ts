@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { IAuth, IAuthToken } from '../models/auth.model';
@@ -8,8 +8,8 @@ import { first } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
-  private http = inject(HttpClient);
+  private httpBackend = inject(HttpBackend); // usado para saltarse los interceptors
+  private http = new HttpClient(this.httpBackend);
   private URL_BASE = `${environment.urlServer}/v1/auth`
 
   login(authCredentials: IAuth){
