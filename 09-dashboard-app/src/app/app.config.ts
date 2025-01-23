@@ -1,21 +1,42 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import {provideToastr} from 'ngx-toastr';
-import { provideStore } from '@ngxs/store';
+import { provideToastr } from 'ngx-toastr';
+import { provideStore, Store } from '@ngxs/store';
 import { AuthState } from './state/auth/auth.state';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './interceptors/auth.interceptor';
+import { CheckAuthAction } from './state/auth/auth.actions';
+
+import { refreshTokenInterceptor } from './interceptors/refresh-token.interceptor';
+
+export function checkAuth(store: Store) {
+  return () => store.dispatch(new CheckAuthAction())
+}
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes),
-    provideAnimations(),//requiered for animations
-    provideToastr(),//Toastr providers
-     provideStore([
-      AuthState
-     ],), 
-     provideHttpClient()
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideRouter(routes, withComponentInputBinding()),
+    provideAnimations(),
+    provideToastr(), 
+    provideStore([
+      AuthState,
+      
+    ]),
+    provideHttpClient(
+      withInterceptors([
+        authInterceptor,
+        refreshTokenInterceptor
+      ])
+    ),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: checkAuth,
+      multi: true,
+      deps: [Store]
+    }
   ]
 };

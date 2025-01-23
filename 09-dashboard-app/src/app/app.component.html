@@ -1,6 +1,18 @@
 <div class="container-fluid h-100">
   <div class="row h-100">
-    <div class="col-12 h-100">
+
+    <!-- Obtenemos si estamos autenticados -->
+    @let isAutisAuthenticated = isAuthenticated$ | async;
+    @if(isAutisAuthenticated){
+      <div class="col-md-2 col-1 p-0">
+        <app-sidebar/>
+      </div>
+
+    }
+    <div class=" h-100" [ngClass]="{
+      'col-md-10 col-11': isAutisAuthenticated,
+      'col-12': !isAutisAuthenticated
+    }">
       <router-outlet/>
     </div>
   </div>

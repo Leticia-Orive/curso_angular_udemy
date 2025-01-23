@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { State, Action, StateContext } from '@ngxs/store';
-import {  LoginAction, LogoutAction } from './auth.actions';
+import { State, Action, StateContext, Selector } from '@ngxs/store';
+import {  CheckAuthAction, LoginAction, LogoutAction } from './auth.actions';
 import { AuthService } from '../../services/auth.service';
 import { tap } from 'rxjs';
 import { IAuthToken } from '../../models/auth.model';
@@ -22,6 +22,11 @@ const defaults = {
 })
 @Injectable()
 export class AuthState {
+
+  @Selector()
+  static isAuthenticated(state: AuthStateModel) {
+    return state.isAuthenticated;
+  }
 
   private authService = inject(AuthService);
   private cookieService = inject(CookieService)
@@ -58,5 +63,13 @@ export class AuthState {
         this.router.navigateByUrl('login')
       })
     )
+  }
+
+  @Action(CheckAuthAction)
+  checkAuth({ setState }: StateContext<AuthStateModel>) {
+    // Comprobamos si estamos logueados
+    setState({
+      isAuthenticated: this.cookieService.check(AUTH_COOKIE)
+    })
   }
 }

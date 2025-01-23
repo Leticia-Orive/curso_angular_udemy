@@ -9,3 +9,7 @@ export class LogoutAction {
   static readonly type = '[Auth] Logout';
   
 }
+export class CheckAuthAction {
+  static readonly type = '[Auth] Check Auth';
+  
+}
