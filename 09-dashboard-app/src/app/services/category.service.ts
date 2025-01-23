@@ -1,9 +1,40 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { first } from 'rxjs';
+import { ICategory } from '../models/category.model';
+import { IPage } from '../models/page.model';
+import { SIZE_PAGINATION } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  constructor() { }
+  private http = inject(HttpClient)
+  private URL_BASE = `${environment.urlServer}/v1/categories`
+
+  getCategories(page: number, q?: string, sortBy?: string, sort?: string){
+
+    // URL base
+    let url = `${this.URL_BASE}?page=${page}&size=${SIZE_PAGINATION}`;
+
+    // Completamos la URL
+    if(q){
+      url += `&q=${q}`;
+    }
+    
+    if(sortBy){
+      url += `&sortBy=${sortBy}`;
+    }
+
+    if(sort){
+      url += `&sort=${sort}`;
+    }
+
+    return this.http.get<IPage<ICategory>>(url).pipe(first())
+
+  }
+
+  
 }
