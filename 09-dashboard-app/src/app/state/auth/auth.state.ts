@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-import {  LoginAction } from './auth.actions';
+import {  LoginAction, LogoutAction } from './auth.actions';
 import { AuthService } from '../../services/auth.service';
 import { tap } from 'rxjs';
 import { IAuthToken } from '../../models/auth.model';
@@ -37,6 +37,22 @@ export class AuthState {
           isAuthenticated: true
         })
         this.router.navigateByUrl('dashboard/categories')
+      })
+    )
+  }
+
+  @Action(LogoutAction)
+  logout({ setState }: StateContext<AuthStateModel>) {
+    return this.authService.logout().pipe(
+      tap( () => {
+        // Borramos las cookies
+        this.cookieService.delete(AUTH_COOKIE, '/', undefined, false, 'Strict')
+        this.cookieService.delete(REFRESH_COOKIE, '/', undefined, false, 'Strict')
+        // Indicamos que no estamos autenticados
+        setState({
+          isAuthenticated: false
+        })
+        this.router.navigateByUrl('login')
       })
     )
   }

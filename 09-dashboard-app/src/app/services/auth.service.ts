@@ -16,4 +16,8 @@ export class AuthService {
     return this.http.post<IAuthToken>(`${this.URL_BASE}/login`, authCredentials).pipe(first())
   }
 
+  logout(){
+    return this.http.post<IAuthToken>(`${this.URL_BASE}/logout`, {}).pipe(first())
+  }
+
 }
