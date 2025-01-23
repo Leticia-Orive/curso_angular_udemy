@@ -7,11 +7,14 @@ import { CategoriesComponent } from './components/dashboard/components/categorie
 import { AddCategoryComponent } from './components/dashboard/components/categories/components/add-category/add-category.component';
 import { UpdateCategoryComponent } from './components/dashboard/components/categories/components/update-category/update-category.component';
 import { LoginComponent } from './components/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [authGuard],
+        canActivateChild: [authGuard],
         children: [
             {
                 path: 'posts',
