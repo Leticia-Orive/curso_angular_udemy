@@ -2,36 +2,36 @@
     <div class="col-12 h-100 bg-dark">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg text-light pt-0">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-column w-100">
-                    <li class="nav-item" routerLinkActive="bg-primary" [routerLink]="['dashboard', 'posts']">
+                    <li class="nav-item" routerLinkActive="bg-primary" [routerLink]="['dashboard', 'posts']" title="Entradas">
                         <div class="row g-0 pt-2 pb-2">
-                            <div class="col-2 ps-1 text-center">
+                            <div class="col-12 col-md-2 ps-md-1 text-center">
                                 <i class="bi bi-pencil-square"></i>
                             </div>
-                            <div class="col-10 ps-3">
+                            <div class="col-md-10 ps-3 d-none d-md-block">
                                 <span>Entradas</span>
                             </div>
                         </div>
 
                     </li>
-                    <li class="nav-item" routerLinkActive="bg-primary" [routerLink]="['dashboard', 'categories']">
+                    <li class="nav-item" routerLinkActive="bg-primary" [routerLink]="['dashboard', 'categories']" title="Categorias">
                         <div class="row g-0 pt-2 pb-2">
-                            <div class="col-2 ps-1 text-center">
+                            <div class="col-12 col-md-2 ps-md-1 text-center">
                                 <i class="bi bi-bookmarks-fill"></i>
                             </div>
-                            <div class="col-10 ps-3">
+                            <div class="col-md-10 ps-3 d-none d-md-block">
                                 <span>Categorías</span>
                             </div>
                         </div>
 
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" title="Logout">
                         <div class="row g-0 pt-2 pb-2">
-                            <div class="col-2 ps-1 text-center">
+                            <div class="col-12 col-md-2 ps-md-1 text-center">
                                 <i class="bi bi-power"></i>
                             </div>
-                            <div class="col-10 ps-3">
+                            <div class="col-md-10 ps-3 d-none d-md-block">
                                 <span>Logout</span>
                             </div>
                         </div>
