@@ -15,7 +15,6 @@ export const routes: Routes = [
         children: [
             {
                 path: 'posts',
-                
                 children: [
                     {
                         path: '',
@@ -33,7 +32,6 @@ export const routes: Routes = [
             },
             {
                 path: 'categories',
-                
                 children: [
                     {
                         path: '',
