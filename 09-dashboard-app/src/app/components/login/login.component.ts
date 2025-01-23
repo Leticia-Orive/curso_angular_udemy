@@ -28,9 +28,9 @@ export class LoginComponent {
   }
 
   checkLogin(){
-
+    // Obtenemos las credenciales
     const authCredentials: IAuth = this.formLogin.value;
-
+    // Hacemos el login
     this.store.dispatch(new LoginAction({ authCredentials })).subscribe({
       next: () => {
         this.toastrService.success(

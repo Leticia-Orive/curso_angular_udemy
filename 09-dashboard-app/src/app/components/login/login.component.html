@@ -1,21 +1,21 @@
 <div class="row h-100 align-items-center w-25 m-auto">
     <div class="col-12">
         <form class="border rounded p-3" [formGroup]="formLogin" (ngSubmit)="checkLogin()">
-
+            <!-- Email -->
             <div class="row">
                 <div class="col-12">
                     <label for="email" class="form-label">Email (*): </label>
                     <input type="email" name="email" id="email" formControlName="email" class="form-control">
                 </div>
             </div>
-
+            <!-- Password -->
             <div class="row mt-2">
                 <div class="col-12">
                     <label for="password" class="form-label">Contraseña (*):</label>
                     <input type="password" name="password" id="password" formControlName="password" class="form-control">
                 </div>
             </div>
-
+            <!-- Boton submit -->
             <div class="row mt-2">
                 <div class="col-12 d-grid gap-2">
                     <button class="btn btn-primary" [disabled]="formLogin.invalid" type="submit">Login</button>

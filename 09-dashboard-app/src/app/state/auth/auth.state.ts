@@ -31,8 +31,11 @@ export class AuthState {
   login({ setState }: StateContext<AuthStateModel>, { payload }: LoginAction) {
     return this.authService.login(payload.authCredentials).pipe(
       tap( (authToken: IAuthToken) => {
+        // Seteamos la cookie AUTH
         this.cookieService.set(AUTH_COOKIE, authToken.accessToken, authToken.accessTokenExpires, '/', undefined, false, 'Strict')
+        // Seteamos la cookie REFRESH
         this.cookieService.set(REFRESH_COOKIE, authToken.refreshToken, authToken.refreshTokenExpires, '/', undefined, false, 'Strict')
+        // Indicamos que estamos autenticados
         setState({
           isAuthenticated: true
         })
