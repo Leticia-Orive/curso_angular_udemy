@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { IAuth, IAuthToken } from '../models/auth.model';
 import { first } from 'rxjs';
+import { IRefreshToken } from '../models/refresh-token.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,11 @@ export class AuthService {
   }
 
   logout(){
-    return this.http.post<IAuthToken>(`${this.URL_BASE}/logout`, {}).pipe(first())
+    return this.http.post(`${this.URL_BASE}/logout`, {}).pipe(first())
+  }
+
+  refreshToken(refreshToken: IRefreshToken){
+    return this.http.post<IAuthToken>(`${this.URL_BASE}/refresh-token`, refreshToken).pipe(first())
   }
 
 }
