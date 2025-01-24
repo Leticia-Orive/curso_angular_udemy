@@ -32,6 +32,7 @@
                     <app-table-data 
                     [columns]="columns"
                     [rows]="pagination.content"
+                    selectable
                     (sortData)="sortData($event)"
                     
                     />
