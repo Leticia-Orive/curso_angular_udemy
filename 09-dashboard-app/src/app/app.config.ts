@@ -10,6 +10,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { CheckAuthAction } from './state/auth/auth.actions';
 import { CategoriesState } from './state/categories/categories.state';
+import { refreshTokenInterceptor } from './interceptors/refresh-token.interceptor';
 
 
 
@@ -31,6 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([
         authInterceptor,
+        refreshTokenInterceptor
         
       ])
     ),
