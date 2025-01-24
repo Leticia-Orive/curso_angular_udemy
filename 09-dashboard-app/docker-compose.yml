@@ -15,8 +15,7 @@ services:
       - /app/node_modules
     ports:
       - 3000:3000
-    environment:
-      - AUTH_EXPIRES_IN =30s
+    
     command: npm run start:prod
     depends_on:
       - mongodb

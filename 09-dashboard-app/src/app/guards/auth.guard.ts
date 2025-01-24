@@ -1,6 +1,6 @@
 import { CanActivateFn } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AUTH_COOKIE } from '../constants';
+import { AUTH_COOKIE, REFRESH_COOKIE } from '../constants';
 import { inject } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { LogoutAction } from '../state/auth/auth.actions';
@@ -27,9 +27,25 @@ export const authGuard: CanActivateFn = (route, state) => {
 
  // Sino existe o el tiempo del token en menor, nos deslogueamos
  if(!decodedToken.exp || (decodedToken.exp < currentTime)) {
-   const store = inject(Store)
-   store.dispatch(new LogoutAction());
-   return false;
+
+  // Obtenemos la cookie REFRESH
+  const refreshToken = cookieService.get(REFRESH_COOKIE);
+
+  if(refreshToken){
+    const decodedRefreshToken = jwtDecode(refreshToken);
+    // Sino existe o el tiempo del token en menor, nos deslogueamos
+    if(!decodedRefreshToken.exp || (decodedRefreshToken.exp < currentTime)){
+      const store = inject(Store)
+      store.dispatch(new LogoutAction());
+      return false;
+    }
+
+  }else{
+    const store = inject(Store)
+    store.dispatch(new LogoutAction());
+    return false;
+  }
+  
  }
 
   }catch(error){
