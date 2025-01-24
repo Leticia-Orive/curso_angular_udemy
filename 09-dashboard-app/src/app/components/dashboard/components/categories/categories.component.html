@@ -26,7 +26,10 @@
             <div class="col-12">
 
                 @if(pagination$ | async; as pagination){
-                    <pre>{{pagination| json}}</pre>
+                   <!-- esto es cunado se pone el jsonPipe
+                    <pre>{{pagination| json}}</pre>--> 
+
+                    <app-table-data/>
                 }
                     
             </div>

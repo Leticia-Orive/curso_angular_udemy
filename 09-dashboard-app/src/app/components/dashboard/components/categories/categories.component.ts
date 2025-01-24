@@ -6,11 +6,12 @@ import { Observable } from 'rxjs';
 import { IPage } from '../../../../models/page.model';
 import { ICategory } from '../../../../models/category.model';
 import { CategoriesState } from '../../../../state/categories/categories.state';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { TableDataComponent } from '../../../../shared/components/table-data/table-data.component';
 
 @Component({
   selector: 'app-categories',
-  imports: [RouterLink, AsyncPipe, JsonPipe],
+  imports: [RouterLink, AsyncPipe, TableDataComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
