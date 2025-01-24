@@ -1,5 +1,21 @@
 <div class="row table-data">
     <div class="col-12">
+        @if(searchable){
+            <div class="row">
+                <div class="col-md-4 col-12">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" [placeholder]="placeholderSearch"
+                        [(ngModel)]="searchText"
+                         >
+                         <button class="btn btn-outline-secondary" type="button"
+                         (click)="searchData()" >Buscar</button>
+                        
+                      </div>
+
+                </div>
+            </div>
+        }
+
         
         <div class="row">
             <div class="col-12 table-responsive">

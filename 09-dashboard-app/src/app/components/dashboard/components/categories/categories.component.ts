@@ -73,4 +73,10 @@ export class CategoriesComponent {
     this.getCategories();
   }
 
+  search(text: string){
+    this.searchText = text;
+    this.getCategories();
+
+  }
+
 }

@@ -33,7 +33,10 @@
                     [columns]="columns"
                     [rows]="pagination.content"
                     selectable
+                    searchable
+                    placeholderSearch="Buscar por nombre..."
                     (sortData)="sortData($event)"
+                    (search)="search($event)"
                     
                     />
                 }
