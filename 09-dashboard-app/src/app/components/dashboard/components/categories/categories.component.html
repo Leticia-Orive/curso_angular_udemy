@@ -1,1 +1,26 @@
-<p>categories works!</p>
+<div class="row">
+    <div class="col-12">
+        <!-- Cabecera -->
+        <div class="row">
+            <div class="col-12 border-bottom p-2">
+                <span class="h3 me-4">Categorias</span>
+                <!--Esto es una forma de añadirlo-->
+                <button class="btn btn-primary btn-sm mb-2" [routerLink]="['add']"> 
+                <!--Esto es otra forma de añadirlo
+                <button class="btn btn-primary btn-sm mb-2" [routerLink]="['/dashboard','categories','add']"></button>-->
+                    <i class="bi bi-plus"></i>
+                    Añadir categoria
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+
+                @if(pagination$ | async; as pagination){
+                    <pre>{{pagination| json}}</pre>
+                }
+                    
+            </div>
+        </div>
+    </div>
+</div>
