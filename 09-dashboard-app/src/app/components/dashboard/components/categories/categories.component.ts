@@ -8,6 +8,7 @@ import { ICategory } from '../../../../models/category.model';
 import { CategoriesState } from '../../../../state/categories/categories.state';
 import { AsyncPipe } from '@angular/common';
 import { TableDataComponent } from '../../../../shared/components/table-data/table-data.component';
+import { IColumn } from '../../../../shared/components/table-data/models/column.model';
 
 @Component({
   selector: 'app-categories',
@@ -18,6 +19,25 @@ import { TableDataComponent } from '../../../../shared/components/table-data/tab
 export class CategoriesComponent {
 
   private store = inject(Store);
+
+  // columnas
+  public columns: IColumn[] = [
+    {
+      display: 'Nombre',
+      property: 'name',
+      canSort: true,
+    },
+    {
+      display: 'Categoría padre',
+      property: 'parent',
+      canSort: true,
+    },
+    {
+      display: 'Orden',
+      property: 'order',
+      canSort: true,
+    }
+  ]
 
 // Parametros de busquedas
   private page =1;

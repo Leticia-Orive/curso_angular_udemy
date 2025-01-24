@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IColumn } from './models/column.model';
 
 @Component({
   selector: 'app-table-data',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   templateUrl: './table-data.component.html',
   styleUrl: './table-data.component.scss'
 })
-export class TableDataComponent {
+export class TableDataComponent<T extends { [key: string]: any}> {
+  @Input() columns: IColumn[] = [];
+  @Input() rows: T[] = [];
 
 }

@@ -29,7 +29,11 @@
                    <!-- esto es cunado se pone el jsonPipe
                     <pre>{{pagination| json}}</pre>--> 
 
-                    <app-table-data/>
+                    <app-table-data 
+                    [columns]="columns"
+                    [rows]="pagination.content"
+                    
+                    />
                 }
                     
             </div>
