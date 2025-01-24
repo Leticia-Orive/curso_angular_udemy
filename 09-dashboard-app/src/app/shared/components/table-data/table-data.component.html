@@ -7,7 +7,23 @@
                     <thead>
                         <tr>
                             @for(col of columns; track col){
-                              <th>{{col.display}}</th>
+                              <th>
+                                <!-- Añadimos las flechas de ordenacion -->
+                                @if(col.canSort){
+                                    @switch(col.sort){
+                                        @case("ASC"){
+                                            <i class="bi bi-arrow-up me-1" (click)="sort(col, 'DESC')"></i>
+                                        }
+                                        @case("DESC"){
+                                            <i class="bi bi-arrow-down me-1" (click)="sort(col)"></i>
+                                        }
+                                        @default {
+                                            <i class="bi bi-arrow-down-up me-1" (click)="sort(col, 'ASC')"></i>
+                                        }
+                                    }
+                                } 
+                                <span>{{col.display}}</span>
+                            </th>
                             }
                             
                         </tr>

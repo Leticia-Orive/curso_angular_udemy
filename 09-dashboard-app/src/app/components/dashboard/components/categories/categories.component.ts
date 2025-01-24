@@ -12,58 +12,65 @@ import { IColumn } from '../../../../shared/components/table-data/models/column.
 
 @Component({
   selector: 'app-categories',
+  standalone: true,
   imports: [RouterLink, AsyncPipe, TableDataComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent {
 
-  private store = inject(Store);
-
-  // columnas
+  private store = inject(Store)
+// columnas
   public columns: IColumn[] = [
     {
       display: 'Nombre',
       property: 'name',
       canSort: true,
+      sort: 'ASC'
     },
     {
       display: 'Categoría padre',
       property: 'parent',
-      canSort: true,
+      canSort: true
     },
     {
       display: 'Orden',
       property: 'order',
-      canSort: true,
+      canSort: true
     }
   ]
-
 // Parametros de busquedas
-  private page =1;
-  private sortBy = 'name';
-  private sort = 'ASC';
-  private searchText = '';
+  private page = 1;
+  private sortBy = 'name'
+  private sort: string | undefined = 'ASC'
+  private searchText = ''
 
   // Obtener paginacion
   public pagination$: Observable<IPage<ICategory> | null> = this.store.select(CategoriesState.pagination)
 
-
   ngOnInit(){
+
     this.getCategories();
   }
-
- /**
+/**
    * Obtenemos las categorias paginadas
    */
   getCategories(){
     this.store.dispatch(new GetCategoriesAction({
       page: this.page,
       q: this.searchText,
-      sortBy: this.sortBy,
       sort: this.sort,
+      sortBy: this.sortBy
     }))
   }
-    
+ /**
+   * Modificamos la ordenación de la columna
+   * @param column 
+   */
+  sortData(column: IColumn){
+    this.sortBy = column.property
+    this.sort = column.sort
+    this.getCategories();
+  }
 
 }
