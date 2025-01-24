@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import {  CheckAuthAction, LoginAction, LogoutAction } from './auth.actions';
+import {  CheckAuthAction, LoginAction, LogoutAction, RefreshTokenAction } from './auth.actions';
 import { AuthService } from '../../services/auth.service';
 import { tap } from 'rxjs';
 import { IAuthToken } from '../../models/auth.model';
@@ -71,5 +71,17 @@ export class AuthState {
     setState({
       isAuthenticated: this.cookieService.check(AUTH_COOKIE)
     })
+  }
+
+  @Action(RefreshTokenAction)
+  refreshToken({ }: StateContext<AuthStateModel>, { payload }: RefreshTokenAction) {
+    return this.authService.refreshToken(payload.refreshToken).pipe(
+      tap( (authToken: IAuthToken) => {
+        // Seteamos la cookie AUTH de nuevo
+        this.cookieService.set(AUTH_COOKIE, authToken.accessToken, authToken.accessTokenExpires, '/', undefined, false, 'Strict')
+        // Seteamos la cookie REFRESH de nuevo
+        this.cookieService.set(REFRESH_COOKIE, authToken.refreshToken, authToken.refreshTokenExpires, '/', undefined, false, 'Strict')
+      })
+    )
   }
 }
