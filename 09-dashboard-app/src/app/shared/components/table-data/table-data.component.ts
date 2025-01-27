@@ -1,15 +1,18 @@
-import { booleanAttribute, Component, EventEmitter, Input, numberAttribute, Output } from '@angular/core';
+import { booleanAttribute, Component, ContentChild, EventEmitter, Input, numberAttribute, Output, TemplateRef } from '@angular/core';
 import { IColumn } from './models/column.model';
 import { FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-table-data',
-  imports: [FormsModule, NgClass],
+  imports: [FormsModule, NgClass, NgTemplateOutlet],
   templateUrl: './table-data.component.html',
   styleUrl: './table-data.component.scss'
 })
 export class TableDataComponent<T extends { [key: string]: any}> {
+
+  @ContentChild("templateRow") templateRow!: TemplateRef<any>;
+
   @Input() columns: IColumn[] = [];
   @Input() rows: T[] = [];
   @Input ({transform: booleanAttribute}) selectable = false; // Muestra los checkboxes para seleccionar filas

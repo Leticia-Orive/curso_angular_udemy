@@ -39,9 +39,23 @@
                     placeholderSearch="Buscar por nombre..."
                     (sortData)="sortData($event)"
                     (search)="search($event)"
-                    (selectPage)="selectPage($event)"
+                    (selectPage)="selectPage($event)">
+
+                    <!-- Custom template -->
+                        <ng-template #templateRow let-row="row" let-col="col">
+                            @switch(col.property){
+                                @case ('parent'){
+                                    @if(row[col.property]){
+                                        <span>{{row[col.property]['name']}}</span>
+                                    }
+                                }
+                                @default {
+                                    <span>{{row[col.property]}}</span>
+                                }
+                            }
+                        </ng-template>
+                    </app-table-data>
                     
-                    />
                 }
                     
             </div>

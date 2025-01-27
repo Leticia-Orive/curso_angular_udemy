@@ -61,7 +61,12 @@
                                 }
                             
                                     @for(col of columns; track col){
-                                        <td>{{row[col.property]}}</td>
+                                        <td>
+                                            <ng-template *ngTemplateOutlet="templateRow || templateRowDefault; context: {row, col}"></ng-template>
+                                        </td>
+                                        <ng-template #templateRowDefault>
+                                            <span>{{row[col.property]}}</span>
+                                        </ng-template>
                                     }
 
                             </tr>
