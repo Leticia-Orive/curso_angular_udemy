@@ -1,9 +1,9 @@
-export interface IAction{
-    name: string
+export interface IAction <T extends string> {
+    name: T
     display: string
 }
 
-export interface IActionSelected<T> {
-    action: string | null
+export interface IActionSelected<T, K extends string> {
+    action: K | null
     items: T[]
 }
