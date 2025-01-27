@@ -62,6 +62,7 @@
                         <!-- Mostramos las filas -->
                         @for(row of rows; track row; let index = $index){
                             <tr (click)="chooseRow(row)">
+                                 <!-- Columna para seleccionar la fila -->
                                 @if(selectable){
                                     <td (click)="$event.stopPropagation()">
                                         <input class="form-check-input" type="checkbox" [(ngModel)]="selectedRows[index]" >  
@@ -72,6 +73,7 @@
                                         <td>
                                             <ng-template *ngTemplateOutlet="templateRow || templateRowDefault; context: {row, col}"></ng-template>
                                         </td>
+                                        <!-- Plantilla por defecto -->
                                         <ng-template #templateRowDefault>
                                             <span>{{row[col.property]}}</span>
                                         </ng-template>
@@ -88,29 +90,44 @@
                   </table>
             </div>
         </div>
-        <!-- Paginacion -->
-        <div class="row">
-           
-            <div class=" col-12">
-                 @if(totalPages > 1){
-                    <nav>
-                    <ul class="pagination justify-content-end">
-                        @for(page of pages; track page){
-                            <li class="page-item" [ngClass]="{
-                                'active': currentPage == page,
-                            }">
-                                <a class="page-link" (click)="changePage(page)">{{page}}</a></li>
-                        }
-                      
-                     
-                      
-                      
-                    </ul>
-                  </nav>
-                 }
-                
-
+        <!-- Bloque de acciones y paginacion -->
+        @if((actionsAvailables.length > 0 && selectable) || totalPages > 1){
+            <div class="row">
+                <!-- Acciones -->
+                @if(actionsAvailables.length > 0 && selectable){
+                    <div class="col-md-4 col-12">
+                        <div class="input-group">
+                            <select class="form-select" [(ngModel)]="actionSelected.action">
+                                <option [ngValue]="null">Acciones en lote</option>
+                                @for(action of actionsAvailables; track action){
+                                    <option [value]="action.name">{{action.display}}</option>
+                                }
+                            </select>
+                            <button class="btn btn-outline-secondary" [disabled]="!actionSelected.action" type="button" (click)="sendAction()">Aplicar</button>
+                          </div>
+                    </div>
+                }
+                <!-- Paginacion -->
+                @if(totalPages > 1){
+                <div class="col-12" [ngClass]="{
+                    'offset-md-2 col-md-6': actionsAvailables.length > 0 && selectable
+                }">
+                        <nav>
+                            <ul class="pagination justify-content-md-end justify-content-center mt-3 mt-md-0">
+                                @for(page of pages; track page){
+                                    <li class="page-item" [ngClass]="{
+                                        'active': currentPage == page
+                                    }">
+                                        <a class="page-link" (click)="changePage(page)">{{page}}</a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                </div>
+                }
+            </div>
+            }
+    
+    
         </div>
-
     </div>
-</div>

@@ -2,6 +2,7 @@ import { booleanAttribute, Component, ContentChild, EventEmitter, Input, numberA
 import { IColumn } from './models/column.model';
 import { FormsModule } from '@angular/forms';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { IAction, IActionSelected } from './models/action.model';
 
 @Component({
   selector: 'app-table-data',
@@ -9,7 +10,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
   templateUrl: './table-data.component.html',
   styleUrl: './table-data.component.scss'
 })
-export class TableDataComponent<T extends { [key: string]: any}> {
+export class TableDataComponent<T extends { [key: string]: any}, K extends string> {
 
   @ContentChild("templateRow") templateRow!: TemplateRef<any>;
 
@@ -21,17 +22,24 @@ export class TableDataComponent<T extends { [key: string]: any}> {
   @Input({transform: numberAttribute}) totalPages = 0;
   @Input({transform: numberAttribute}) currentPage = 1;
   @Input({ transform: numberAttribute }) totalElements = 0;
+  @Input() actionsAvailables: IAction<K>[] = [];
 
   //eventos
   @Output() sortData = new EventEmitter<IColumn>();
   @Output() search = new EventEmitter<string>();
   @Output() selectPage = new EventEmitter<number>();
   @Output() selectRow = new EventEmitter<T>();
+  @Output() selectAction = new EventEmitter<IActionSelected<T, K>>();
 
   public selectedRows: boolean[] = [];// paginas seleccionadas
   public allChecked = false;
   public searchText = '';
   public pages: number[] = []; // paginas
+  public actionSelected: IActionSelected<T, K> = {
+    action: null,
+    items: []
+  }
+  
 
   ngOnInit(){
     this.selectedRows = [...Array(this.rows.length)].map(value => false);
@@ -82,7 +90,9 @@ export class TableDataComponent<T extends { [key: string]: any}> {
    chooseRow(row: T){
     this.selectRow.emit(row)
   }
-
+  sendAction(){
+    console.log(this.actionSelected)
+  }
 
 
 }

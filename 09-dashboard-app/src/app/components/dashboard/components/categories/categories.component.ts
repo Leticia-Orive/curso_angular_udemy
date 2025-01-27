@@ -9,6 +9,8 @@ import { CategoriesState } from '../../../../state/categories/categories.state';
 import { AsyncPipe } from '@angular/common';
 import { TableDataComponent } from '../../../../shared/components/table-data/table-data.component';
 import { IColumn } from '../../../../shared/components/table-data/models/column.model';
+import { IAction } from '../../../../shared/components/table-data/models/action.model';
+import { TAction } from '../../../../types';
 
 @Component({
   selector: 'app-categories',
@@ -43,6 +45,16 @@ export class CategoriesComponent {
       canSort: true
     }
   ]
+  
+  // acciones
+  public actionsAvailables: IAction<TAction>[] = [
+    {
+      name: 'delete',
+      display: 'Borrar'
+    }
+  ]
+
+
 // Parametros de busquedas
   private page = 1;
   private sortBy = 'name'
