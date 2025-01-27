@@ -75,6 +75,29 @@
                   </table>
             </div>
         </div>
+        <!-- Paginacion -->
+        <div class="row">
+           
+            <div class=" col-12">
+                 @if(totalPages > 1){
+                    <nav>
+                    <ul class="pagination justify-content-end">
+                        @for(page of pages; track page){
+                            <li class="page-item" [ngClass]="{
+                                'active': currentPage == page,
+                            }">
+                                <a class="page-link" (click)="changePage(page)">{{page}}</a></li>
+                        }
+                      
+                     
+                      
+                      
+                    </ul>
+                  </nav>
+                 }
+                
+
+        </div>
 
     </div>
 </div>

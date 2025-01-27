@@ -32,11 +32,14 @@
                     <app-table-data 
                     [columns]="columns"
                     [rows]="pagination.content"
+                    [currentPage]="pagination.page"
+                    [totalPages]="pagination.totalPages"
                     selectable
                     searchable
                     placeholderSearch="Buscar por nombre..."
                     (sortData)="sortData($event)"
                     (search)="search($event)"
+                    (selectPage)="selectPage($event)"
                     
                     />
                 }

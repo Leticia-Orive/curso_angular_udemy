@@ -72,11 +72,23 @@ export class CategoriesComponent {
     this.sort = column.sort
     this.getCategories();
   }
-
+/**
+   * Modifica el texto a buscar
+   * @param text 
+   */
   search(text: string){
     this.searchText = text;
     this.getCategories();
 
   }
+   /**
+   * Cambiamos de pagina
+   * @param page 
+   */
+   selectPage(page: number){
+    this.page = page;
+    this.getCategories();
+  }
+
 
 }
