@@ -40,7 +40,9 @@
                     placeholderSearch="Buscar por nombre..."
                     (sortData)="sortData($event)"
                     (search)="search($event)"
-                    (selectPage)="selectPage($event)">
+                    (selectPage)="selectPage($event)"
+                    (selectRow)="selectRow($event)"
+                    >
 
                     <!-- Custom template -->
                         <ng-template #templateRow let-row="row" let-col="col">

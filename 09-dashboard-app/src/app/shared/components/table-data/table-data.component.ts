@@ -26,6 +26,7 @@ export class TableDataComponent<T extends { [key: string]: any}> {
   @Output() sortData = new EventEmitter<IColumn>();
   @Output() search = new EventEmitter<string>();
   @Output() selectPage = new EventEmitter<number>();
+  @Output() selectRow = new EventEmitter<T>();
 
   public selectedRows: boolean[] = [];// paginas seleccionadas
   public allChecked = false;
@@ -72,6 +73,14 @@ export class TableDataComponent<T extends { [key: string]: any}> {
   changePage(page: number){
     this.currentPage = page;
     this.selectPage.emit(page);
+  }
+
+   /**
+   * Enviamos la fila clickada
+   * @param row 
+   */
+   chooseRow(row: T){
+    this.selectRow.emit(row)
   }
 
 

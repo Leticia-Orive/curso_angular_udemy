@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink,  Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { GetCategoriesAction } from '../../../../state/categories/categories.actions';
 import { Observable } from 'rxjs';
@@ -20,6 +20,10 @@ import { IColumn } from '../../../../shared/components/table-data/models/column.
 export class CategoriesComponent {
 
   private store = inject(Store)
+  private router = inject(Router)
+  private route = inject(ActivatedRoute);
+
+  
 // columnas
   public columns: IColumn[] = [
     {
@@ -89,6 +93,12 @@ export class CategoriesComponent {
     this.page = page;
     this.getCategories();
   }
-
+/**
+   * Redirigimos a actualizar la categoria
+   * @param category 
+   */
+selectRow(category: ICategory){
+  this.router.navigate(['update', category._id], { relativeTo: this.route })
+}
 
 }

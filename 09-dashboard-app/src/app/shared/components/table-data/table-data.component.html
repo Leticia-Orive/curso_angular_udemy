@@ -61,9 +61,9 @@
                     <tbody>
                         <!-- Mostramos las filas -->
                         @for(row of rows; track row; let index = $index){
-                            <tr>
+                            <tr (click)="chooseRow(row)">
                                 @if(selectable){
-                                    <td>
+                                    <td (click)="$event.stopPropagation()">
                                         <input class="form-check-input" type="checkbox" [(ngModel)]="selectedRows[index]" >  
                                     </td>
                                 }
