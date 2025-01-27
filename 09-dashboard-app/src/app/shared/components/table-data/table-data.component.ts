@@ -20,6 +20,7 @@ export class TableDataComponent<T extends { [key: string]: any}> {
   @Input() placeholderSearch = '';
   @Input({transform: numberAttribute}) totalPages = 0;
   @Input({transform: numberAttribute}) currentPage = 1;
+  @Input({ transform: numberAttribute }) totalElements = 0;
 
   //eventos
   @Output() sortData = new EventEmitter<IColumn>();

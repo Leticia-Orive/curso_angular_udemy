@@ -1,18 +1,26 @@
 <div class="row table-data">
     <div class="col-12">
-        @if(searchable){
-            <div class="row">
-                <div class="col-md-4 col-12">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" [placeholder]="placeholderSearch"
-                        [(ngModel)]="searchText"
-                         >
-                         <button class="btn btn-outline-secondary" type="button"
-                         (click)="searchData()" >Buscar</button>
-                        
-                      </div>
-
-                </div>
+        <!-- Bloque del buscador y numero de elementos -->
+        @if(searchable || totalElements > 0){
+            <div class="row mb-3 mt-3">
+                @if(searchable){
+                    <div class="col-12" [ngClass]="{'col-md-4': totalElements > 0 }">
+                        <div class="input-group ">
+                            <input type="text" class="form-control" [placeholder]="placeholderSearch"
+                            [(ngModel)]="searchText"
+                             >
+                             <button class="btn btn-outline-secondary" type="button"
+                             (click)="searchData()" >Buscar</button>                        
+                          </div>
+                    </div>
+                }
+                @if(totalElements > 0){
+                   <!-- Mostramos el total de elementos -->
+                <div class="col-md-8 col-12 text-end align-self-end pe-4" 
+                [ngClass]="{'col-md-8': searchable }">
+                    <span class="h5">Total de elementos: {{totalElements}}</span>
+                </div> 
+                }
             </div>
         }
 
