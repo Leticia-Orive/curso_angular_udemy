@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink,  Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { GetCategoriesAction } from '../../../../state/categories/categories.actions';
+import { DeleteCategoriesAction, GetCategoriesAction } from '../../../../state/categories/categories.actions';
 import { Observable } from 'rxjs';
 import { IPage } from '../../../../models/page.model';
 import { ICategory } from '../../../../models/category.model';
@@ -121,8 +121,8 @@ selectRow(category: ICategory){
  selectAction(actionSelected: IActionSelected<ICategory, TAction>){
   switch(actionSelected.action){
     case 'delete':
-      console.log('vamos a borrar');
-      console.log(actionSelected);
+      const ids = actionSelected.items.map((category: ICategory) => category._id!)
+      this.deleteCategories(ids);
       break;
     }
   }
@@ -136,4 +136,35 @@ selectRow(category: ICategory){
       'Error'
     )
   }
+   deleteCategories(ids: string[]){
+
+    this.store.dispatch(new DeleteCategoriesAction({ ids })).subscribe({
+      next: () => {
+        
+        this.toastrService.success(
+          'Categorías eliminadas',
+          'Éxito'
+        )
+
+        // Obtengo la paginacion actual
+        const pagination = this.store.selectSnapshot(CategoriesState.pagination);
+
+        // Si la pagina es diferente de 1 y hemos eliminado toda la pagina, echamos una pagina hacia atras
+        if(this.page !== 1 && pagination?.content.length === ids.length){
+          this.page = this.page - 1;
+        }
+
+        // Refrescamos
+        this.getCategories();
+      }, error: (error) =>{
+        console.error(error);
+        this.toastrService.error(
+          'Error al borrar categorías',
+          'Error'
+        )
+      }
+    })
+
+  }
+
 }
