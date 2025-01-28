@@ -1,1 +1,23 @@
-<p>select-category works!</p>
+<!-- Label -->
+@if(label){
+    <label for="category" class="form-label">{{label}}</label>
+}
+
+<select 
+    name="category" 
+    id="category"
+    [(ngModel)]="value"
+    class="form-control"
+    (change)="valueChange()">
+
+    @if(firstOption){
+        <option [ngValue]="null">{{firstOption}}</option>
+    }
+    @if(categories$ | async; as categories){
+        @for(category of categories; track category._id){
+            <option [value]="category._id">{{category.name}}</option>
+        }
+    }
+
+
+</select>

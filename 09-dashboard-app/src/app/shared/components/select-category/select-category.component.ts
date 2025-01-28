@@ -1,12 +1,13 @@
-import { Component, forwardRef, inject } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, inject, Input } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { CategoriesState } from '../../../state/categories/categories.state';
 import { GetAllCategoriesAction } from '../../../state/categories/categories.actions';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-select-category',
-  imports: [],
+  imports: [FormsModule, AsyncPipe],
   templateUrl: './select-category.component.html',
   styleUrl: './select-category.component.scss',
   providers: [
@@ -18,6 +19,9 @@ import { GetAllCategoriesAction } from '../../../state/categories/categories.act
   ]
 })
 export class SelectCategoryComponent implements ControlValueAccessor {
+  @Input() label = ''
+  @Input() firstOption = '';
+  
 
   
   private store = inject(Store)
@@ -36,7 +40,10 @@ export class SelectCategoryComponent implements ControlValueAccessor {
     this.store.dispatch(new GetAllCategoriesAction())
   }
 
-
+  valueChange() {
+    this.onChange(this.value); // Cambio de valor
+    this.onTouch(); // Indicamos que se ha tocado el componente
+  }
 
 
 

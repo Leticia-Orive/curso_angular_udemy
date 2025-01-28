@@ -2,10 +2,11 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { ICategory } from '../../../models/category.model';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { SelectCategoryComponent } from '../select-category/select-category.component';
 
 @Component({
   selector: 'app-category-form',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, SelectCategoryComponent],
   templateUrl: './category-form.component.html',
   styleUrl: './category-form.component.scss'
 })
