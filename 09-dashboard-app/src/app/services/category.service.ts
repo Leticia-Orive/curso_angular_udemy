@@ -5,6 +5,7 @@ import { first } from 'rxjs';
 import { ICategory } from '../models/category.model';
 import { IPage } from '../models/page.model';
 import { SIZE_PAGINATION } from '../constants';
+import { IResultDelete } from '../models/result-delete.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,10 @@ export class CategoryService {
 //actualizar una categoria
 updateCategory(category: ICategory){
   return this.http.put<ICategory>(`${this.URL_BASE}/${category._id}`, category).pipe(first())
+}
+//borrar una categoria
+deleteCategories(ids: string[]){
+  return this.http.delete<IResultDelete>(`${this.URL_BASE}?ids=${ids.join(',')}`).pipe(first())
 }
   
 }

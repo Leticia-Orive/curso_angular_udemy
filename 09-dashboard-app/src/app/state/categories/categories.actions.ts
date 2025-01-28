@@ -25,3 +25,7 @@ export class GetCategoriesAction {
     static readonly type = '[Categories] Clear category selected';
   }
 
+  export class DeleteCategoriesAction {
+    static readonly type = '[Categories] Delete categories';
+    constructor(public payload: { ids: string[] }) { }
+  }
