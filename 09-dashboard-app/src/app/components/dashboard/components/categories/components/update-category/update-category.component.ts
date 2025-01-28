@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-update-category',
@@ -7,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrl: './update-category.component.scss'
 })
 export class UpdateCategoryComponent {
+
+  @Input() id!: string;
+
+
+  ngOnInit(){
+    console.log(this.id);
+  }
 
 }

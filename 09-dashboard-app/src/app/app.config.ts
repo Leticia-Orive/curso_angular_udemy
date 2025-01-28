@@ -21,7 +21,7 @@ export function checkAuth(store: Store) {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(routes, withComponentInputBinding()),// withComponentInputBinding() is a function that returns a function
     provideAnimations(),
     provideToastr(), 
     provideStore([
