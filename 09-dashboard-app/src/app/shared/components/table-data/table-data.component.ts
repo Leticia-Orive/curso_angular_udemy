@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, ContentChild, EventEmitter, Input, numberAttribute, Output, TemplateRef } from '@angular/core';
+import { booleanAttribute, Component, ContentChild, EventEmitter, Input, numberAttribute, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { IColumn } from './models/column.model';
 import { FormsModule } from '@angular/forms';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
@@ -41,11 +41,15 @@ export class TableDataComponent<T extends { [key: string]: any}, K extends strin
     items: []
   }
   
-
-  ngOnInit(){
-    this.selectedRows = [...Array(this.rows.length)].map(value => false);
-    this.pages = [...Array(this.totalPages).keys()].map(key => key + 1);
+  ngOnChanges(changes: SimpleChanges) {
+    // Si cambian las filas, volvemos a generar selectedRows y pages
+    if(changes['rows']){
+      this.clearSelection()
+      this.selectedRows = [...Array(this.rows.length)].map(value => false); 
+      this.pages = [...Array(this.totalPages).keys()].map(key => key + 1);
+    }
   }
+
 
   /**
    * Enviamos la columna actualizada
@@ -80,6 +84,7 @@ export class TableDataComponent<T extends { [key: string]: any}, K extends strin
    * @param page 
    */
   changePage(page: number){
+    this.clearSelection();
     this.currentPage = page;
     this.selectPage.emit(page);
   }
@@ -105,5 +110,12 @@ export class TableDataComponent<T extends { [key: string]: any}, K extends strin
         this.selectAction.emit(this.actionSelected);
       }
     }    
+  }
+
+   /**
+   * Limpiamos la seleccion de la tabla
+   */
+   clearSelection(){
+    this.selectedRows = this.selectedRows.map(() => false)
   }
 }
