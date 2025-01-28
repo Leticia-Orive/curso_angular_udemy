@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import {  CreateCategoryAction, GetAllCategoriesAction, GetCategoriesAction, GetCategoryByIdAction } from './categories.actions';
+import {  ClearCategorySelectedAction, CreateCategoryAction, GetAllCategoriesAction, GetCategoriesAction, GetCategoryByIdAction, UpdateCategoryAction } from './categories.actions';
 import { IPage } from '../../models/page.model';
 import { ICategory } from '../../models/category.model';
 import { CategoryService } from '../../services/category.service';
@@ -80,5 +80,16 @@ export class CategoriesState {
   createCategory({  }: StateContext<CategoriesStateModel>, { payload }: CreateCategoryAction) {
     return this.categoryService.createCategory(payload.category)
       
+  }
+  @Action(UpdateCategoryAction)
+  updateCategory({ }: StateContext<CategoriesStateModel>, { payload }: UpdateCategoryAction) {
+    return this.categoryService.updateCategory(payload.category);
+  }
+
+  @Action(ClearCategorySelectedAction)
+  clearCategorySelected({ patchState }: StateContext<CategoriesStateModel>) {
+    patchState({
+      categorySelected: null
+    })
   }
 }

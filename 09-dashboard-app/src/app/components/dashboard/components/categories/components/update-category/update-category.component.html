@@ -10,9 +10,11 @@
             <div class="col-12">
                 <!-- Obtenemos la categoria -->
                 @if(category$ | async; as category){
-                    <pre>{{category | json}}</pre>
-                    
+                 <!--<pre>{{category | json}}</pre>-->   
                     <!-- Componente formulario de categorias -->
+                    <app-category-form 
+                        [category]="category"
+                        (submitForm)="updateCategory($event)" />
                     
                 }
             </div>

@@ -17,4 +17,11 @@ export class GetCategoriesAction {
     static readonly type = '[Categories] Create category';
     constructor(public payload: { category: ICategory }) { }
   }
+  export class UpdateCategoryAction {
+    static readonly type = '[Categories] Update category';
+    constructor(public payload: { category: ICategory }) { }
+  }
+  export class ClearCategorySelectedAction {
+    static readonly type = '[Categories] Clear category selected';
+  }
 

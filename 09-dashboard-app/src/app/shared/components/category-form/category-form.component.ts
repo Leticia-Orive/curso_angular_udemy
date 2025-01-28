@@ -27,7 +27,7 @@ export class CategoryFormComponent {
 
       order: new FormControl(this.category ? this.category.order : 0),
 
-      parent: new FormControl(this.category && this.category.parent ? this.category.parent as ICategory : null)
+      parent: new FormControl(this.category && this.category.parent ? (this.category.parent as ICategory)._id : null)
 
     })
   }

@@ -47,5 +47,9 @@ export class CategoryService {
   createCategory(category: ICategory){
     return this.http.post<ICategory>(`${this.URL_BASE}`, category).pipe(first())
   }
+//actualizar una categoria
+updateCategory(category: ICategory){
+  return this.http.put<ICategory>(`${this.URL_BASE}/${category._id}`, category).pipe(first())
+}
   
 }
