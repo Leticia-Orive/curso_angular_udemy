@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import {  GetAllCategoriesAction, GetCategoriesAction } from './categories.actions';
+import {  CreateCategoryAction, GetAllCategoriesAction, GetCategoriesAction } from './categories.actions';
 import { IPage } from '../../models/page.model';
 import { ICategory } from '../../models/category.model';
 import { CategoryService } from '../../services/category.service';
@@ -56,5 +56,11 @@ export class CategoriesState {
       })
     )
 
+  }
+
+  @Action(CreateCategoryAction)
+  createCategory({  }: StateContext<CategoriesStateModel>, { payload }: CreateCategoryAction) {
+    return this.categoryService.createCategory(payload.category)
+      
   }
 }

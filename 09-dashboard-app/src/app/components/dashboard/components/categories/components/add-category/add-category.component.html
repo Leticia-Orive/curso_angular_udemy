@@ -1,1 +1,18 @@
-<app-category-form />
+<div class="row">
+    <div class="col-12">
+        <!-- Cabecera -->
+        <div class="row">
+            <div class="col-12 border-bottom p-2">
+                <span class="h3">Añadir categorias</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Componente formulario de categorias -->
+                <app-category-form (submitForm)="createCategory($event)"/>
+            </div>
+        </div>
+
+    </div>
+</div>
+

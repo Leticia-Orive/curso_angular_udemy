@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CategoryFormComponent } from '../../../../../../shared/components/category-form/category-form.component';
+import { ICategory } from '../../../../../../models/category.model';
+
 
 @Component({
   selector: 'app-add-category',
@@ -8,5 +10,12 @@ import { CategoryFormComponent } from '../../../../../../shared/components/categ
   styleUrl: './add-category.component.scss'
 })
 export class AddCategoryComponent {
+  /**
+   * Creamos una categoria
+   * @param category 
+   */
+  createCategory(category: ICategory){
+    console.log(category);
+  }
 
 }
