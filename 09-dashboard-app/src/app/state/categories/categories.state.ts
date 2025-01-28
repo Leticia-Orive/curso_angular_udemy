@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import {  CreateCategoryAction, GetAllCategoriesAction, GetCategoriesAction } from './categories.actions';
+import {  CreateCategoryAction, GetAllCategoriesAction, GetCategoriesAction, GetCategoryByIdAction } from './categories.actions';
 import { IPage } from '../../models/page.model';
 import { ICategory } from '../../models/category.model';
 import { CategoryService } from '../../services/category.service';
@@ -9,11 +9,13 @@ import { tap } from 'rxjs';
 export class CategoriesStateModel {
   public pagination!: IPage<ICategory> | null;
   public allCategories!: ICategory[]
+  public categorySelected!: ICategory | null
 }
 
 const defaults = {
   pagination: null,
   allCategories: [],
+  categorySelected: null
 };
 
 @State<CategoriesStateModel>({
@@ -31,6 +33,10 @@ export class CategoriesState {
   @Selector()
   static allCategories(state: CategoriesStateModel) {
     return state.allCategories;
+  }
+  @Selector()
+  static categorySelected(state: CategoriesStateModel) {
+    return state.categorySelected;
   }
 
   private categoryService = inject(CategoryService)
@@ -52,6 +58,18 @@ export class CategoriesState {
       tap((categories: ICategory[]) => {
         patchState({
           allCategories: categories
+        })
+      })
+    )
+
+  }
+
+  @Action(GetCategoryByIdAction)
+  getCategoryById({ patchState }: StateContext<CategoriesStateModel>, { payload }: GetCategoryByIdAction) {
+    return this.categoryService.getCategoryById(payload.id).pipe(
+      tap((category: ICategory) => {
+        patchState({
+          categorySelected: category
         })
       })
     )

@@ -39,7 +39,11 @@ export class CategoryService {
   getAllCategories(){
     return this.http.get<ICategory[]>(`${this.URL_BASE}/all`).pipe(first())
   }
-
+//Obtener una categoria por id
+  getCategoryById(id: string){
+    return this.http.get<ICategory>(`${this.URL_BASE}/${id}`).pipe(first())
+  }
+//crear una categoria
   createCategory(category: ICategory){
     return this.http.post<ICategory>(`${this.URL_BASE}`, category).pipe(first())
   }
