@@ -33,7 +33,7 @@ export class AddCategoryComponent {
         // Volvemos a las categorias
         this.router.navigate(['/dashboard', 'categories']);
       }, error: (error) => {
-        console.log(error);
+        console.error(error);
         this.toastrService.error(
           'Ha ocurrido un error al añadir la categoria',
           'Error'
