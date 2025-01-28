@@ -4,7 +4,7 @@
         @if(searchable || totalElements > 0){
             <div class="row mb-3 mt-3">
                 @if(searchable){
-                    <div class="col-12" [ngClass]="{'col-md-4': totalElements > 0 }">
+                    <div class="col-md-4 col-12 " >
                         <div class="input-group ">
                             <input type="text" class="form-control" [placeholder]="placeholderSearch"
                             [(ngModel)]="searchText"
@@ -16,7 +16,7 @@
                 }
                 @if(totalElements > 0){
                    <!-- Mostramos el total de elementos -->
-                <div class="col-md-8 col-12 text-end align-self-end pe-4" 
+                <div class="col-md-8 col-12 text-md-end text-center mt-3 mt-md-0 align-self-end pe-4" 
                 [ngClass]="{'col-md-8': searchable }">
                     <span class="h5">Total de elementos: {{totalElements}}</span>
                 </div> 
