@@ -30,6 +30,7 @@ export class TableDataComponent<T extends { [key: string]: any}, K extends strin
   @Output() selectPage = new EventEmitter<number>();
   @Output() selectRow = new EventEmitter<T>();
   @Output() selectAction = new EventEmitter<IActionSelected<T, K>>();
+  @Output() noItemsSelected = new EventEmitter<void>();
 
   public selectedRows: boolean[] = [];// paginas seleccionadas
   public allChecked = false;
@@ -91,8 +92,18 @@ export class TableDataComponent<T extends { [key: string]: any}, K extends strin
     this.selectRow.emit(row)
   }
   sendAction(){
-    console.log(this.actionSelected)
+    if(this.actionSelected.action){
+      // Obtenemos los elementos seleccionados
+      const selectedItems = this.rows.filter( (value, index) => this.selectedRows[index] )
+      // Sino hay elementos seleccionados, emitimos un evento
+      if(selectedItems.length == 0){
+        this.noItemsSelected.emit();
+        
+      }else{
+        // Seteamos los items y emitimos un evento
+        this.actionSelected.items = selectedItems;
+        this.selectAction.emit(this.actionSelected);
+      }
+    }    
   }
-
-
 }

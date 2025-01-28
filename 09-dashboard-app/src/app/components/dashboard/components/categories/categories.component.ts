@@ -9,8 +9,9 @@ import { CategoriesState } from '../../../../state/categories/categories.state';
 import { AsyncPipe } from '@angular/common';
 import { TableDataComponent } from '../../../../shared/components/table-data/table-data.component';
 import { IColumn } from '../../../../shared/components/table-data/models/column.model';
-import { IAction } from '../../../../shared/components/table-data/models/action.model';
+import { IAction, IActionSelected } from '../../../../shared/components/table-data/models/action.model';
 import { TAction } from '../../../../types';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-categories',
@@ -24,6 +25,7 @@ export class CategoriesComponent {
   private store = inject(Store)
   private router = inject(Router)
   private route = inject(ActivatedRoute);
+  private toastrService = inject(ToastrService)
 
   
 // columnas
@@ -45,7 +47,7 @@ export class CategoriesComponent {
       canSort: true
     }
   ]
-  
+
   // acciones
   public actionsAvailables: IAction<TAction>[] = [
     {
@@ -112,5 +114,26 @@ export class CategoriesComponent {
 selectRow(category: ICategory){
   this.router.navigate(['update', category._id], { relativeTo: this.route })
 }
+ /**
+   * Recibimos una acción y la ejecutamos
+   * @param actionSelected 
+   */
+ selectAction(actionSelected: IActionSelected<ICategory, TAction>){
+  switch(actionSelected.action){
+    case 'delete':
+      console.log('vamos a borrar');
+      console.log(actionSelected);
+      break;
+    }
+  }
 
+  /**
+   * Evento al no seleccionar elementos
+   */
+  noItemsSelected(){
+    this.toastrService.error(
+      'Debes seleccionar categorias',
+      'Error'
+    )
+  }
 }
