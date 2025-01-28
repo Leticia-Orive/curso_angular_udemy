@@ -1,1 +1,37 @@
-<p>category-form works!</p>
+<form [formGroup]="formCategory" (ngSubmit)="submit()">
+
+<!-- Campo id -->
+    <input type="hidden" name="id" formControlName="_id">
+
+    <div class="row mt-2">
+        <!-- Nombre de la categoria -->
+        <div class="col-5">
+            <label class="form-label" for="name">Nombre *</label>
+            <input type="text" name="name" id="name" class="form-control" formControlName="name">
+        </div>
+
+        <div class="col-6">
+            <!-- Seleccion de categoria -->
+            
+        </div>
+
+        <div class="col-1">
+            <!-- Orden de la categoria -->
+            <label class="form-label" for="order">Orden</label>
+            <input type="number" name="order" id="order" class="form-control" min="0" formControlName="order">
+        </div>
+
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary ms-2" routerLink="/dashboard/categories">Volver</button>
+        </div>
+    </div>
+
+
+
+
+
+</form>
