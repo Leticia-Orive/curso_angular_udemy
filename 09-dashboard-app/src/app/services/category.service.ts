@@ -35,6 +35,9 @@ export class CategoryService {
     return this.http.get<IPage<ICategory>>(url).pipe(first())
 
   }
-
+  //Obtener todas las categorias
+  getAllCategories(){
+    return this.http.get<ICategory[]>(`${this.URL_BASE}/all`).pipe(first())
+  }
   
 }
