@@ -1,4 +1,4 @@
-export class PostsAction {
-  static readonly type = '[Posts] Add item';
-  constructor(public payload: string) { }
+export class GetPostsAction {
+  static readonly type = '[Posts] Get Posts paginated';
+  constructor(public payload: { page: number, q?: string, sortBy?: string, sort?: string }) { }
 }

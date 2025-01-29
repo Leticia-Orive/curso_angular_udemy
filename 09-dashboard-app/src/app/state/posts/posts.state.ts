@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { PostsAction } from './posts.actions';
+import { GetPostsAction,  } from './posts.actions';
 import { IPage } from '../../models/page.model';
 import { IPost } from '../../models/post.model';
+import { tap } from 'rxjs';
+import { PostService } from '../../services/post.service';
 
 export class PostsStateModel {
   public pagination!: IPage<IPost> | null;
@@ -23,10 +25,16 @@ export class PostsState {
   static pagination(state: PostsStateModel) {
     return state.pagination
   }
+  private postsService = inject(PostService)
 
-
-  @Action(PostsAction)
-  add({ getState, setState }: StateContext<PostsStateModel>, { payload }: PostsAction) {
-    
+  @Action(GetPostsAction)
+  getPosts({ patchState }: StateContext<PostsStateModel>, { payload }: GetPostsAction) {
+    return this.postsService.getPosts(payload.page, payload.q, payload.sortBy, payload.sort).pipe(
+      tap((pagination: IPage<IPost>) => {
+        patchState({
+          pagination
+        })
+      })
+    )
   }
 }
