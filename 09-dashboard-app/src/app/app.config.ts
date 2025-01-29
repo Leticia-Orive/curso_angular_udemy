@@ -11,6 +11,7 @@ import { authInterceptor } from './interceptors/auth.interceptor';
 import { CheckAuthAction } from './state/auth/auth.actions';
 import { CategoriesState } from './state/categories/categories.state';
 import { refreshTokenInterceptor } from './interceptors/refresh-token.interceptor';
+import { PostsState } from './state/posts/posts.state';
 
 
 
@@ -26,7 +27,8 @@ export const appConfig: ApplicationConfig = {
     provideToastr(), 
     provideStore([
       AuthState,
-      CategoriesState
+      CategoriesState,
+      PostsState
       
     ]),
     provideHttpClient(
