@@ -12,13 +12,17 @@ import { IColumn } from '../../../../shared/components/table-data/models/column.
 import { IAction, IActionSelected } from '../../../../shared/components/table-data/models/action.model';
 import { TAction } from '../../../../types';
 import { ToastrService } from 'ngx-toastr';
+import { ModalService } from '../../../../shared/components/modal/services/modal.service';
+import { IModal } from '../../../../shared/components/modal/models/modal.model';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   imports: [RouterLink, AsyncPipe, TableDataComponent],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss'
+  styleUrl: './categories.component.scss',
+  providers:[ModalService]
+
 })
 export class CategoriesComponent {
 
@@ -26,6 +30,7 @@ export class CategoriesComponent {
   private router = inject(Router)
   private route = inject(ActivatedRoute);
   private toastrService = inject(ToastrService)
+  private ModalService = inject(ModalService)
 
   
 // columnas
@@ -121,8 +126,15 @@ selectRow(category: ICategory){
  selectAction(actionSelected: IActionSelected<ICategory, TAction>){
   switch(actionSelected.action){
     case 'delete':
-      const ids = actionSelected.items.map((category: ICategory) => category._id!)
-      this.deleteCategories(ids);
+      const modal: IModal = {
+        content: '¿Estás seguro de que quieres borrar las categorías seleccionadas?',
+        btnTextAccept: 'Sí',
+        btnTextClose: 'No'
+      }
+      this.ModalService.open(modal)
+      
+      //const ids = actionSelected.items.map((category: ICategory) => category._id!)
+      //this.deleteCategories(ids);
       break;
     }
   }
