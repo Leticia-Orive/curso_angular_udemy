@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Modal} from 'bootstrap'
 
 @Component({
   selector: 'app-modal',
@@ -9,5 +10,11 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class ModalComponent {
 
   @ViewChild("modal", { static: true }) modal!: ElementRef;
+
+  private modalInstance!: Modal;
+
+  ngAfterViewInit() {
+    this.modalInstance = new Modal(this.modal.nativeElement);
+  }
 
 }
