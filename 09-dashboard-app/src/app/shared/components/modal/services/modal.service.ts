@@ -21,8 +21,13 @@ export class ModalService {
       btnTextAccept: modalData.btnTextAccept ?? 'Aceptar',
       btnTextClose: modalData.btnTextClose ?? 'Cerrar'
     }
-
-    
+     // Quedo pendiente del evento close para destruir el componente
+     modalComponentRef.instance.close.pipe(first()).subscribe({
+      next: () =>{
+        modalComponentRef.destroy();
+      }
+    })
+   
     return modalComponentRef;
 
   }
@@ -31,11 +36,21 @@ export class ModalService {
   open(modalData: IModal){
     // creo el modal
     const modal = this.createModal(modalData)
-    setTimeout(() => {
-modal.instance.open();
-    },1000)
     // Quedo pendiente al evento rendered
-    
-    
+     return modal.instance.rendered.pipe(
+      first(),
+      switchMap( () => {
+        // abro el modal
+        modal.instance.open();
+        // Quedo pendiente al evento accept
+        // Al finalizar, destruimos el modal
+        return modal.instance.accept.pipe(
+          first(),
+          finalize( () => modal.destroy())
+
+         
+        )
+      })
+    )
   }
 }

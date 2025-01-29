@@ -15,11 +15,13 @@ export class ModalComponent {
   public modalData?: IModal;
   public close: EventEmitter<void> = new EventEmitter<void>();
   public accept: EventEmitter<void> = new EventEmitter<void>();
+  public rendered: EventEmitter<void> = new EventEmitter<void>();
 
   private modalInstance!: Modal;
 
   ngAfterViewInit() {
     this.modalInstance = new Modal(this.modal.nativeElement);
+    this.rendered.emit();
   }
 
   open(){

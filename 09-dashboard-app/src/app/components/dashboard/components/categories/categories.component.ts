@@ -119,23 +119,31 @@ export class CategoriesComponent {
 selectRow(category: ICategory){
   this.router.navigate(['update', category._id], { relativeTo: this.route })
 }
- /**
+ 
+  /**
    * Recibimos una acción y la ejecutamos
    * @param actionSelected 
    */
- selectAction(actionSelected: IActionSelected<ICategory, TAction>){
-  switch(actionSelected.action){
-    case 'delete':
-      const modal: IModal = {
-        content: '¿Estás seguro de que quieres borrar las categorías seleccionadas?',
-        btnTextAccept: 'Sí',
-        btnTextClose: 'No'
-      }
-      this.ModalService.open(modal)
-      
-      //const ids = actionSelected.items.map((category: ICategory) => category._id!)
-      //this.deleteCategories(ids);
-      break;
+  selectAction(actionSelected: IActionSelected<ICategory, TAction>){
+    switch(actionSelected.action){
+      case 'delete':
+
+        // info del modal a mostrar
+        const modal: IModal = {
+          content: '¿Estas seguro de querer borrar las categorías?'
+        }
+
+        // Mostramos el modal, si le damos a aceptar, entramos en next
+        this.ModalService.open(modal).subscribe({
+          next: () => {
+            // obtenemos los ids de las categorias
+            const ids = actionSelected.items.map( (category: ICategory) => category._id! )
+            // Borramos las categorias
+            this.deleteCategories(ids);
+          }
+        })
+ 
+        break;
     }
   }
 
