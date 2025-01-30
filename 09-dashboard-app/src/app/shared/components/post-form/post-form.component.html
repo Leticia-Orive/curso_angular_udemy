@@ -48,11 +48,22 @@
                                     <button class="btn btn-primary" type="button" (click)="clearDate()">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
-
                                 </div>
                             </div>
-
-                            
+                        </div>
+                    </app-widget>
+                </div>
+            </div>
+            <!-- Widget seleccion de categorias -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <app-widget>
+                        <div widget-title>Categorías</div>
+                        <div widget-body>
+                            <app-select-category 
+                                label="Categorías"
+                                multiple
+                                formControlName="categories" />
                         </div>
                     </app-widget>
                 </div>

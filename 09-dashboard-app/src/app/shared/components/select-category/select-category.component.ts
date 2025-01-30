@@ -1,4 +1,4 @@
-import { Component, forwardRef, inject, Input } from '@angular/core';
+import { booleanAttribute, Component, forwardRef, inject, Input } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { CategoriesState } from '../../../state/categories/categories.state';
@@ -21,21 +21,24 @@ import { AsyncPipe } from '@angular/common';
 export class SelectCategoryComponent implements ControlValueAccessor {
   @Input() label = ''
   @Input() firstOption = '';
+  @Input({transform: booleanAttribute}) multiple = false;
   
 
   
   private store = inject(Store)
 
-  public value: string = ''; 
+  public value: string | string[] | null = ''; 
   //Obtener las categorias
   public categories$ = this.store.select(CategoriesState.allCategories);
 
   //Creamos unas funciones
-  private onChange = (value: string) => {};
+  private onChange = (value: string | string[] | null) => {};
   private onTouch = () => {};
 
 
   ngOnInit(){
+    // Inicializacion de value
+    this.value = this.multiple ? [] : '';
     //Llamos a la acción 
     this.store.dispatch(new GetAllCategoriesAction())
   }

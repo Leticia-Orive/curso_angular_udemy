@@ -5,11 +5,12 @@ import { DatePipe } from '@angular/common';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 import { RouterLink } from '@angular/router';
 import { WidgetComponent } from '../widget/widget.component';
+import { SelectCategoryComponent } from '../select-category/select-category.component';
 
 
 @Component({
   selector: 'app-post-form',
-  imports: [ReactiveFormsModule, NgxEditorModule, RouterLink, WidgetComponent],
+  imports: [ReactiveFormsModule, NgxEditorModule, RouterLink, WidgetComponent, SelectCategoryComponent],
   templateUrl: './post-form.component.html',
   styleUrl: './post-form.component.scss',
   providers: [

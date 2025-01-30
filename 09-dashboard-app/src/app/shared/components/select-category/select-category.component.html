@@ -2,13 +2,16 @@
 @if(label){
     <label for="category" class="form-label">{{label}}</label>
 }
-
-<select 
+<!-- Select multiple y ngModel no casan bien, por eso se ha separado en dos partes para que funcione correctamente -->
+<!-- Usar un template para las opciones, hace que no seleccione las opciones -->
+@if(multiple){
+    <select 
     name="category" 
     id="category"
     [(ngModel)]="value"
     class="form-control"
-    (change)="valueChange()">
+    (change)="valueChange()"
+    multiple>
 
     @if(firstOption){
         <option [ngValue]="null">{{firstOption}}</option>
@@ -18,6 +21,25 @@
             <option [value]="category._id">{{category.name}}</option>
         }
     }
-
-
 </select>
+
+} @else {
+    <select 
+        name="category" 
+        id="category"
+        [(ngModel)]="value"
+        class="form-control"
+        (change)="valueChange()">
+
+        @if(firstOption){
+            <option [ngValue]="null">{{firstOption}}</option>
+        }
+        @if(categories$ | async; as categories){
+            @for(category of categories; track category._id){
+                <option [value]="category._id">{{category.name}}</option>
+            }
+        }
+
+    </select>
+}
+
