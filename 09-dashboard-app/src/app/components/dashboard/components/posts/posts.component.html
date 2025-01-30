@@ -25,7 +25,21 @@
                         [actionsAvailables]="actionsAvailables"
                         
                     >
-
+                    <ng-template #templateRow let-row="row" let-col="col">
+                        @switch(col.property){
+                            @case('publishedDate'){
+                                <span>{{row[col.property] | date: 'dd-MM-YYYY HH:mm'}}</span>
+                            }
+                            @case('categories') {
+                                @for(category of row[col.property]; track category._id; let last = $last){
+                                    <span>{{category.name}}{{!last ? ', ' : ''}}</span>
+                                }
+                            }
+                            @default {
+                                <span>{{row[col.property]}}</span>
+                            }
+                        }
+                    </ng-template>
                     
                     </app-table-data>
 

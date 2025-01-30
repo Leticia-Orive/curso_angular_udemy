@@ -5,7 +5,7 @@ import { IPage } from '../../../../models/page.model';
 import { IPost } from '../../../../models/post.model';
 import { PostsState } from '../../../../state/posts/posts.state';
 import { TableDataComponent } from '../../../../shared/components/table-data/table-data.component';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { GetPostsAction } from '../../../../state/posts/posts.actions';
 import { RouterLink } from '@angular/router';
 import { IColumn } from '../../../../shared/components/table-data/models/column.model';
@@ -14,7 +14,7 @@ import { TAction } from '../../../../types';
 
 @Component({
   selector: 'app-posts',
-  imports: [TableDataComponent, AsyncPipe, RouterLink],
+  imports: [TableDataComponent, AsyncPipe, RouterLink, DatePipe],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss'
 })
