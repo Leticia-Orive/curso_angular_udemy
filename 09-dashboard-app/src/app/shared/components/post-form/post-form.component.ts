@@ -2,10 +2,11 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { IPost } from '../../../models/post.model';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-post-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgxEditorModule],
   templateUrl: './post-form.component.html',
   styleUrl: './post-form.component.scss',
   providers: [
@@ -23,6 +24,19 @@ export class PostFormComponent {
 
 
   public formPost: FormGroup = new FormGroup({})
+
+  // Necesario para el ngx-editor
+  public editor: Editor = new Editor();
+  public toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
   ngOnInit(){
     this.formPost = this.formBuilder.group({
