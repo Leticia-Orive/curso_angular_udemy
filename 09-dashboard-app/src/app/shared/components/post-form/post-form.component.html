@@ -40,7 +40,19 @@
                     <app-widget>
                         <div widget-title>Fecha de publicación</div>
                         <div widget-body>
-                            <input type="datetime-local" name="" id="" class="form-control">
+                            <div class="row">
+                                <div class="col-10">
+                                    <input type="datetime-local" name="" id="" class="form-control" formControlName="publishedDate">
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-primary" type="button" (click)="clearDate()">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+
+                            
                         </div>
                     </app-widget>
                 </div>

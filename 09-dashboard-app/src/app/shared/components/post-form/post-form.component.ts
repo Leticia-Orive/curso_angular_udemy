@@ -49,7 +49,7 @@ export class PostFormComponent {
       _id: new FormControl(this.post?._id),
       title: new FormControl(this.post?.title ?? '', Validators.required),
       content: new FormControl(this.post?.content ?? '', Validators.required),
-      publishedDate: new FormControl(this.post ? this.datePipe.transform(this.post.publishedDate, 'YYYY-MM-ddTHH:mm:ss') : ''),
+      publishedDate: new FormControl(this.post ? this.datePipe.transform(this.post.publishedDate, 'YYYY-MM-ddTHH:mm:ss') : null),
       categories: new FormControl(this.post ? this.post.categories.map(category => category._id) : []),
       img: new FormControl(null)
     })
@@ -57,7 +57,15 @@ export class PostFormComponent {
 
   submit(){
     const post = this.formPost.value as IPost;
+    console.log(post);
     this.submitForm.emit(post)
+  }
+
+  /**
+   * Limpiamos la fecha
+   */
+  clearDate(){
+    this.formPost.get('publishedDate')?.setValue(null)
   }
 
   
