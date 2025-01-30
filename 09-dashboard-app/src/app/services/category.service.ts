@@ -6,6 +6,7 @@ import { ICategory } from '../models/category.model';
 import { IPage } from '../models/page.model';
 import { SIZE_PAGINATION } from '../constants';
 import { IResultDelete } from '../models/result-delete.model';
+import { TSort } from '../shared/components/table-data/types/sort.type';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class CategoryService {
   private http = inject(HttpClient)
   private URL_BASE = `${environment.urlServer}/v1/categories`
 
-  getCategories(page: number, q?: string, sortBy?: string, sort?: string){
+  getCategories(page: number, q?: string, sortBy?: string, sort?: TSort){
 
     // URL base
     let url = `${this.URL_BASE}?page=${page}&size=${SIZE_PAGINATION}`;

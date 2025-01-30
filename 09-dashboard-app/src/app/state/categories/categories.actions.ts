@@ -1,8 +1,9 @@
 import { ICategory } from "../../models/category.model";
+import { TSort } from "../../shared/components/table-data/types/sort.type";
 
 export class GetCategoriesAction {
   static readonly type = '[Categories] Get categories paginated';
-  constructor(public payload: {page: number, q?: string, sortBy?: string, sort?: string }) { }
+  constructor(public payload: {page: number, q?: string, sortBy?: string, sort?: TSort }) { }
 }
   export class GetAllCategoriesAction {
     static readonly type = '[Categories] Get all categories';

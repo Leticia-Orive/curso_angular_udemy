@@ -1,3 +1,4 @@
+import { TSort } from "../types/sort.type"
 
 
 export interface IColumn {
@@ -5,5 +6,5 @@ export interface IColumn {
     property: string
     canSort?: boolean
     //Haremos un tipo propio para sort mas adelante
-    sort?: string
+    sort?: TSort
 }

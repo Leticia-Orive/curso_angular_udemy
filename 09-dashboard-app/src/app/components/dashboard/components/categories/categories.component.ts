@@ -14,6 +14,7 @@ import { TAction } from '../../../../types';
 import { ToastrService } from 'ngx-toastr';
 import { ModalService } from '../../../../shared/components/modal/services/modal.service';
 import { IModal } from '../../../../shared/components/modal/models/modal.model';
+import { TSort } from '../../../../shared/components/table-data/types/sort.type';
 
 @Component({
   selector: 'app-categories',
@@ -65,7 +66,7 @@ export class CategoriesComponent {
 // Parametros de busquedas
   private page = 1;
   private sortBy = 'name'
-  private sort: string | undefined = 'ASC'
+  private sort?: TSort = 'ASC'
   private searchText = ''
 
   // Obtener paginacion

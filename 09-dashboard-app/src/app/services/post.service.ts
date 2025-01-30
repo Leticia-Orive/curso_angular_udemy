@@ -5,6 +5,7 @@ import { SIZE_PAGINATION } from '../constants';
 import { first } from 'rxjs';
 import { IPage } from '../models/page.model';
 import { IPost } from '../models/post.model';
+import { TSort } from '../shared/components/table-data/types/sort.type';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class PostService {
   private http = inject(HttpClient)
   private URL_BASE = `${environment.urlServer}/v1/posts`
 
-  getPosts(page: number, q?: string, sortBy?: string, sort?: string){
+  getPosts(page: number, q?: string, sortBy?: string, sort?: TSort){
 
     // URL Base
     let url = `${this.URL_BASE}?page=${page}&size=${SIZE_PAGINATION}`

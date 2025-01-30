@@ -12,6 +12,7 @@ import { IColumn } from '../../../../shared/components/table-data/models/column.
 import { IAction, IActionSelected } from '../../../../shared/components/table-data/models/action.model';
 import { TAction } from '../../../../types';
 import { ToastrService } from 'ngx-toastr';
+import { TSort } from '../../../../shared/components/table-data/types/sort.type';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class PostsComponent {
 
   // parametros de busquedas
   private sortBy = 'publishedDate'
-  private sort? = 'DESC'
+  private sort?: TSort = 'DESC'
   private page = 1;
   private searchText = '';
 

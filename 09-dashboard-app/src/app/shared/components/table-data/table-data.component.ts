@@ -3,6 +3,7 @@ import { IColumn } from './models/column.model';
 import { FormsModule } from '@angular/forms';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { IAction, IActionSelected } from './models/action.model';
+import { TSort } from './types/sort.type';
 
 @Component({
   selector: 'app-table-data',
@@ -56,7 +57,7 @@ export class TableDataComponent<T extends { [key: string]: any}, K extends strin
    * @param column 
    * @param newSort 
    */
-  sort(column: IColumn, newSort?: string){
+  sort(column: IColumn, newSort?: TSort){
     column.sort = newSort;
      // reiniciamos el resto de columnas
     this.columns = this.columns.map(col => ({
