@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, ViewEncapsulation } from '@angular/core';
 import { IPost } from '../../../models/post.model';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
   providers: [
     DatePipe
   ],
+  encapsulation: ViewEncapsulation.None
 })
 export class PostFormComponent {
 
