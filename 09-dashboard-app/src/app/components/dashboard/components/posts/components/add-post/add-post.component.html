@@ -1,1 +1,20 @@
-<p>add-post works!</p>
+<div class="row">
+    <div class="col-12">
+
+        <!-- Cabecera -->
+        <div class="row">
+            <div class="col-12 border-bottom p-2">
+                <span class="h3">Añadir post</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Componente formulario post -->
+                <app-post-form (submitForm)="createPost($event)" />
+            </div>
+        </div>
+
+
+    </div>
+</div>

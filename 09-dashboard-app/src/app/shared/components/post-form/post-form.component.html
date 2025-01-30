@@ -1,1 +1,39 @@
-<p>post-form works!</p>
+<form [formGroup]="formPost" (ngSubmit)="submit()">
+    <!-- Campo id -->
+    <input type="hidden" name="id" formControlName="_id">
+
+    <div class="row">
+        <div class="col-md-8 col-12 mt-2">
+            <!-- Titulo -->
+            <div class="row mt-2">
+                <div class="col-12">
+                    <label class="form-label" for="title">Título*</label>
+                    <input type="text" name="title" id="title" formControlName="title" class="form-control" maxlength="100">
+                </div>
+            </div>
+             <!-- Contenido del post -->
+             <div class="row mt-2">
+                <div class="col-12">
+                    <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                    </ngx-editor-menu>
+                    <ngx-editor [editor]="editor" formControlName="content" placeholder="Contenido del post...">
+                    </ngx-editor>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary ms-2" routerLink="/dashboard/posts">Volver</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <div class="col-md-4 col-12">
+
+    </div>
+
+</form>

@@ -3,10 +3,11 @@ import { IPost } from '../../../models/post.model';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-post-form',
-  imports: [ReactiveFormsModule, NgxEditorModule],
+  imports: [ReactiveFormsModule, NgxEditorModule, RouterLink],
   templateUrl: './post-form.component.html',
   styleUrl: './post-form.component.scss',
   providers: [
