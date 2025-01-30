@@ -4,10 +4,12 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { DatePipe } from '@angular/common';
 import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 import { RouterLink } from '@angular/router';
+import { WidgetComponent } from '../widget/widget.component';
+
 
 @Component({
   selector: 'app-post-form',
-  imports: [ReactiveFormsModule, NgxEditorModule, RouterLink],
+  imports: [ReactiveFormsModule, NgxEditorModule, RouterLink, WidgetComponent],
   templateUrl: './post-form.component.html',
   styleUrl: './post-form.component.scss',
   providers: [
@@ -19,6 +21,7 @@ export class PostFormComponent {
 
   private formBuilder = inject(FormBuilder)
   private datePipe = inject(DatePipe)
+  
 
   @Input() post?: IPost;
   //Devolveremos un IPost, que luego cambiamos, void lo cambio por IPost
@@ -39,6 +42,7 @@ export class PostFormComponent {
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
+ 
 
   ngOnInit(){
     this.formPost = this.formBuilder.group({
@@ -55,5 +59,9 @@ export class PostFormComponent {
     const post = this.formPost.value as IPost;
     this.submitForm.emit(post)
   }
+
+  
+
+ 
 
 }

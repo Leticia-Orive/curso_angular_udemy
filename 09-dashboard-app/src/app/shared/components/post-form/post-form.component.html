@@ -1,9 +1,11 @@
 <form [formGroup]="formPost" (ngSubmit)="submit()">
+
     <!-- Campo id -->
     <input type="hidden" name="id" formControlName="_id">
 
     <div class="row">
-        <div class="col-md-8 col-12 mt-2">
+        <div class="col-lg-8 col-12 mt-2">
+
             <!-- Titulo -->
             <div class="row mt-2">
                 <div class="col-12">
@@ -11,8 +13,9 @@
                     <input type="text" name="title" id="title" formControlName="title" class="form-control" maxlength="100">
                 </div>
             </div>
-             <!-- Contenido del post -->
-             <div class="row mt-2">
+
+            <!-- Contenido del post -->
+            <div class="row mt-2">
                 <div class="col-12">
                     <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
                     </ngx-editor-menu>
@@ -29,11 +32,21 @@
             </div>
 
         </div>
+        <div class="col-lg-4 col-12 mt-5">
 
+            <!-- Widget fecha de publicacion -->
+            <div class="row">
+                <div class="col-12">
+                    <app-widget>
+                        <div widget-title>Fecha de publicación</div>
+                        <div widget-body>
+                            <input type="datetime-local" name="" id="" class="form-control">
+                        </div>
+                    </app-widget>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="col-md-4 col-12">
-
-    </div>
-
 </form>
+            
+ 
