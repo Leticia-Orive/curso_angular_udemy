@@ -28,6 +28,7 @@ export class UploadImageComponent {
       if(!this.extensionsAllowed.includes(file.type)){
         this.selectImage.emit(null);
         this.errorSelectImage.emit();
+        this.srcImage = null;
        
       }else{
 

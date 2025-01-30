@@ -54,6 +54,20 @@
                     </app-widget>
                 </div>
             </div>
+            <!-- Widget imagen destacada -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <app-widget>
+                        <div widget-title>Imagen destacada</div>
+                        <div widget-body>
+                            <app-upload-image 
+                                [srcImage]="srcImage"
+                                (selectImage)="selectImage($event)"
+                                (errorSelectImage)="errorSelectImage()" />
+                        </div>
+                    </app-widget>
+                </div>
+            </div>
             <!-- Widget seleccion de categorias -->
             <div class="row mt-4">
                 <div class="col-12">

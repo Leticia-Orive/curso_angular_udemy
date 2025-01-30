@@ -6,11 +6,14 @@ import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 import { RouterLink } from '@angular/router';
 import { WidgetComponent } from '../widget/widget.component';
 import { SelectCategoryComponent } from '../select-category/select-category.component';
+import { UploadImageComponent } from '../upload-image/upload-image.component';
+import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
   selector: 'app-post-form',
-  imports: [ReactiveFormsModule, NgxEditorModule, RouterLink, WidgetComponent, SelectCategoryComponent],
+  imports: [ReactiveFormsModule, NgxEditorModule, RouterLink, WidgetComponent, SelectCategoryComponent, UploadImageComponent],
   templateUrl: './post-form.component.html',
   styleUrl: './post-form.component.scss',
   providers: [
@@ -22,6 +25,7 @@ export class PostFormComponent {
 
   private formBuilder = inject(FormBuilder)
   private datePipe = inject(DatePipe)
+  private toastrService = inject(ToastrService)
   
 
   @Input() post?: IPost;
@@ -43,7 +47,10 @@ export class PostFormComponent {
     ['text_color', 'background_color'],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
- 
+  // Ruta de la imagen del post
+  public srcImage: string = '';
+
+  
 
   ngOnInit(){
     this.formPost = this.formBuilder.group({
@@ -54,6 +61,10 @@ export class PostFormComponent {
       categories: new FormControl(this.post ? this.post.categories.map(category => category._id) : []),
       img: new FormControl(null)
     })
+    // Formamos la ruta del post
+  if(this.post?.img){
+    this.srcImage = `${environment.urlServerImages}${this.post.img}`;
+  }
   }
 
   submit(){
@@ -67,6 +78,24 @@ export class PostFormComponent {
    */
   clearDate(){
     this.formPost.get('publishedDate')?.setValue(null)
+  }
+
+   /**
+   * Guardamos la informacion de la imagen
+   * @param file 
+   */
+   selectImage(file: File | null){
+    this.formPost.get('img')?.setValue(file);
+  }
+
+  /**
+   * Evento cuando hay un error al seleccionar una imagen
+   */
+  errorSelectImage(){
+    this.toastrService.error(
+      'Debes seleccionar una imagen con la extensión correcta',
+      'Error'
+    )
   }
 
   
