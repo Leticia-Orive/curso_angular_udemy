@@ -7,10 +7,12 @@ import { PostsState } from '../../../../state/posts/posts.state';
 import { TableDataComponent } from '../../../../shared/components/table-data/table-data.component';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { GetPostsAction } from '../../../../state/posts/posts.actions';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IColumn } from '../../../../shared/components/table-data/models/column.model';
-import { IAction } from '../../../../shared/components/table-data/models/action.model';
+import { IAction, IActionSelected } from '../../../../shared/components/table-data/models/action.model';
 import { TAction } from '../../../../types';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-posts',
@@ -21,13 +23,17 @@ import { TAction } from '../../../../types';
 export class PostsComponent {
 
   private store = inject(Store)
+  private router = inject(Router)
+  private route = inject(ActivatedRoute)
+  private toastrService = inject(ToastrService)
+
 
   // Paginacion de posts
   public pagination$: Observable<IPage<IPost> | null> = this.store.select(PostsState.pagination)
 
   // parametros de busquedas
   private sortBy = 'publishedDate'
-  private sort = 'DESC'
+  private sort? = 'DESC'
   private page = 1;
   private searchText = '';
 
@@ -81,5 +87,66 @@ export class PostsComponent {
       sortBy: this.sortBy
     }))
   }
+
+  /**
+   * Cambiamos de pagina
+   * @param page 
+   */
+  changePage(page: number){
+    this.page = page;
+    this.getPosts()
+  }
+
+  /**
+   * Modificamos la ordenación de la columna
+   * @param column 
+   */
+  sortData(column: IColumn){
+    this.sort = column.sort;
+    this.sortBy = column.property
+    this.getPosts();
+  }
+
+  selectAction(selectedAction: IActionSelected<IPost, TAction>){
+    console.log(selectedAction);
+
+    switch(selectedAction.action){
+      case 'delete':
+        break;
+      case 'publish':
+        break;
+      case 'unpublish':
+        break;
+    }
+
+  }
+
+   /**
+   * Modifica el texto a buscar
+   * @param text 
+   */
+   searchByTitle(search: string){
+    this.searchText = search;
+    this.getPosts();
+  }
+
+  /**
+   * Redirigimos a actualizar el post
+   * @param category 
+   */
+  goToUpdate(post: IPost){
+    this.router.navigate(['update', post._id], { relativeTo: this.route })
+  }
+
+  /**
+   * Evento al no seleccionar elementos
+   */
+  noItemsSelected(){
+    this.toastrService.error(
+      'Debes seleccionar entradas',
+      'Error'
+    )
+  }
+
 
 }

@@ -23,6 +23,12 @@
                         selectable
                         searchable
                         [actionsAvailables]="actionsAvailables"
+                        (selectPage)="changePage($event)"
+                        (sortData)="sortData($event)"
+                        (selectAction)="selectAction($event)"
+                        (search)="searchByTitle($event)"
+                        (selectRow)="goToUpdate($event)"
+                        (noItemsSelected)="noItemsSelected()"
                         
                     >
                     <ng-template #templateRow let-row="row" let-col="col">
