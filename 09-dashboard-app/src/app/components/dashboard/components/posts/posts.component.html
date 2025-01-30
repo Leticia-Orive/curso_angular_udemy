@@ -1,1 +1,38 @@
-<p>posts works!</p>
+<div class="row">
+    <div class="col-12">
+
+        <div class="row">
+            <div class="col-12 border-bottom p-2">
+                <span class="h3 me-4">Posts</span>
+                <button class="btn btn-primary btn-sm mb-2" [routerLink]="['add']">
+                    <i class="bi bi-plus"></i>
+                    Añadir post
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                @if(pagination$ | async; as pagination){
+
+                    <app-table-data
+                        [columns]="columns"
+                        [totalPages]="pagination.totalPages"
+                        [totalElements]="pagination.total"
+                        [rows]="pagination.content"
+                        [currentPage]="pagination.page"
+                        selectable
+                        searchable
+                        [actionsAvailables]="actionsAvailables"
+                        
+                    >
+
+                    
+                    </app-table-data>
+
+                }
+            </div>
+        </div>
+
+        
+    </div>
+</div>
