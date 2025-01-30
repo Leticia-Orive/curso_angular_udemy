@@ -6,6 +6,7 @@ import { first } from 'rxjs';
 import { IPage } from '../models/page.model';
 import { IPost } from '../models/post.model';
 import { TSort } from '../shared/components/table-data/types/sort.type';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,26 @@ export class PostService {
     }
     return this.http.get<IPage<IPost>>(url).pipe(first());
   }
- 
+  private prepareFormData(post: IPost){
+
+    const form: FormData = new FormData();
+    form.append('title', post.title)
+    form.append('content', post.content)
+    if(post.publishedDate){
+      form.append('publishedDate', moment(post.publishedDate).toISOString())
+    }
+    if(post.categories ){
+      // si viene en modo objeto, lo mapeamos
+      
+        form.append('categories', JSON.stringify(post.categories))
+      
+      }
+    
+    if(post.img){
+      form.append('img', post.img)
+    }
+
+    return form;
+
+  }
 }
