@@ -1,0 +1,9 @@
+<!-- Imagen previsualizada -->
+@if(srcImage){
+    <img [src]="srcImage" class="img-fluid mb-4" alt="preview">
+}
+<!-- Input file -->
+<input type="file" class="form-control" name="file" id="file"
+accept=".jpg, .jpeg, .png"
+#fileInput
+(change)="fileSelected()">
