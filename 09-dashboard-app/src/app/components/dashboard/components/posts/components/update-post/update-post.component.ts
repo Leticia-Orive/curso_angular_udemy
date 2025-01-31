@@ -3,7 +3,7 @@ import { Store } from '@ngxs/store';
 import { PostsState } from '../../../../../../state/posts/posts.state';
 import { IPost } from '../../../../../../models/post.model';
 import { Observable } from 'rxjs/internal/Observable';
-import { ClearPostSelectedAction, GetPostByIdAction} from '../../../../../../state/posts/posts.actions';
+import { ClearPostSelectedAction, GetPostByIdAction, UpdatePostAction} from '../../../../../../state/posts/posts.actions';
 
 import { AsyncPipe } from '@angular/common';
 import { PostFormComponent } from '../../../../../../shared/components/post-form/post-form.component';
@@ -33,7 +33,28 @@ export class UpdatePostComponent {
     this.store.dispatch(new GetPostByIdAction({ id: this.id }))
   }
 
- updatePost(post: IPost){}
+ updatePost(post: IPost){
+  this.store.dispatch(new UpdatePostAction({ post })).subscribe({
+    next: () => {
+      this.toastrService.success(
+        'Se ha actualizado la entrada',
+        'Éxito'
+      )
+       // Volvemos al post
+       this.router.navigate(['/dashboard', 'posts'])
+
+    }, error: (error) => {
+      console.error(error);
+        this.toastrService.error(
+          'No se ha actualizado la entrada',
+          'Error'
+        )
+
+    }
+  })
+
+  
+ }
 
   ngOnDestroy(){
     // limpiamos el post seleccionado

@@ -42,6 +42,11 @@ export class PostService {
     return this.http.post<IPost>(this.URL_BASE, form).pipe(first());
   }
 
+  updatePost(post: IPost){
+    const form = this.prepareFormData(post)
+    return this.http.put<IPost>(`${this.URL_BASE}/${post._id}`, form).pipe(first());
+  }
+
   getPostById(id: string){
     return this.http.get<IPost>(`${this.URL_BASE}/${id}`).pipe(first())
   }

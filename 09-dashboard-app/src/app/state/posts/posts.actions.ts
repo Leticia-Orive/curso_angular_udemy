@@ -11,6 +11,11 @@ export class CreatePostAction {
   constructor(public payload: { post: IPost }) { }
 }
 
+export class UpdatePostAction {
+  static readonly type = '[Posts] Update Post';
+  constructor(public payload: { post: IPost }) { }
+}
+
 export class GetPostByIdAction {
   static readonly type = '[Posts] Get Post By Id';
   constructor(public payload: { id: string }) { }
