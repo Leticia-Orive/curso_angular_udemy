@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { ClearPostSelectedAction, CreatePostAction, GetPostByIdAction, GetPostsAction, UpdatePostAction,  } from './posts.actions';
+import { ClearPostSelectedAction, CreatePostAction, DeletePostsAction, GetPostByIdAction, GetPostsAction, UpdatePostAction,  } from './posts.actions';
 import { IPage } from '../../models/page.model';
 import { IPost } from '../../models/post.model';
 import { tap } from 'rxjs';
@@ -51,6 +51,10 @@ export class PostsState {
   @Action(UpdatePostAction)
   updatePost({ }: StateContext<PostsStateModel>, { payload }: UpdatePostAction) {
     return this.postsService.updatePost(payload.post);
+  }
+  @Action(DeletePostsAction)
+  deletePosts({ }: StateContext<PostsStateModel>, { payload }: DeletePostsAction) {
+    return this.postsService.deletePosts(payload.ids);
   }
 
   @Action(GetPostByIdAction)

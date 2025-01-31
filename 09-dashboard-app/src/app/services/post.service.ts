@@ -50,6 +50,9 @@ export class PostService {
   getPostById(id: string){
     return this.http.get<IPost>(`${this.URL_BASE}/${id}`).pipe(first())
   }
+  deletePosts(idsPosts: string[]){
+    return this.http.delete<IResultDelete>(`${this.URL_BASE}?ids=${idsPosts.join(',')}`).pipe(first())
+  }
 
 
 

@@ -20,6 +20,10 @@ export class GetPostByIdAction {
   static readonly type = '[Posts] Get Post By Id';
   constructor(public payload: { id: string }) { }
 }
+export class DeletePostsAction {
+  static readonly type = '[Posts] Delete posts';
+  constructor(public payload: { ids: string[] }) { }
+}
 
 export class ClearPostSelectedAction {
   static readonly type = '[Posts] Clear Post selected';
