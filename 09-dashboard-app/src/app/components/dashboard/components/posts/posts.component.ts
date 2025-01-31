@@ -134,6 +134,15 @@ export class PostsComponent {
         })
         break;
       case 'unpublish':
+        const modalUnpublish: IModal = {
+          content: '¿Estas seguro de querer despublicar estas entradas?'
+        }
+
+        this.modalService.open(modalUnpublish).subscribe({
+          next: () => {
+            this.unpublishPosts(selectedAction.items)
+          }
+        })
         
         break;
     }
@@ -173,6 +182,45 @@ export class PostsComponent {
     }else{
       this.toastrService.error(
         'No hay entradas para publicar',
+        'Error'
+      )
+    }
+
+  }
+  /**
+   * Despublica los posts
+   * @param posts 
+   */
+  private unpublishPosts(posts: IPost[]){
+
+    const actions: UpdatePostAction[] = []
+    for (const post of posts) {
+      // Solo si esta publicado
+      if(post.publishedDate){
+        post.publishedDate = null
+        actions.push(new UpdatePostAction({ post }))
+      }
+    }
+
+    // Solo si hay alguna acción a realizar
+    if(actions.length > 0){
+      this.store.dispatch(actions).subscribe({
+        next: () => {
+          this.toastrService.success(
+            'Entradas despublicadas',
+            'Éxito'
+          )
+          this.getPosts();
+        }, error: () => {
+          this.toastrService.error(
+            'Ha habido un error al despublicar las entradas',
+            'Error'
+          )
+        }
+      })
+    }else{
+      this.toastrService.error(
+        'No hay entradas para despublicar',
         'Error'
       )
     }

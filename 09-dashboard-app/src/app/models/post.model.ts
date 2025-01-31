@@ -6,5 +6,5 @@ export interface IPost {
     content: string
     categories: ICategory[],
     img: string
-    publishedDate?: string
+    publishedDate?: string | null
 }
