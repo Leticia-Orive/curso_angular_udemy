@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { GetPostsAction,  } from './posts.actions';
+import { CreatePostAction, GetPostsAction,  } from './posts.actions';
 import { IPage } from '../../models/page.model';
 import { IPost } from '../../models/post.model';
 import { tap } from 'rxjs';
@@ -36,5 +36,10 @@ export class PostsState {
         })
       })
     )
+  }
+
+  @Action(CreatePostAction)
+  createPost({ }: StateContext<PostsStateModel>, { payload }: CreatePostAction) {
+    return this.postsService.createPost(payload.post);
   }
 }

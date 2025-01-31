@@ -7,6 +7,7 @@ import { IPage } from '../models/page.model';
 import { IPost } from '../models/post.model';
 import { TSort } from '../shared/components/table-data/types/sort.type';
 import moment from 'moment';
+import { IResultDelete } from '../models/result-delete.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,14 @@ export class PostService {
     }
     return this.http.get<IPage<IPost>>(url).pipe(first());
   }
+
+  createPost(post: IPost){
+    const form = this.prepareFormData(post)
+    return this.http.post<IPost>(this.URL_BASE, form).pipe(first());
+  }
+
+
+
   private prepareFormData(post: IPost){
 
     const form: FormData = new FormData();
