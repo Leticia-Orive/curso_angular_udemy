@@ -6,20 +6,26 @@ import { IPost } from '../../../../models/post.model';
 import { PostsState } from '../../../../state/posts/posts.state';
 import { TableDataComponent } from '../../../../shared/components/table-data/table-data.component';
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { GetPostsAction } from '../../../../state/posts/posts.actions';
+import { GetPostsAction, UpdatePostAction } from '../../../../state/posts/posts.actions';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IColumn } from '../../../../shared/components/table-data/models/column.model';
 import { IAction, IActionSelected } from '../../../../shared/components/table-data/models/action.model';
 import { TAction } from '../../../../types';
 import { ToastrService } from 'ngx-toastr';
 import { TSort } from '../../../../shared/components/table-data/types/sort.type';
+import { IModal } from '../../../../shared/components/modal/models/modal.model';
+import { ModalService } from '../../../../shared/components/modal/services/modal.service';
+import moment from 'moment';
 
 
 @Component({
   selector: 'app-posts',
   imports: [TableDataComponent, AsyncPipe, RouterLink, DatePipe],
   templateUrl: './posts.component.html',
-  styleUrl: './posts.component.scss'
+  styleUrl: './posts.component.scss',
+  providers: [
+    ModalService
+  ]
 })
 export class PostsComponent {
 
@@ -27,6 +33,7 @@ export class PostsComponent {
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   private toastrService = inject(ToastrService)
+  private modalService = inject(ModalService)
 
 
   // Paginacion de posts
@@ -113,14 +120,65 @@ export class PostsComponent {
 
     switch(selectedAction.action){
       case 'delete':
+        
         break;
       case 'publish':
+        const modalPublish: IModal = {
+          content: '¿Estas seguro de querer publicar estas entradas?'
+        }
+
+        this.modalService.open(modalPublish).subscribe({
+          next: () => {
+            this.publishPosts(selectedAction.items)
+          }
+        })
         break;
       case 'unpublish':
+        
         break;
     }
 
   }
+  /**
+   * Publica los posts
+   * @param posts 
+   */
+  private publishPosts(posts: IPost[]){
+
+    const actions: UpdatePostAction[] = []
+    for (const post of posts) {
+      // Solo sino esta publicado
+      if(!post.publishedDate){
+        post.publishedDate = moment().toISOString()
+        actions.push(new UpdatePostAction({ post }))
+      }
+    }
+
+    // Solo si hay alguna acción a realizar
+    if(actions.length > 0){
+      this.store.dispatch(actions).subscribe({
+        next: () => {
+          this.toastrService.success(
+            'Entradas publicadas',
+            'Éxito'
+          )
+          this.getPosts();
+        }, error: () => {
+          this.toastrService.error(
+            'Ha habido un error al publicar las entradas',
+            'Error'
+          )
+        }
+      })
+    }else{
+      this.toastrService.error(
+        'No hay entradas para publicar',
+        'Error'
+      )
+    }
+
+  }
+
 
    /**
    * Modifica el texto a buscar
