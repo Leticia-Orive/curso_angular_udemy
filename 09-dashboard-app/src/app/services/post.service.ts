@@ -61,12 +61,15 @@ export class PostService {
     if(post.publishedDate){
       form.append('publishedDate', moment(post.publishedDate).toISOString())
     }
-    if(post.categories ){
+    if(post.categories && post.categories.length > 0){
       // si viene en modo objeto, lo mapeamos
-      
+      if(typeof post.categories[0] !== 'string'){
+        const categories: string[] = post.categories.map(category => category._id!);
+        form.append('categories', JSON.stringify(categories))
+      }else{
         form.append('categories', JSON.stringify(post.categories))
-      
       }
+    }
     
     if(post.img){
       form.append('img', post.img)
