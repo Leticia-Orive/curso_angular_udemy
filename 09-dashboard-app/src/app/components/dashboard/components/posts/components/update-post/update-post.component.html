@@ -1,1 +1,26 @@
-<pre>{{post$ | async | json}}</pre>
+<div class="row">
+    <div class="col-12">
+
+        <!-- Cabecera -->
+        <div class="row">
+            <div class="col-12 border-bottom p-2">
+                <span class="h3">Actualizar entrada</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Obtenemos el post -->
+                @if(post$ | async; as post){
+                    <!-- Componente formulario post -->
+                    <app-post-form 
+                        [post]="post"
+                        (submitForm)="updatePost($event)" />
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>
