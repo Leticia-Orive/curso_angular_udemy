@@ -10,3 +10,12 @@ export class CreatePostAction {
   static readonly type = '[Posts] Create Post';
   constructor(public payload: { post: IPost }) { }
 }
+
+export class GetPostByIdAction {
+  static readonly type = '[Posts] Get Post By Id';
+  constructor(public payload: { id: string }) { }
+}
+
+export class ClearPostSelectedAction {
+  static readonly type = '[Posts] Clear Post selected';
+}

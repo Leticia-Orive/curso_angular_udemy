@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { CreatePostAction, GetPostsAction,  } from './posts.actions';
+import { ClearPostSelectedAction, CreatePostAction, GetPostByIdAction, GetPostsAction,  } from './posts.actions';
 import { IPage } from '../../models/page.model';
 import { IPost } from '../../models/post.model';
 import { tap } from 'rxjs';
@@ -8,10 +8,12 @@ import { PostService } from '../../services/post.service';
 
 export class PostsStateModel {
   public pagination!: IPage<IPost> | null;
+  public postSelected!: IPost | null
 }
 
 const defaults = {
-  pagination: null
+  pagination: null,
+  postSelected: null
 };
 
 @State<PostsStateModel>({
@@ -24,6 +26,10 @@ export class PostsState {
   @Selector()
   static pagination(state: PostsStateModel) {
     return state.pagination
+  }
+  @Selector()
+  static postSelected(state: PostsStateModel) {
+    return state.postSelected
   }
   private postsService = inject(PostService)
 
@@ -41,5 +47,22 @@ export class PostsState {
   @Action(CreatePostAction)
   createPost({ }: StateContext<PostsStateModel>, { payload }: CreatePostAction) {
     return this.postsService.createPost(payload.post);
+  }
+
+  @Action(GetPostByIdAction)
+  getPostById({ patchState }: StateContext<PostsStateModel>, { payload }: GetPostByIdAction) {
+    return this.postsService.getPostById(payload.id).pipe(
+      tap((post: IPost) => {
+        patchState({
+          postSelected: post
+        })
+      })
+    )
+  }
+  @Action(ClearPostSelectedAction)
+  clearPostSelected({ patchState }: StateContext<PostsStateModel>) {
+    patchState({
+      postSelected: null
+    })
   }
 }
