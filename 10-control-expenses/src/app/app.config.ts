@@ -7,6 +7,7 @@ import { provideToastr } from 'ngx-toastr';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { environment } from '../environments/environment.development';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,8 +15,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideToastr(), 
-    provideFirebaseApp(() => initializeApp
-    ()),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    
        provideAuth(() => getAuth()), 
        provideFirestore(() => getFirestore()),
     ]
