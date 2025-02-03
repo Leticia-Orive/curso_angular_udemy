@@ -76,6 +76,9 @@
                     </div>
                     <div class="invalid-feedback">
                         @if(controlConfirmPassword && controlConfirmPassword.errors){
+                            @if(controlConfirmPassword.errors['passwordsNotMatched']){
+                                <span class="d-block">Las contraseñas no coinciden</span>
+                            }
                             
                             @if(controlConfirmPassword.errors['required']){
                                 <span class="d-block">Requerido</span>
