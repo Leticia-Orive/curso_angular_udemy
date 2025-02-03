@@ -6,7 +6,7 @@ import { IPost } from '../../../../models/post.model';
 import { PostsState } from '../../../../state/posts/posts.state';
 import { TableDataComponent } from '../../../../shared/components/table-data/table-data.component';
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { GetPostsAction, UpdatePostAction } from '../../../../state/posts/posts.actions';
+import { DeletePostsAction, GetPostsAction, UpdatePostAction } from '../../../../state/posts/posts.actions';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IColumn } from '../../../../shared/components/table-data/models/column.model';
 import { IAction, IActionSelected } from '../../../../shared/components/table-data/models/action.model';
@@ -120,6 +120,16 @@ export class PostsComponent {
 
     switch(selectedAction.action){
       case 'delete':
+        const modalDelete: IModal = {
+          content: '¿Estas seguro de querer borrar estas entradas?'
+        }
+
+        this.modalService.open(modalDelete).subscribe({
+          next: () => {
+            const ids = selectedAction.items.map(post => post._id!);
+            this.deletePosts(ids)
+          }
+        })
         
         break;
       case 'publish':
@@ -225,6 +235,39 @@ export class PostsComponent {
       )
     }
 
+  }
+  /**
+   * Borra los posts
+   * @param ids 
+   */
+  private deletePosts(ids: string[]){
+
+    this.store.dispatch(new DeletePostsAction({ ids })).subscribe({
+      next: () => {
+
+        this.toastrService.success(
+          'Entradas eliminadas',
+          'Éxito'
+        )
+
+        // Obtengo la paginacion actual
+        const pagination = this.store.selectSnapshot(PostsState.pagination);
+
+        // Si la pagina es diferente de 1 y hemos eliminado toda la pagina, echamos una pagina hacia atras
+        if(this.page !== 1 && pagination?.content.length === ids.length){
+          this.page = this.page - 1;
+        }
+
+        // Refrescamos
+        this.getPosts();
+      }, error: (error) => {
+        console.error(error);
+        this.toastrService.error(
+          'Error al eliminar entradas',
+          'Error'
+        )
+      }
+    })
   }
 
 
