@@ -1,9 +1,12 @@
+
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-create-account',
-  imports: [],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss'
 })
@@ -21,5 +24,6 @@ export class CreateAccountComponent {
       confirmPassword: new FormControl('', Validators.required),
     })
   }
+  createAccount(){}
 
 }
