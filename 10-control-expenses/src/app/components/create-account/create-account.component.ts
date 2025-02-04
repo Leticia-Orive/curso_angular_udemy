@@ -2,7 +2,10 @@
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { IAuthCredentials } from '../../models/auth-credentials';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -14,6 +17,9 @@ import { RouterLink } from '@angular/router';
 export class CreateAccountComponent {
 
   private formBuilder = inject(FormBuilder)
+  private authService = inject(AuthService)
+  private toastrService = inject(ToastrService)
+  private router = inject(Router)
 
   public formCreateAccount: FormGroup = new FormGroup({})
 
@@ -42,6 +48,25 @@ export class CreateAccountComponent {
   /**
    * Crea una cuenta en firebase
    */
-  createAccount(){}
+  createAccount(){
+
+    // obtenemos las credenciales
+    const authCredentials = this.formCreateAccount.value as IAuthCredentials;
+
+    // Creamos la cuenta
+    this.authService.createAccount(authCredentials).then( () => {
+      this.toastrService.success(
+        'Cuenta creada',
+        'Éxito'
+      )
+      this.router.navigateByUrl('/registries')
+    }, error => {
+      console.error(error);
+      this.toastrService.error(
+        'Ha habido un problema al crear la cuenta',
+        'Error'
+      )
+    })
+  }
 
 }
