@@ -1,1 +1,36 @@
-<p>form-category works!</p>
+
+<form [formGroup]="formCategory" (ngSubmit)="submit()">
+
+    <!-- Campos ocultos -->
+    <input type="hidden" name="id" formControlName="id">
+    <input type="hidden" name="user" formControlName="user">
+    <input type="hidden" name="createdOn" formControlName="createdOn">
+
+    
+
+    <!-- Nombre -->
+    <div class="row">
+        <div class="col-12">
+            <label class="form-label" for="name">Nombre *</label>
+            <input type="text" name="name" id="name" formControlName="name" class="form-control" >
+            
+        </div>
+    </div>
+
+    <!-- Color -->
+    <div class="row mt-2">
+        <div class="col-12">
+            <label class="form-label" for="color">Color *</label>
+            <input type="color" name="color" id="color" formControlName="color" class="form-control">
+        </div>
+    </div>
+
+    <!-- Boton guardar -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <input type="submit" class="btn btn-primary"  value="Guardar">
+        </div>
+    </div>
+
+
+</form>

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { DetailComponent } from '../../shared/detail/detail.component';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
 
 @Component({
   selector: 'app-categories',
-  imports: [DetailComponent],
+  imports: [DetailComponent, AddCategoryComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
