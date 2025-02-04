@@ -59,4 +59,11 @@ export class AuthService {
     return this.auth.currentUser !== null
   }
 
+  // Indica el usuario actual
+  currentUser(){
+    return this.auth.currentUser?.email;
+  }
+
+
+
 }
