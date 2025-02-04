@@ -1,4 +1,54 @@
-<button (click)="logout()">Logout</button>
 
-{{isAuthenticatedSignal()}}
+<div class="row">
+    <div class="col-12">
+        <!-- Cabecera -->
+        <div class="row bg-primary " [ngClass]="{
+            'rounded': !isAuthenticatedSignal(),
+            'rounded-top': isAuthenticatedSignal()
+        }">
+            <div class="col-12 text-center text-light p-3">
+                <span class="h1">Controla gastos</span>
+            </div>
+        </div>
+        <!-- Menu, solo si estamos autentificados -->
+        @if(isAuthenticatedSignal()){
+            <div class="row bg-light rounded-bottom">
+                <div class="col-12">
+    
+                    <nav class="navbar navbar-expand-sm">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                                    <li class="nav-item" routerLink="/registries">
+                                        <a class="nav-link" routerLinkActive="active">Registros</a>
+                                    </li>
+                                    <li class="nav-item" routerLink="/categories">
+                                        <a class="nav-link" routerLinkActive="active">Categorias</a>
+                                    </li>
+                                    <li class="nav-item" routerLink="/graphics">
+                                        <a class="nav-link" routerLinkActive="active">Gráficas</a>
+                                    </li>
+                                    <li class="nav-item" (click)="logout()">
+                                        <a class="nav-link">Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                    </nav>
+    
+                </div>
+            </div>
+            
+        }
+        
+
+        
+
+        
+
+    </div>
+</div>
 
