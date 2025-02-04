@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { Auth, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { IAuthCredentials } from '../models/auth-credentials';
 
 
@@ -27,6 +27,14 @@ export class AuthService {
    */
    createAccount(authCredentials: IAuthCredentials){
     return createUserWithEmailAndPassword(this.auth, authCredentials.email, authCredentials.password).then( () => this.login(authCredentials))
+  }
+
+   /**
+   * Nos desloguea de la aplicación
+   * @returns 
+   */
+   logout(){
+    return signOut(this.auth);
   }
 
 }
