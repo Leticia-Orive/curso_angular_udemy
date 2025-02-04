@@ -1,0 +1,25 @@
+@if(showDetail){
+    <div class="detail ">
+
+        <!-- Titulo -->
+        <div class="row ">
+            <div class="col-lg-10 col-md-9 col-8">
+                <ng-content select="[detail-title]"></ng-content>
+            </div>
+            <div class="col-lg-2 col-md-3 col-4 ">
+                <i class="bi bi-x-lg" (click)="closeDetail()"></i>
+                
+            </div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="row ">
+            <div class="col-12">
+                <ng-content select="[detail-content]"></ng-content>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="overlay"></div>
+}
