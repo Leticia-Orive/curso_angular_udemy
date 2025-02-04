@@ -12,6 +12,13 @@ export class HeaderComponent {
 
   private authService = inject(AuthService);
   private router = inject(Router);
+// signals
+  public isAuthenticatedSignal = this.authService.isAuthenticatedSignal;
+
+  ngOnInit(){
+    // comprobamos si estamos estamos
+    this.authService.checkIsLogged();
+  }
 
   /**
    *  Nos deslogueamos de la aplicación

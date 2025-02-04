@@ -1,6 +1,6 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { Auth, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { Auth, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
 import { IAuthCredentials } from '../models/auth-credentials';
 
 
@@ -10,6 +10,20 @@ import { IAuthCredentials } from '../models/auth-credentials';
 export class AuthService {
   private afApp = inject(FirebaseApp)
   private auth: Auth = getAuth(this.afApp)
+
+  public isAuthenticatedSignal = signal<boolean>(this.isLoggedIn())
+
+
+  /**Creamos un metodo */
+   /**
+   * Comprueba si esta logueado, queda pendiente si se loguea/desloguea
+   */
+   checkIsLogged(){
+    onAuthStateChanged(this.auth, (user) => {
+      console.log(user);
+      this.isAuthenticatedSignal.set(user !== null)
+    })
+  }
 
    /**
    * Nos loguea en firebase
@@ -35,6 +49,14 @@ export class AuthService {
    */
    logout(){
     return signOut(this.auth);
+  }
+
+  /**
+   * Indicamos si esta o no logueado
+   * @returns 
+   */
+  isLoggedIn(){
+    return this.auth.currentUser !== null
   }
 
 }
