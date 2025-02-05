@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, Firestore, getDocs, getFirestore, query, QueryDocumentSnapshot, QuerySnapshot, setDoc } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, Firestore, getDocs, getFirestore,  orderBy,  query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, where } from '@angular/fire/firestore';
 import { ICategory } from '../models/category.model';
 import { AuthService } from './auth.service';
 import moment from 'moment';
@@ -22,11 +22,15 @@ export class CategoryService {
 getCategories() {
   // Obtenemos la coleccion
   const categoriesCollection = collection(this.database, 'categories');
+
+   // Query base
+   const queryConstraints = this.createQuery();
  
 
   // Creamos la query final
   const queryCategories = query(
     categoriesCollection,
+    ...queryConstraints
     
   );
 
@@ -44,6 +48,21 @@ getCategories() {
       
   });
 
+}
+ /**
+   * Crea la query base
+   * @param direction 
+   * @returns 
+   */
+createQuery(){
+  // Obtenemos el usuario actual
+  const user = this.authService.currentUser() as string;
+  // Creamos la query base
+  const queryConstraints: QueryConstraint[] = [
+    orderBy('name', 'asc'),
+    where("user", "==", user)
+  ]
+  return queryConstraints;
 }
 
 
