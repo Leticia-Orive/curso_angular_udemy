@@ -2,12 +2,13 @@ import { Component, inject } from '@angular/core';
 import { DetailComponent } from '../../shared/detail/detail.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { CategoryService } from '../../services/category.service';
-import { JsonPipe } from '@angular/common';
+import { NgStyle } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-categories',
-  imports: [DetailComponent, AddCategoryComponent, JsonPipe],
+  imports: [DetailComponent, AddCategoryComponent, NgStyle],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
@@ -21,7 +22,7 @@ export class CategoriesComponent {
   public categoriesSignal = this.categoryService.categoriesSignal.asReadonly();
 
   ngOnInit(){
-    this.categoryService.getCategories();
+    //this.categoryService.getCategories();
   }
   
 
