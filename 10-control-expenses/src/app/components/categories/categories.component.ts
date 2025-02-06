@@ -3,12 +3,14 @@ import { DetailComponent } from '../../shared/detail/detail.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { CategoryService } from '../../services/category.service';
 import { NgStyle } from '@angular/common';
+import { UpdateCategoryComponent } from './components/update-category/update-category.component';
+import { ICategory } from '../../models/category.model';
 
 
 
 @Component({
   selector: 'app-categories',
-  imports: [DetailComponent, AddCategoryComponent, NgStyle],
+  imports: [DetailComponent, AddCategoryComponent, NgStyle, UpdateCategoryComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
@@ -17,6 +19,7 @@ export class CategoriesComponent {
   private categoryService = inject(CategoryService)
 
   public showDetail: boolean = false;
+  public categorySelected?: ICategory;
 
   // signals
   public categoriesSignal = this.categoryService.categoriesSignal.asReadonly();
@@ -38,6 +41,18 @@ export class CategoriesComponent {
   }
 
   /**
+   * Abre el detalle para actualizar la categoria
+   * @param category 
+   */
+  openUpdateDetail(category: ICategory){
+    this.categorySelected = category;
+    this.openDetail();
+    
+  }
+
+
+
+  /**
    * Cierra el detalle, si la acción se completó, pedimos los datos de nuevo
    * @param actionSuccess 
    */
@@ -47,6 +62,7 @@ export class CategoriesComponent {
       this.categoryService.reset()
       this.next();
     }
+    this.categorySelected = undefined;
     
   }
  

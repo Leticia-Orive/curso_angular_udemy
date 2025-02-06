@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-lx-1 col-lg-2 col-sm-3 text-end">
                     <!-- Actualizar -->
-                    <i class="bi bi-pencil text-warning me-2" ></i>
+                    <i class="bi bi-pencil text-warning me-2" (click)="openUpdateDetail(category)"></i>
                     <!-- Borrar -->
                     <i class="bi bi-trash text-danger" ></i>
                 </div>
@@ -53,12 +53,18 @@
 </div>
 
 @if(showDetail){
+    <!-- Detalle -->
     <app-detail (close)="closeDetail()">
+         <!-- Titulo -->
 
         <span class="h1" detail-title>Categoría</span>
-
+        <!-- Contenido -->
         <div detail-content>
-            <app-add-category (categorySaved)="closeDetail(true)"/>
+            @if(categorySelected){
+                <app-update-category [category]="categorySelected" (categoryUpdated)="closeDetail(true)"/>
+            } @else{
+                <app-add-category (categorySaved)="closeDetail(true)"/>
+            }
         </div>
 
     </app-detail>

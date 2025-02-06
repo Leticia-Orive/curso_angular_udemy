@@ -157,6 +157,21 @@ createQuery(direction: TDirection = null){
     // crea la categoria
      await setDoc(newCategoryRef, category);
   }
+
+  /**
+   * Actualiza una categoria
+   * @param category 
+   * @returns 
+   */
+  updateCategory(category: ICategory) {
+    // obtenemos la referencia
+    const categoryRef = doc(this.database, `categories/${category.id}`)
+    // Actualiza la categoria
+    return setDoc(categoryRef, category);
+  }
+
+
+
 /**
    * Obtiene el total de categorias
    */
