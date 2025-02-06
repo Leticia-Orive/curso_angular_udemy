@@ -21,9 +21,11 @@ export class CategoriesComponent {
   // signals
   public categoriesSignal = this.categoryService.categoriesSignal.asReadonly();
   public totalCategoriesSignal = this.categoryService.totalCategoriesSignal.asReadonly();
+  public nextCategoriesSignal = this.categoryService.nextCategoriesSignal.asReadonly();
+  public previousCategoriesSignal = this.categoryService.previousCategoriesSignal.asReadonly();
 
   ngOnInit(){
-    this.categoryService.getCategories();
+   this.next()
   }
   
 
@@ -41,7 +43,22 @@ export class CategoriesComponent {
    */
   closeDetail(){
     this.showDetail = false;
-    this.categoryService.getCategories();
+    this.next();
   }
+ 
+   /**
+   * Obtenemos las categorias anteriores
+   */
+   previous(){
+    this.categoryService.getCategories('previous');
+  }
+
+  /**
+    * Obtenemos las categorias posteriores
+   */
+  next(){
+    this.categoryService.getCategories('next');
+  }
+
 
 }

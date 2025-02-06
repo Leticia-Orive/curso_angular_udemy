@@ -1,18 +1,19 @@
 <div class="row">
     <div class="col-12">
-
+         <!-- Añadir una categoria -->
         <div class="row mt-2 mb-2">
             <div class="col-12">
                 <button class="btn btn-primary" (click)="openDetail()"><i class="bi bi-plus"></i>Añadir una categoría</button>
             </div>
         </div>
+        <!-- Numero de categorias -->
         <div class="row">
             <div class="col-12 text-end">
                 <span>Numero de categorias: {{totalCategoriesSignal()}}</span>
             </div>
 
         </div>
-
+        <!-- Mostramos las categorias -->
         @for(category of categoriesSignal(); track category.id){
             <div class="row g-0 border-top border-end border-bottom rounded p-2 mb-2" [ngStyle]="{'border-left': '10px solid ' + category.color}">
                 <div class="col-xl-11 col-lg-10 col-sm-9">
@@ -32,10 +33,22 @@
                 </div>
             </div>
         }
+        <!-- Paginación -->
+        @if(nextCategoriesSignal() || previousCategoriesSignal()){
+            <div class="row mt-2 mb-2">
+                <div class="col-md-6 col-12 text-start">
+                    @if(previousCategoriesSignal()){
+                        <button class="btn btn-primary" (click)="previous()">Página anterior</button>
+                    }
+                </div>
+                <div class="col-md-6 col-12 text-end">
+                    @if(nextCategoriesSignal()){
+                        <button class="btn btn-primary" (click)="next()">Página siguiente</button>
+                    }
+                </div>
 
-        
-
-
+            </div> 
+        }
     </div>
 </div>
 

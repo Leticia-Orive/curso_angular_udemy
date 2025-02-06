@@ -60,6 +60,9 @@ getCategories(direction: TDirection = null) {
       this.firstDocument = querySnapshot.docs[0];
       this.lastDocument = querySnapshot.docs[querySnapshot.docs.length - 1];
 
+      this.nextCategoriesSignal.set(false);
+      this.previousCategoriesSignal.set(false);
+
       this.hasData('next');
       this.hasData('previous');
     }
