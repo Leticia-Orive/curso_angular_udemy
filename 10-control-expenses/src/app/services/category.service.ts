@@ -174,7 +174,19 @@ createQuery(direction: TDirection = null){
     // Con getCountFromServer obtenemos el numero de registros
     const snapshot = await getCountFromServer(queryTotalCategories);
     this.totalCategoriesSignal.set(snapshot.data().count);
-    
-
+  
   }
+  /**
+   * Resetea los valores
+   */
+  reset() {
+    this.firstDocument = undefined;
+    this.lastDocument = undefined;
+    this.categoriesSignal.set([])
+    this.totalCategoriesSignal.set(0)
+    this.nextCategoriesSignal.set(false)
+    this.previousCategoriesSignal.set(false)
+   
+  }
+
 }

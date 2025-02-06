@@ -41,9 +41,13 @@ export class CategoriesComponent {
    * Cierra el detalle, si la acción se completó, pedimos los datos de nuevo
    * @param actionSuccess 
    */
-  closeDetail(){
+  closeDetail(actionSuccess: boolean = false){
     this.showDetail = false;
-    this.next();
+    if(actionSuccess){
+      this.categoryService.reset()
+      this.next();
+    }
+    
   }
  
    /**
@@ -60,5 +64,10 @@ export class CategoriesComponent {
     this.categoryService.getCategories('next');
   }
 
-
+ /**
+   * Al salir, reseteamos los valores
+   */
+ ngOnDestroy(){
+  this.categoryService.reset();
+}
 }
