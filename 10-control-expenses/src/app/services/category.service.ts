@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, Firestore, getDocs, getFirestore,  orderBy,  query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, where } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, Firestore, getCountFromServer, getDocs, getFirestore,  orderBy,  query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, where } from '@angular/fire/firestore';
 import { ICategory } from '../models/category.model';
 import { AuthService } from './auth.service';
 import moment from 'moment';
@@ -17,6 +17,7 @@ export class CategoryService {
 
   // signals
   public categoriesSignal: WritableSignal<ICategory[]> = signal<ICategory[]>([])
+  public totalCategoriesSignal: WritableSignal<number> = signal<number>(0);
  
 
 getCategories() {
@@ -45,6 +46,7 @@ getCategories() {
     })
 
     this.categoriesSignal.set(categories);
+    this.totalCategories();
       
   });
 
@@ -82,5 +84,25 @@ createQuery(){
 
     // crea la categoria
      await setDoc(newCategoryRef, category);
+  }
+/**
+   * Obtiene el total de categorias
+   */
+ async totalCategories(){
+    // Obtenemos la coleccion
+    const categoriesCollection = collection(this.database, 'categories');
+    // query base
+    const queryTotal = this.createQuery();
+
+     // creamos la query
+    const queryTotalCategories = query(
+      categoriesCollection,
+      ...queryTotal
+    );
+    // Con getCountFromServer obtenemos el numero de registros
+    const snapshot = await getCountFromServer(queryTotalCategories);
+    this.totalCategoriesSignal.set(snapshot.data().count);
+    
+
   }
 }

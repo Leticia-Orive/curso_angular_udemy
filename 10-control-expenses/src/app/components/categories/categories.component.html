@@ -6,6 +6,12 @@
                 <button class="btn btn-primary" (click)="openDetail()"><i class="bi bi-plus"></i>Añadir una categoría</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12 text-end">
+                <span>Numero de categorias: {{totalCategoriesSignal()}}</span>
+            </div>
+
+        </div>
 
         @for(category of categoriesSignal(); track category.id){
             <div class="row g-0 border-top border-end border-bottom rounded p-2 mb-2" [ngStyle]="{'border-left': '10px solid ' + category.color}">

@@ -20,9 +20,10 @@ export class CategoriesComponent {
 
   // signals
   public categoriesSignal = this.categoryService.categoriesSignal.asReadonly();
+  public totalCategoriesSignal = this.categoryService.totalCategoriesSignal.asReadonly();
 
   ngOnInit(){
-    //this.categoryService.getCategories();
+    this.categoryService.getCategories();
   }
   
 
@@ -40,6 +41,7 @@ export class CategoriesComponent {
    */
   closeDetail(){
     this.showDetail = false;
+    this.categoryService.getCategories();
   }
 
 }
