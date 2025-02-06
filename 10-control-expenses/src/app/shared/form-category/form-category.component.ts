@@ -1,6 +1,8 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ICategory } from '../../models/category.model';
+import { categoryExistsValidator } from '../../validators/category-exists.validator';
+import { CategoryService } from '../../services/category.service';
 
 
 
@@ -13,6 +15,7 @@ import { ICategory } from '../../models/category.model';
 export class FormCategoryComponent {
 
   private formBuilder = inject(FormBuilder);
+  private categoryService = inject(CategoryService);
   
 
   @Input() category?: ICategory;
@@ -22,7 +25,9 @@ export class FormCategoryComponent {
 
   ngOnInit(){
     this.formCategory = this.formBuilder.group({
-      name: new FormControl(this.category?.name ?? '', Validators.required, ),
+      name: new FormControl(this.category?.name ?? '', Validators.required, categoryExistsValidator(
+        this.categoryService, this.category?.name
+      ) ),
       color: new FormControl(this.category?.color ?? '#000', Validators.required),
       id: new FormControl(this.category?.id ?? ''),
       user: new FormControl(this.category?.user ?? ''),

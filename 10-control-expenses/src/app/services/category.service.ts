@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import moment from 'moment';
 import { TDirection } from '../types';
 import { ITEMS_PAGINATION } from '../constants';
+import { getCount } from '@angular/fire/firestore/lite';
 
 
 @Injectable({
@@ -191,6 +192,22 @@ createQuery(direction: TDirection = null){
     this.totalCategoriesSignal.set(snapshot.data().count);
   
   }
+
+  async categoryExists(name: string){
+    const categoriesCollection = collection(this.database, 'categories');
+    const user = this.authService.currentUser();
+    const queryExists = query(
+      categoriesCollection,
+      where('name', '==', name),
+      where('user', '==', user)
+    )
+
+    const querySnapshot = await getCountFromServer(queryExists);
+    return querySnapshot.data().count > 0;
+
+  }
+
+
   /**
    * Resetea los valores
    */
