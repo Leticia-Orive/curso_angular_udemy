@@ -1,9 +1,11 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, Firestore, getCountFromServer, getDocs, getFirestore,  orderBy,  query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, where } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, endBefore, Firestore, getCountFromServer, getDocs, getFirestore,  limit,  limitToLast,  orderBy,  query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from '@angular/fire/firestore';
 import { ICategory } from '../models/category.model';
 import { AuthService } from './auth.service';
 import moment from 'moment';
+import { TDirection } from '../types';
+import { ITEMS_PAGINATION } from '../constants';
 
 
 @Injectable({
@@ -17,15 +19,20 @@ export class CategoryService {
 
   // signals
   public categoriesSignal: WritableSignal<ICategory[]> = signal<ICategory[]>([])
-  public totalCategoriesSignal: WritableSignal<number> = signal<number>(0);
+  public totalCategoriesSignal: WritableSignal<number> = signal<number>(0)
+  public nextCategoriesSignal: WritableSignal<boolean> = signal<boolean>(false)
+  public previousCategoriesSignal: WritableSignal<boolean> = signal<boolean>(false)
  
+  // Primer y ultimo documento, para la paginacion
+  private firstDocument?: DocumentData;
+  private lastDocument?: DocumentData
 
-getCategories() {
+getCategories(direction: TDirection = null) {
   // Obtenemos la coleccion
   const categoriesCollection = collection(this.database, 'categories');
 
    // Query base
-   const queryConstraints = this.createQuery();
+   const queryConstraints = this.createQuery(direction);
  
 
   // Creamos la query final
@@ -47,16 +54,56 @@ getCategories() {
 
     this.categoriesSignal.set(categories);
     this.totalCategories();
-      
+
+    // si estamos paginando actualizamos valores
+    if (direction) {
+      this.firstDocument = querySnapshot.docs[0];
+      this.lastDocument = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+      this.hasData('next');
+      this.hasData('previous');
+    }
   });
 
+}
+ /**
+   * Actualiza los signals relacionados con la paginacion
+   * @param direction 
+   */
+
+private async hasData(direction: TDirection){
+  // Obtenemos la coleccion
+  const categoriesCollection = collection(this.database, 'categories');
+  // Query base
+  const queryHasDataContraints = this.createQuery(direction)
+
+  // Creamos la query
+  const queryHasData = query(
+    categoriesCollection,
+    ...queryHasDataContraints
+  );
+  // Obtenemos las categorias
+  const dataDocs = await getDocs(queryHasData);
+  // Obtenemos la longitud
+  const hasData = dataDocs.docs.length > 0;
+
+  switch (direction) {
+    case 'next':
+      this.nextCategoriesSignal.set(hasData);
+      break;
+    case 'previous':
+      this.previousCategoriesSignal.set(hasData);
+      break;
+  }
 }
  /**
    * Crea la query base
    * @param direction 
    * @returns 
    */
-createQuery(){
+
+ 
+createQuery(direction: TDirection = null){
   // Obtenemos el usuario actual
   const user = this.authService.currentUser() as string;
   // Creamos la query base
@@ -64,6 +111,28 @@ createQuery(){
     orderBy('name', 'asc'),
     where("user", "==", user)
   ]
+
+  if(direction){
+    switch (direction) {
+      case 'next':
+        if (this.lastDocument) {
+          // Mostrar registros despues del ultimo documento
+          queryConstraints.push(startAfter(this.lastDocument))
+        }
+        // limite
+        queryConstraints.push(limit(ITEMS_PAGINATION))
+        break;
+      case 'previous':
+        if (this.firstDocument) {
+          // Mostrar registros antes del ultimo documento
+          queryConstraints.push(endBefore(this.firstDocument))
+        }
+        // limite
+        queryConstraints.push(limitToLast(ITEMS_PAGINATION))
+        break;
+    }
+
+  }
   return queryConstraints;
 }
 
