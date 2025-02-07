@@ -67,6 +67,7 @@ getCategories(direction: TDirection = null) {
       this.hasData('next');
       this.hasData('previous');
     }
+    return categories;
   });
 
 }

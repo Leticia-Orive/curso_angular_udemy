@@ -3,11 +3,13 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { IRegistry } from '../../models/registry.model';
 import { TTypeRegistry } from '../../types';
 
-import { DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
+import { CategoryService } from '../../services/category.service';
+import { ICategory } from '../../models/category.model';
 
 @Component({
   selector: 'app-form-registry',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './form-registry.component.html',
   styleUrl: './form-registry.component.scss',
   providers: [
@@ -16,6 +18,7 @@ import { DatePipe } from '@angular/common';
 })
 export class FormRegistryComponent {
 
+  private categoryService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
   private datePipe = inject(DatePipe);
 
@@ -25,6 +28,7 @@ export class FormRegistryComponent {
 
    // Formgroup
    public formRegistry: FormGroup = new FormGroup({});
+   public categoriesPromise: Promise<ICategory[]> = this.categoryService.getCategories()
 
    ngOnInit(){
 

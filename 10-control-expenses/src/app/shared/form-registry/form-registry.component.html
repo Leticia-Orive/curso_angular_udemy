@@ -34,11 +34,18 @@
     }
     <!-- Categorias -->
     
+    @if(categoriesPromise | async; as categories){
         <div class="row mb-2">
             <div class="col-12">
-                
+                <label for="category" class="form-label">Categoría</label>
+                <select class="form-control" name="category" id="category" formControlName="idCategory">
+                    @for(category of categories; track category.id){
+                        <option [value]="category.id">{{category.name}}</option>
+                    }
+                </select>
             </div>
         </div>
+    }
     
     <!-- Cantidad -->
     <div class="row mb-2">
