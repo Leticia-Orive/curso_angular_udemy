@@ -3,12 +3,13 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ICategory } from '../../models/category.model';
 import { categoryExistsValidator } from '../../validators/category-exists.validator';
 import { CategoryService } from '../../services/category.service';
+import { NgClass } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-form-category',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './form-category.component.html',
   styleUrl: './form-category.component.scss'
 })
@@ -33,6 +34,10 @@ export class FormCategoryComponent {
       user: new FormControl(this.category?.user ?? ''),
       createdOn: new FormControl(this.category?.createdOn ?? '')
     })
+  }
+
+  get controlName(){
+    return this.formCategory.get('name')
   }
 
    /**
