@@ -1,1 +1,33 @@
-<p>registries works!</p>
+<div class="row">
+    <div class="col-12">
+         <!-- Botones para añadir -->
+         <div class="row ">
+            <div class="col-12">
+                <button class="btn btn-primary me-2" (click)="openDetail('deposit')"><i class="bi bi-plus"></i> Añadir ingreso</button>
+                <button class="btn btn-primary" (click)="openDetail('expense')" ><i class="bi bi-plus"></i>Añadir gasto</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@if(showDetail){
+
+    <!-- Detalle -->
+    <app-detail (close)="closeDetail()">
+
+        <!-- Titulo del registro -->
+        <span class="h1" detail-registry>Registro</span>
+
+        <!-- Contenido del detalle -->
+        <div detail-content>
+            @if(registrySelected){
+                
+            }@else{
+                <app-add-registry [typeRegistry]="typeRegistry"/>
+            }
+        </div>
+
+
+    </app-detail>
+
+}
