@@ -68,7 +68,7 @@ export class CategoriesComponent {
   closeDetail(actionSuccess: boolean = false){
     this.showDetail = false;
     if(actionSuccess){
-      this.categoryService.reset()
+      this.categoryService.resetPagination()
       this.next();
     }
     this.categorySelected = undefined;
@@ -102,7 +102,7 @@ export class CategoriesComponent {
         'Categoría eliminada',
         'Éxito'
       )
-      this.categoryService.reset();
+      this.categoryService.resetPagination();
       this.next()
     }, error => {
       console.error(error);

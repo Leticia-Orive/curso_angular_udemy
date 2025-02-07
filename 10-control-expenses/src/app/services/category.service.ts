@@ -220,17 +220,26 @@ createQuery(direction: TDirection = null){
 
   }
 
+  /**
+   * Resetea la paginacion
+   */
+  resetPagination() {
+    this.firstDocument = undefined;
+    this.lastDocument = undefined;
+    this.nextCategoriesSignal.set(false)
+    this.previousCategoriesSignal.set(false)
+  }
+
 
   /**
    * Resetea los valores
    */
   reset() {
-    this.firstDocument = undefined;
-    this.lastDocument = undefined;
+   
     this.categoriesSignal.set([])
     this.totalCategoriesSignal.set(0)
-    this.nextCategoriesSignal.set(false)
-    this.previousCategoriesSignal.set(false)
+    this.resetPagination();
+   
    
   }
 
