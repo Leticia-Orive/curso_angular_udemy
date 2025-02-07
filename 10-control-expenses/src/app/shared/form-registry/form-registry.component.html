@@ -1,1 +1,61 @@
-<p>form-registry works!</p>
+<form [formGroup]="formRegistry" (ngSubmit)="submit()">
+    <!-- Campos ocultos -->
+    <input type="hidden" name="id" formControlName="id">
+    <input type="hidden" name="user" formControlName="user">
+    @if(!registry){
+        <input type="hidden" name="type" formControlName="type">
+    }
+
+    <!-- Descripcion -->
+    <div class="row mb-2">
+        <div class="col-12">
+            <label for="description" class="form-label">Descripción *</label>
+            <input type="text" name="description" id="description" class="form-control" formControlName="description">
+        </div>
+    </div>
+    <!-- Fecha -->
+    <div class="row mb-2">
+        <div class="col-12">
+            <label for="date" class="form-label">Fecha *</label>
+            <input type="date" name="date" id="date" class="form-control" formControlName="date">
+        </div>
+    </div>
+    <!-- Tipo -->
+    @if(registry){
+        <div class="row mb-2">
+            <div class="col-12">
+                <label for="type" class="form-label">Tipo</label>
+                <select name="type" id="type" class="form-control" formControlName="type">
+                    <option value="deposit">Ingreso</option>
+                    <option value="expense">Gasto</option>
+                </select>
+            </div>
+        </div>
+    }
+    <!-- Categorias -->
+    
+        <div class="row mb-2">
+            <div class="col-12">
+                
+            </div>
+        </div>
+    
+    <!-- Cantidad -->
+    <div class="row mb-2">
+        <div class="col-12">
+            <label for="quantity" class="form-label">Cantidad *</label>
+            <input type="number" name="quantity" id="quantity" class="form-control" formControlName="quantity" 
+                >
+            
+        </div>
+    </div>
+
+    <!-- Boton guardar -->
+    <div class="row">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary" [disabled]="formRegistry.invalid">Guardar</button>
+        </div>
+    </div>
+
+
+</form>
