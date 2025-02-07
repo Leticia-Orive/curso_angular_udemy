@@ -3,13 +3,14 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { IRegistry } from '../../models/registry.model';
 import { TTypeRegistry } from '../../types';
 
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
 import { CategoryService } from '../../services/category.service';
 import { ICategory } from '../../models/category.model';
+import { positiveNumberValidator } from '../../validators/positive-number.validator';
 
 @Component({
   selector: 'app-form-registry',
-  imports: [ReactiveFormsModule, AsyncPipe],
+  imports: [ReactiveFormsModule, AsyncPipe, NgClass],
   templateUrl: './form-registry.component.html',
   styleUrl: './form-registry.component.scss',
   providers: [
@@ -37,11 +38,14 @@ export class FormRegistryComponent {
       date: new FormControl(this.registry ? this.datePipe.transform(this.registry.date, 'yyyy-MM-dd') : ''),
       type: new FormControl(this.typeRegistry),
       idCategory: new FormControl(this.registry?.idCategory ?? ''),
-      quantity: new FormControl(this.registry?.quantity ?? '0', Validators.required),
+      quantity: new FormControl(this.registry?.quantity ?? '0', [Validators.required, positiveNumberValidator()]),
       id: new FormControl(this.registry?.id ?? ''),
       user: new FormControl(this.registry?.user)
     })
 
+  }
+  get controlQuantity() {
+    return this.formRegistry.get('quantity')
   }
 
   /**

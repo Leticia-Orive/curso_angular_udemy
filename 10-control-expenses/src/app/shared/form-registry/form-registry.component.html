@@ -51,8 +51,25 @@
     <div class="row mb-2">
         <div class="col-12">
             <label for="quantity" class="form-label">Cantidad *</label>
-            <input type="number" name="quantity" id="quantity" class="form-control" formControlName="quantity" 
-                >
+            <input type="number" name="quantity" id="quantity" class="form-control" formControlName="quantity"
+            [ngClass]="{
+                'is-valid': controlQuantity && controlQuantity.dirty && !controlQuantity.errors,
+                'is-invalid': controlQuantity && controlQuantity.dirty && controlQuantity.errors
+            }" >
+            <div class="valid-feedback">
+                <span>Correcto</span>
+            </div>
+            <div class="invalid-feedback">
+                @if(controlQuantity && controlQuantity.errors){
+                    @if(controlQuantity.errors['required']){
+                        <span class="d-block">Requerido</span>
+                    }
+                    @if(controlQuantity.errors['negativeNumber']){
+                        <span class="d-block">La cantidad debe ser positiva</span>
+                    }
+                }
+            </div>
+                
             
         </div>
     </div>
