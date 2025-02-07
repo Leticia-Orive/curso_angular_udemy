@@ -23,7 +23,7 @@
                     <!-- Actualizar -->
                     <i class="bi bi-pencil text-warning me-2" (click)="openUpdateDetail(category)"></i>
                     <!-- Borrar -->
-                    <i class="bi bi-trash text-danger" ></i>
+                    <i class="bi bi-trash text-danger" (click)="openModalConfirm(category)"></i>
                 </div>
             </div>
         } @empty {

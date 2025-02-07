@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, endBefore, Firestore, getCountFromServer, getDocs, getFirestore,  limit,  limitToLast,  orderBy,  query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from '@angular/fire/firestore';
+import { collection, deleteDoc, doc, DocumentData, endBefore, Firestore, getCountFromServer, getDocs, getFirestore,  limit,  limitToLast,  orderBy,  query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from '@angular/fire/firestore';
 import { ICategory } from '../models/category.model';
 import { AuthService } from './auth.service';
 import moment from 'moment';
@@ -170,6 +170,19 @@ createQuery(direction: TDirection = null){
     // Actualiza la categoria
     return setDoc(categoryRef, category);
   }
+
+  /**
+   * Borra una categoria
+   * @param idCategory 
+   * @returns 
+   */
+  deleteCategory(idCategory: string) {
+    // Obtenemos la referencia
+    const categoryRef = doc(this.database, `categories/${idCategory}`)
+    // Borramos la categoria
+    return deleteDoc(categoryRef);
+  }
+
 
 
 

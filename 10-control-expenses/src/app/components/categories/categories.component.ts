@@ -5,6 +5,9 @@ import { CategoryService } from '../../services/category.service';
 import { NgStyle } from '@angular/common';
 import { UpdateCategoryComponent } from './components/update-category/update-category.component';
 import { ICategory } from '../../models/category.model';
+import { ModalService } from '../../shared/modal/services/modal.service';
+import { IModal } from '../../shared/modal/models/modal.model';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -12,11 +15,17 @@ import { ICategory } from '../../models/category.model';
   selector: 'app-categories',
   imports: [DetailComponent, AddCategoryComponent, NgStyle, UpdateCategoryComponent],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss'
+  styleUrl: './categories.component.scss',
+  providers: [
+    ModalService
+  ]
 })
 export class CategoriesComponent {
 
   private categoryService = inject(CategoryService)
+  private modalService = inject(ModalService)
+  private toastrService = inject(ToastrService)
+
 
   public showDetail: boolean = false;
   public categorySelected?: ICategory;
@@ -63,7 +72,45 @@ export class CategoriesComponent {
       this.next();
     }
     this.categorySelected = undefined;
-    
+  }
+
+  /**
+   * Abrimos un modal para confirmar si queremos borrar la categoria
+   * @param category 
+   */
+  openModalConfirm(category: ICategory){
+    const modalConfirm: IModal = {
+      content: '¿Estas seguro de querer borrar la categoría?'
+    }
+    // Mostramos el modal
+    this.modalService.open(modalConfirm).subscribe({
+      next: () => {
+        this.deleteCategory(category);
+      }
+    })
+  }
+
+  /**
+   * Borramos la categoria
+   * @param category 
+   */
+  deleteCategory(category: ICategory){
+    const idCategory: string = category.id;
+    // Borramos la categoria
+    this.categoryService.deleteCategory(idCategory).then( () => {
+      this.toastrService.success(
+        'Categoría eliminada',
+        'Éxito'
+      )
+      this.categoryService.reset();
+      this.next()
+    }, error => {
+      console.error(error);
+      this.toastrService.error(
+        'Error al eliminar la categoría',
+        'Error'
+      )
+    })
   }
  
    /**
