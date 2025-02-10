@@ -23,7 +23,7 @@
             @if(registrySelected){
                 
             }@else{
-                <app-add-registry [typeRegistry]="typeRegistry"/>
+                <app-add-registry [typeRegistry]="typeRegistry" (registrySaved)="closeDetail()"/>
             }
         </div>
 

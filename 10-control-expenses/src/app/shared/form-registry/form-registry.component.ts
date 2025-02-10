@@ -3,25 +3,24 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { IRegistry } from '../../models/registry.model';
 import { TTypeRegistry } from '../../types';
 
-import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { CategoryService } from '../../services/category.service';
 import { ICategory } from '../../models/category.model';
 import { positiveNumberValidator } from '../../validators/positive-number.validator';
+import moment from 'moment';
 
 @Component({
   selector: 'app-form-registry',
   imports: [ReactiveFormsModule, AsyncPipe, NgClass],
   templateUrl: './form-registry.component.html',
   styleUrl: './form-registry.component.scss',
-  providers: [
-    DatePipe
-  ]
+ 
 })
 export class FormRegistryComponent {
 
   private categoryService = inject(CategoryService);
   private formBuilder = inject(FormBuilder);
-  private datePipe = inject(DatePipe);
+ 
 
   @Input() registry?:  IRegistry;
   @Input({required: true}) typeRegistry!: TTypeRegistry;
@@ -35,7 +34,7 @@ export class FormRegistryComponent {
 
     this.formRegistry = this.formBuilder.group({
       description: new FormControl(this.registry?.description ?? '', Validators.required),
-      date: new FormControl(this.registry ? this.datePipe.transform(this.registry.date, 'yyyy-MM-dd') : ''),
+      date: new FormControl(this.registry ? moment(this.registry.date).format('YYYY-MM-DD'): moment().format('YYYY-MM-DD')),
       type: new FormControl(this.typeRegistry),
       idCategory: new FormControl(this.registry?.idCategory ?? ''),
       quantity: new FormControl(this.registry?.quantity ?? '0', [Validators.required, positiveNumberValidator()]),
