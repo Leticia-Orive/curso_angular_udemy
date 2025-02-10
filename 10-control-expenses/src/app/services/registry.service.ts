@@ -69,10 +69,7 @@ export class RegistryService {
     const queryConstraints: QueryConstraint[] = [
       orderBy('date', 'desc'),
       where("user", "==", user)
-    ]
-
-    
-
+    ];
     return queryConstraints;
   }
 
