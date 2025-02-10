@@ -108,7 +108,7 @@ private async hasData(direction: TDirection){
    */
 
  
-createQuery(direction: TDirection = null){
+  private createQuery(direction: TDirection = null){
   // Obtenemos el usuario actual
   const user = this.authService.currentUser() as string;
   // Creamos la query base
