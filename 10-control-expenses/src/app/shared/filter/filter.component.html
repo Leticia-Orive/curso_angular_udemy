@@ -1,4 +1,5 @@
-<form>
+@if(filterForm){
+    <form>
     <div class="row">
         <div class="col-lg-2 col-md-3 col-12">
             <label for="date-start" class="form-label">Fecha de inicio</label>
@@ -11,7 +12,9 @@
         @if(categoriesPromise | async; as categories){
             <div class="col-lg-4 col-md-5 col-12">
                 <label for="category" class="form-label">Categoría</label>
-                <select name="category" id="category" class="form-control" [(ngModel)]="filterForm.category" (change)="onFilter()">
+                <select name="category" id="category" class="form-control" 
+                [(ngModel)]="filterForm.category" (change)="onFilter()">
+                <option [ngValue]="''">Selecciona una categoria</option>
                     @for(category of categories; track category.id){
                         <option [value]="category.id">{{category.name}}</option>
                     }
@@ -21,3 +24,4 @@
        
     </div>
 </form>
+}

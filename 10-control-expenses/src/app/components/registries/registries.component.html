@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-<!-- Botones para añadir -->
+
 
         <div class="row mt-2 mb-2">
             <div class="col-12">
@@ -9,41 +9,36 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-2 mb-2">
             <div class="col-12">
-                <app-filter/>
+                <app-filter [ngModel]="filterSignal()" (ngModelChange)="onFilter($event)" />
             </div>
         </div>
 
-
-        <!-- Mostramos los registros -->
         @for(registry of registriesSignal(); track registry.id){
             <div class="row g-0">
                 <div class="col-12 rounded border p-1 mb-2">
 
                     <div class="row">
-                        <!-- Fecha -->
                         <div class="col-2">
                             <span class="d-block fw-bold">Fecha</span>
                             <span class="d-block">{{registry.date | date: 'dd MMM YYYY'}}</span>
                         </div>
-                        <!-- Descripcion -->
+
                         <div class="col-3">
                             <span class="d-block fw-bold">Descripción</span>
                             <span class="d-block">{{registry.description}}</span>
                         </div>
-                        <!-- Categoria -->
+
                         <div class="col-3">
                             <span class="d-block fw-bold">Categoría</span>
-                            <!-- Comprobamos si tiene categoria -->
                             @if(registry.idCategory){
-                                <!-- Obtenemos la categoria -->
                                 @if(registry.idCategory | getCategory | async; as category){
                                     <span class="d-block">{{category.name}}</span>
                                 }
                             }
                         </div>
-                        <!-- Cantidad -->
+
                         <div class="col-3">
                             <span class="d-block fw-bold">Cantidad</span>
                             <span class="d-block" [ngClass]="{
@@ -55,9 +50,7 @@
                         </div>
 
                         <div class="col-1 text-end align-self-center">
-                            <!-- Actualizar -->
                             <i class="bi bi-pencil text-warning me-2"></i>
-                            <!-- Borrar -->
                             <i class="bi bi-trash text-danger me-2"></i>
                         </div>
                         
@@ -75,7 +68,6 @@
             </div>
         }
 
-        <!-- Paginacion -->
         @if(nextRegistriesSignal() || previousRegistriesSignal()){
             <div class="row mt-2 mb-2">
                 <div class="col-6 text-start">
@@ -91,19 +83,15 @@
             </div>
         }
         
-
-
-
     </div>
 </div>
 
 @if(showDetail){
 
-     <!-- Detalle -->
     <app-detail (close)="closeDetail()">
-         <!-- Titulo del registro -->
+
         <span class="h1" detail-registry>Registro</span>
-        <!-- Contenido del detalle -->
+
         <div detail-content>
             @if(registrySelected){
 
