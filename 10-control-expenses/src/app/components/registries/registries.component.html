@@ -8,6 +8,14 @@
                 <button class="btn btn-primary" (click)="openDetail('expense')"><i class="bi bi-plus"></i>Añadir gasto</button>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12">
+                <app-filter/>
+            </div>
+        </div>
+
+
         <!-- Mostramos los registros -->
         @for(registry of registriesSignal(); track registry.id){
             <div class="row g-0">

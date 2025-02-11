@@ -6,11 +6,13 @@ import { IRegistry } from '../../models/registry.model';
 import { RegistryService } from '../../services/registry.service';
 import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
 import { GetCategoryPipe } from '../../pipes/get-category.pipe';
+import { FilterComponent } from '../../shared/filter/filter.component';
 
 @Component({
   selector: 'app-registries',
   standalone: true,
-  imports: [DetailComponent, AddRegistryComponent, DatePipe, NgClass, GetCategoryPipe, AsyncPipe],
+  imports: [DetailComponent, AddRegistryComponent, DatePipe, NgClass, GetCategoryPipe,
+     AsyncPipe, FilterComponent],
   templateUrl: './registries.component.html',
   styleUrl: './registries.component.scss'
 })
