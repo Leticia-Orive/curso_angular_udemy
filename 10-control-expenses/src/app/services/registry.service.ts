@@ -1,12 +1,11 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where,orderBy } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where, orderBy } from '@angular/fire/firestore';
 import { IRegistry } from '../models/registry.model';
 import { AuthService } from './auth.service';
-import moment from 'moment';
-
 import { TDirection } from '../types';
 import { ITEMS_PAGINATION } from '../constants';
+import { IFilter } from '../shared/filter/models/filter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +23,11 @@ export class RegistryService {
   private firstDocument?: DocumentData;
   private lastDocument?: DocumentData;
 
-  getRegistries(direction: TDirection = null){
+  getRegistries(filter: IFilter, direction: TDirection = null){
 
     const registryCollection = collection(this.database, 'registries');
 
-    const queryConstraints = this.createQuery(direction);
+    const queryConstraints = this.createQuery(filter, direction);
 
     const queryRegistries = query(
       registryCollection,
@@ -51,8 +50,8 @@ export class RegistryService {
         this.firstDocument = querrySnapshotRegistries.docs[0]
         this.lastDocument = querrySnapshotRegistries.docs[querrySnapshotRegistries.docs.length - 1];
 
-        this.hasData('next');
-        this.hasData('previous');
+        this.hasData(filter, 'next');
+        this.hasData(filter, 'previous');
 
       }
       
@@ -63,7 +62,7 @@ export class RegistryService {
 
   }
 
-  private createQuery(direction: TDirection = null){
+  private createQuery(filter: IFilter, direction: TDirection = null){
 
     const user = this.authService.currentUser() as string;
 
@@ -72,20 +71,38 @@ export class RegistryService {
       where("user", "==", user)
     ]
 
+    if(filter.dateStart){
+      queryConstraints.push(
+        where("date", ">=", filter.dateStart)
+      )
+    }
+    
+    if(filter.dateEnd){
+      queryConstraints.push(
+        where("date", "<=", filter.dateEnd)
+      )
+    }
+
+    if(filter.category){
+      queryConstraints.push(
+        where("idCategory", "==", filter.category)
+      )
+    }
+
     if(direction){
       switch(direction){
         case 'next':
-          queryConstraints.push(limit(ITEMS_PAGINATION))
           if(this.lastDocument){
             queryConstraints.push(startAfter(this.lastDocument))
           }
+          queryConstraints.push(limit(ITEMS_PAGINATION))
 
           break;
         case 'previous':
-          queryConstraints.push(limitToLast(ITEMS_PAGINATION))
           if(this.firstDocument){
             queryConstraints.push(endBefore(this.firstDocument))
           }
+          queryConstraints.push(limitToLast(ITEMS_PAGINATION))
           break;
       }
     }
@@ -93,10 +110,10 @@ export class RegistryService {
     return queryConstraints;
   }
 
-  private async hasData(direction: TDirection){
+  private async hasData(filter: IFilter, direction: TDirection){
 
     const registryCollection = collection(this.database, 'registries');
-    const queryHasDataContraints = this.createQuery(direction)
+    const queryHasDataContraints = this.createQuery(filter, direction)
 
     const queryHasData = query(
       registryCollection,
@@ -128,14 +145,16 @@ export class RegistryService {
     await setDoc(newRegistryRef, registry)
 
   }
+
   resetPagination(){
     this.nextRegistriesSignal.set(false);
     this.previousRegistriesSignal.set(false);
     this.firstDocument = undefined;
     this.lastDocument = undefined;
   }
+
   reset(){
-    this.registriesSignal.set([]);
+    this.registriesSignal.set([])
     this.resetPagination();
   }
 
