@@ -189,6 +189,11 @@ export class RegistryService {
 
   }
 
+  async updateRegistry(registry: IRegistry){
+    const registryRef = doc(this.database, `registries/${registry.id}` )
+    await setDoc(registryRef, registry)
+  }
+
   resetPagination(){
     this.nextRegistriesSignal.set(false);
     this.previousRegistriesSignal.set(false);

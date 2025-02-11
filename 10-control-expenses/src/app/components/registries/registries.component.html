@@ -21,12 +21,11 @@
                     <span [ngClass]="{
                         'text-danger': totalQuantityRegistriesSignal() < 0,
                         'text-success': totalQuantityRegistriesSignal() >= 0
-                    }">{{totalQuantityRegistriesSignal()}} €
-                    </span>
+                    }">{{totalQuantityRegistriesSignal()}} €</span>
                 </span>
             </div>
             <div class="col-6 text-end">
-                <span>Numeros de registros: {{totalRegistriesSignal()}}</span>
+                <span>Número de registros: {{totalRegistriesSignal()}}</span>
             </div>
         </div>
 
@@ -65,7 +64,7 @@
                         </div>
 
                         <div class="col-1 text-end align-self-center">
-                            <i class="bi bi-pencil text-warning me-2"></i>
+                            <i class="bi bi-pencil text-warning me-2" (click)="openUpdateDetail(registry)"></i>
                             <i class="bi bi-trash text-danger me-2"></i>
                         </div>
                         
@@ -109,7 +108,7 @@
 
         <div detail-content>
             @if(registrySelected){
-
+                <app-update-registry [registry]="registrySelected" [typeRegistry]="typeRegistry" (registryUpdated)="closeDetail(true)"/>
             }@else{
                 <app-add-registry [typeRegistry]="typeRegistry" (registrySaved)="closeDetail(true)"/>
             }

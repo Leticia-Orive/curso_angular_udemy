@@ -10,11 +10,13 @@ import { FilterComponent } from '../../shared/filter/filter.component';
 import { FormsModule } from '@angular/forms';
 import { IFilter } from '../../shared/filter/models/filter.model';
 import moment from 'moment';
+import { UpdateRegistryComponent } from './components/update-registry/update-registry.component';
 
 @Component({
   selector: 'app-registries',
   standalone: true,
-  imports: [DetailComponent, AddRegistryComponent, DatePipe, NgClass, GetCategoryPipe, AsyncPipe, FilterComponent, FormsModule],
+  imports: [DetailComponent, AddRegistryComponent, DatePipe, NgClass, GetCategoryPipe, 
+    AsyncPipe, FilterComponent, FormsModule, UpdateRegistryComponent],
   templateUrl: './registries.component.html',
   styleUrl: './registries.component.scss'
 })
@@ -23,7 +25,7 @@ export class RegistriesComponent {
   private registryService = inject(RegistryService)
   private injector = inject(Injector)
 
-  public registrySelected!: IRegistry;
+  public registrySelected?: IRegistry;
   public showDetail = false;
   public typeRegistry: TTypeRegistry = 'deposit';
   public filterSignal: WritableSignal<IFilter> = signal({
@@ -41,9 +43,9 @@ export class RegistriesComponent {
   ngOnInit(){
     this.next();
     effect(() => {
-      this.registryService.sumRegistries(this.filterSignal());
+      this.registryService.sumRegistries(this.filterSignal())
       this.registryService.totalRegistries(this.filterSignal());
-    }, {injector: this.injector })
+    }, { injector: this.injector })
   }
   
   openDetail(type: TTypeRegistry){
@@ -51,12 +53,19 @@ export class RegistriesComponent {
     this.showDetail = true;
   }
 
+  openUpdateDetail(registry: IRegistry){
+    this.registrySelected = registry;
+    this.openDetail(this.registrySelected.type);
+  }
+
   closeDetail(actionSuccess: boolean = false){
     this.showDetail = false;
     if(actionSuccess){
       this.registryService.resetPagination();
       this.next();
+      this.filterSignal.set({ ...this.filterSignal() })
     }
+    this.registrySelected = undefined;
   }
 
   previous(){
@@ -68,7 +77,7 @@ export class RegistriesComponent {
   }
 
   onFilter(filter: IFilter){
-    this.filterSignal.set({...filter})
+    this.filterSignal.set({ ...filter })
     console.log(this.filterSignal());
     this.registryService.resetPagination()
     this.next();
