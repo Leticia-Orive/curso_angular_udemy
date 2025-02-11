@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where, orderBy } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where, orderBy, getCountFromServer } from '@angular/fire/firestore';
 import { IRegistry } from '../models/registry.model';
 import { AuthService } from './auth.service';
 import { TDirection } from '../types';
@@ -19,6 +19,7 @@ export class RegistryService {
   public registriesSignal: WritableSignal<IRegistry[]> = signal([]);
   public nextRegistriesSignal: WritableSignal<boolean> = signal(false);
   public previousRegistriesSignal: WritableSignal<boolean> = signal(false);
+  public totalRegistriesSignal: WritableSignal<number> = signal(0);
 
   private firstDocument?: DocumentData;
   private lastDocument?: DocumentData;
@@ -133,6 +134,17 @@ export class RegistryService {
     }
 
   }
+  async totalRegistries(filter: IFilter){
+    const registryCollection = collection(this.database, 'registries');
+    const queryTotalContraints = this.createQuery(filter);
+    const queryTotal = query(
+      registryCollection,
+      ...queryTotalContraints
+    )
+    const snapshot = await  getCountFromServer(queryTotal);
+    const total = snapshot.data().count
+    this.totalRegistriesSignal.set(total);
+  }
 
   async createRegistry(registry: IRegistry){
 
@@ -155,6 +167,7 @@ export class RegistryService {
 
   reset(){
     this.registriesSignal.set([])
+    this.totalRegistriesSignal.set(0);
     this.resetPagination();
   }
 

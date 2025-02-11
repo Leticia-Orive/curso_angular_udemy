@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, effect, inject, Injector, signal, WritableSignal } from '@angular/core';
 import { DetailComponent } from '../../shared/detail/detail.component';
 import { AddRegistryComponent } from './components/add-registry/add-registry.component';
 import { TTypeRegistry } from '../../types';
@@ -21,6 +21,7 @@ import moment from 'moment';
 export class RegistriesComponent {
 
   private registryService = inject(RegistryService)
+  private injector = inject(Injector)
 
   public registrySelected!: IRegistry;
   public showDetail = false;
@@ -34,9 +35,13 @@ export class RegistriesComponent {
   public registriesSignal = this.registryService.registriesSignal.asReadonly();
   public nextRegistriesSignal = this.registryService.nextRegistriesSignal.asReadonly()
   public previousRegistriesSignal = this.registryService.previousRegistriesSignal.asReadonly()
+  public totalRegistriesSignal = this.registryService.totalRegistriesSignal.asReadonly()
   
   ngOnInit(){
     this.next();
+    effect(() => {
+      this.registryService.totalRegistries(this.filterSignal());
+    }, {injector: this.injector })
   }
   
   openDetail(type: TTypeRegistry){
@@ -61,7 +66,7 @@ export class RegistriesComponent {
   }
 
   onFilter(filter: IFilter){
-    this.filterSignal.set(filter)
+    this.filterSignal.set({...filter})
     console.log(this.filterSignal());
     this.registryService.resetPagination()
     this.next();
