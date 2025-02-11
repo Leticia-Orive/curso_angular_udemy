@@ -42,8 +42,13 @@ export class RegistriesComponent {
    * Cerramos el detalle, si la acción es correcta, pedimos los datos de nuevo
    * @param actionSuccess 
    */
-  closeDetail(){
+  closeDetail(actionSuccess: boolean = false ){
     this.showDetail = false;
+    if(actionSuccess){
+      this.registryService.resetPagination();
+      this.next();
+    }
+
   }
   /**
    * Obtenemos los registros anteriores
@@ -57,6 +62,10 @@ export class RegistriesComponent {
    */
   next(){
     this.registryService.getRegistries( 'next')
+  }
+
+  ngOnDestroy(){
+    this.registryService.reset();
   }
 
 }

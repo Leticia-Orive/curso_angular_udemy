@@ -128,5 +128,15 @@ export class RegistryService {
     await setDoc(newRegistryRef, registry)
 
   }
+  resetPagination(){
+    this.nextRegistriesSignal.set(false);
+    this.previousRegistriesSignal.set(false);
+    this.firstDocument = undefined;
+    this.lastDocument = undefined;
+  }
+  reset(){
+    this.registriesSignal.set([]);
+    this.resetPagination();
+  }
 
 }
