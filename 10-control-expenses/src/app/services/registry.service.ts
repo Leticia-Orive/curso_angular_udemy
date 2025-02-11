@@ -1,10 +1,10 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where,orderBy } from '@angular/fire/firestore';
 import { IRegistry } from '../models/registry.model';
 import { AuthService } from './auth.service';
 import moment from 'moment';
-import { orderBy } from '@firebase/firestore/lite';
+
 import { TDirection } from '../types';
 import { ITEMS_PAGINATION } from '../constants';
 
