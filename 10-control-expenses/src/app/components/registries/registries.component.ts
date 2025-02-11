@@ -23,9 +23,11 @@ export class RegistriesComponent {
   public typeRegistry: TTypeRegistry = 'deposit';
 // signals
   public registriesSignal = this.registryService.registriesSignal.asReadonly();
+  public nextRegistriesSignal = this.registryService.nextRegistriesSignal.asReadonly();
+  public previousRegistriesSignal= this.registryService.previousRegistriesSignal.asReadonly();
   
   ngOnInit(){
-    this.registryService.getRegistries();
+    this.next();
   }
    /**
    * Abrimos el detalle para crear el registro
@@ -43,8 +45,18 @@ export class RegistriesComponent {
   closeDetail(){
     this.showDetail = false;
   }
-  trackById(index: number, item: IRegistry) {
-    return item.id;
+  /**
+   * Obtenemos los registros anteriores
+   */
+  previous(){
+    this.registryService.getRegistries( 'previous')
+  }
+
+  /**
+   * Obtenemos los registros posteriores
+   */
+  next(){
+    this.registryService.getRegistries( 'next')
   }
 
 }

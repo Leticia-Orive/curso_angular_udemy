@@ -66,6 +66,22 @@
                 </div>
             </div>
         }
+
+        <!-- Paginacion -->
+        @if(nextRegistriesSignal() || previousRegistriesSignal()){
+            <div class="row mt-2 mb-2">
+                <div class="col-6 text-start">
+                    @if(previousRegistriesSignal()){
+                        <button class="btn btn-primary" (click)="previous()">Página anterior</button>
+                    }
+                </div>
+                <div class="col-6 text-end">
+                    @if(nextRegistriesSignal()){
+                        <button class="btn btn-primary" (click)="next()">Página siguiente</button>
+                    }
+                </div>
+            </div>
+        }
         
 
 
