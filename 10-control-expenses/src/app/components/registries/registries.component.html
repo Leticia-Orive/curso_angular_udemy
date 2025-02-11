@@ -27,7 +27,13 @@
                         <!-- Categoria -->
                         <div class="col-3">
                             <span class="d-block fw-bold">Categoría</span>
-                            <span class="d-block">{{registry.idCategory}}</span>
+                            <!-- Comprobamos si tiene categoria -->
+                            @if(registry.idCategory){
+                                <!-- Obtenemos la categoria -->
+                                @if(registry.idCategory | getCategory | async; as category){
+                                    <span class="d-block">{{category.name}}</span>
+                                }
+                            }
                         </div>
                         <!-- Cantidad -->
                         <div class="col-3">

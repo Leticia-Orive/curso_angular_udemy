@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, deleteDoc, doc, DocumentData, endBefore, Firestore, getCountFromServer, getDocs, getFirestore,  limit,  limitToLast,  orderBy,  query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from '@angular/fire/firestore';
+import { collection, deleteDoc, doc, DocumentData, DocumentSnapshot, endBefore, Firestore, getCountFromServer, getDoc, getDocs, getFirestore,  limit,  limitToLast,  orderBy,  query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, where } from '@angular/fire/firestore';
 import { ICategory } from '../models/category.model';
 import { AuthService } from './auth.service';
 import moment from 'moment';
@@ -140,7 +140,16 @@ private async hasData(direction: TDirection){
   }
   return queryConstraints;
 }
-
+/**
+   * Obtiene una categoria
+   * @param idCategory 
+   * @returns 
+   */
+getCategory(idCategory: string) {
+  // obtenemos la referencia
+  const categoryRef = doc(this.database, `categories/${idCategory}`)
+  return getDoc(categoryRef).then((document: DocumentSnapshot<DocumentData, DocumentData>) => document.data() as ICategory)
+}
 
   /**
    * Crea una categoria
