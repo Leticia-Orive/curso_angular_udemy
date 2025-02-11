@@ -36,10 +36,12 @@ export class RegistriesComponent {
   public nextRegistriesSignal = this.registryService.nextRegistriesSignal.asReadonly()
   public previousRegistriesSignal = this.registryService.previousRegistriesSignal.asReadonly()
   public totalRegistriesSignal = this.registryService.totalRegistriesSignal.asReadonly()
+  public totalQuantityRegistriesSignal = this.registryService.totalQuantityRegistriesSignal.asReadonly()
   
   ngOnInit(){
     this.next();
     effect(() => {
+      this.registryService.sumRegistries(this.filterSignal());
       this.registryService.totalRegistries(this.filterSignal());
     }, {injector: this.injector })
   }

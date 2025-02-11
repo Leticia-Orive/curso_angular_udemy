@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where, orderBy, getCountFromServer } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where, orderBy, getCountFromServer, getAggregateFromServer, sum } from '@angular/fire/firestore';
 import { IRegistry } from '../models/registry.model';
 import { AuthService } from './auth.service';
 import { TDirection } from '../types';
@@ -20,6 +20,7 @@ export class RegistryService {
   public nextRegistriesSignal: WritableSignal<boolean> = signal(false);
   public previousRegistriesSignal: WritableSignal<boolean> = signal(false);
   public totalRegistriesSignal: WritableSignal<number> = signal(0);
+  public totalQuantityRegistriesSignal: WritableSignal<number> = signal(0);
 
   private firstDocument?: DocumentData;
   private lastDocument?: DocumentData;
@@ -146,6 +147,36 @@ export class RegistryService {
     this.totalRegistriesSignal.set(total);
   }
 
+  async sumRegistries(filter: IFilter){
+    const registryCollection = collection(this.database, 'registries');
+    const queryConstraints = this.createQuery(filter);
+
+    const queryExpenses =  query(
+      registryCollection,
+      where("type", "==", "expense"),
+      ...queryConstraints
+    )
+
+    const queryDeposits =  query(
+      registryCollection,
+      where("type", "==", "deposit"),
+      ...queryConstraints
+    )
+
+    const snapshotExpenses = await getAggregateFromServer(queryExpenses, {
+      totalExpenses: sum('quantity')
+    })
+
+    const snapshotDeposits = await getAggregateFromServer(queryDeposits, {
+      totalDeposits: sum('quantity')
+    })
+
+    const totalExpenses = snapshotExpenses.data().totalExpenses;
+    const totalDeposits = snapshotDeposits.data().totalDeposits;
+
+    this.totalQuantityRegistriesSignal.set(totalDeposits - totalExpenses);
+  }
+
   async createRegistry(registry: IRegistry){
 
     const registryCollection = collection(this.database, 'registries');
@@ -168,6 +199,7 @@ export class RegistryService {
   reset(){
     this.registriesSignal.set([])
     this.totalRegistriesSignal.set(0);
+    this.totalQuantityRegistriesSignal.set(0);
     this.resetPagination();
   }
 

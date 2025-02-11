@@ -16,7 +16,15 @@
         </div>
 
         <div class="row mb-1">
-            <div class="col-6 text-start"></div>
+            <div class="col-6 text-start">
+                <span>Total: 
+                    <span [ngClass]="{
+                        'text-danger': totalQuantityRegistriesSignal() < 0,
+                        'text-success': totalQuantityRegistriesSignal() >= 0
+                    }">{{totalQuantityRegistriesSignal()}} €
+                    </span>
+                </span>
+            </div>
             <div class="col-6 text-end">
                 <span>Numeros de registros: {{totalRegistriesSignal()}}</span>
             </div>
