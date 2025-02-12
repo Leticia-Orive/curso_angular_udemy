@@ -1,5 +1,5 @@
 import { Component, effect, inject, Injector, signal, WritableSignal } from '@angular/core';
-import { Chart, ChartType } from 'chart.js/auto';
+import { Chart, ChartType, registry } from 'chart.js/auto';
 import { RegistryService } from '../../services/registry.service';
 import { IFilter } from '../../shared/filter/models/filter.model';
 import moment from 'moment';
@@ -44,7 +44,19 @@ export class GraphicsComponent {
   }
 
 
-  createChartBar(registries: IRegistry[]){
+  createChartBar(registries: IRegistry[]){  
+
+    const registriesMonths = registries.reduce( (acc, registry) => {
+      const month = moment(registry.date).format('MMMM').toLowerCase()
+      if(!acc[month]){
+        acc[month].push(registry)
+      }
+      acc[month].push(registry);
+      return acc;
+
+    }, {} as any)
+
+    console.log(registriesMonths);
 
     this.chartBar = new Chart("chartBar", {
       type: 'bar' as ChartType,
