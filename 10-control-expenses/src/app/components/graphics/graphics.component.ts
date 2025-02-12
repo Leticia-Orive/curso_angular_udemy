@@ -105,20 +105,37 @@ export class GraphicsComponent {
     console.log("Gastos: ", dataExpense);
     console.log("Diferencia: ", dataDifference);
     
+    if(this.chartBar){
+      this.chartBar.destroy();
+    }
     
     this.chartBar = new Chart("chartBar", {
       type: 'bar' as ChartType,
       data: {
-        datasets: [{
-            type: 'bar',
-            label: 'Bar Dataset',
-            data: [10, 20, 30, 40]
-        }, {
+        labels: monthNames,
+        datasets: [
+          {
+            label: 'Diferencia',
+            backgroundColor: '#dbb41d',
+            borderColor: '#dbb41d',
             type: 'line',
-            label: 'Line Dataset',
-            data: [15, 25, 15, 35],
-        }],
-        labels: ['January', 'February', 'March', 'April']
+            data: dataDifference
+          },
+          {
+            label: 'Ingresos',
+            type: 'bar',
+            backgroundColor: '#28a745',
+            borderColor: '#1E88E5',
+            data: dataDeposit
+          },
+          {
+            label: 'Gastos',
+            type: 'bar',
+            backgroundColor: '#dc3545',
+            borderColor: '#7CB342',
+            data: dataExpense
+          }
+        ]
       }
     })
 
