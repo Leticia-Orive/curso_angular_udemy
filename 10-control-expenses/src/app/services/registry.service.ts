@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
-import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where, orderBy, getCountFromServer, getAggregateFromServer, sum } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, endBefore, getDocs, getFirestore, limit, limitToLast, query, QueryConstraint, QuerySnapshot, setDoc, startAfter, where, orderBy, getCountFromServer, getAggregateFromServer, sum, deleteDoc } from '@angular/fire/firestore';
 import { IRegistry } from '../models/registry.model';
 import { AuthService } from './auth.service';
 import { TDirection } from '../types';
@@ -192,6 +192,11 @@ export class RegistryService {
   async updateRegistry(registry: IRegistry){
     const registryRef = doc(this.database, `registries/${registry.id}` )
     await setDoc(registryRef, registry)
+  }
+
+  async deleteRegistry(idRegistry: string){
+    const registryRef = doc(this.database, `registries/${idRegistry}` )
+    await deleteDoc(registryRef)
   }
 
   resetPagination(){

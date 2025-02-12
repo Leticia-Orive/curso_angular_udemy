@@ -1,4 +1,4 @@
-import { Component, effect, inject, Injector, signal, WritableSignal } from '@angular/core';
+import { Component, effect, inject, Injector, model, signal, WritableSignal } from '@angular/core';
 import { DetailComponent } from '../../shared/detail/detail.component';
 import { AddRegistryComponent } from './components/add-registry/add-registry.component';
 import { TTypeRegistry } from '../../types';
@@ -11,6 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { IFilter } from '../../shared/filter/models/filter.model';
 import moment from 'moment';
 import { UpdateRegistryComponent } from './components/update-registry/update-registry.component';
+import { ModalService } from '../../shared/modal/services/modal.service';
+import { IModal } from '../../shared/modal/models/modal.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registries',
@@ -18,12 +21,17 @@ import { UpdateRegistryComponent } from './components/update-registry/update-reg
   imports: [DetailComponent, AddRegistryComponent, DatePipe, NgClass, GetCategoryPipe, 
     AsyncPipe, FilterComponent, FormsModule, UpdateRegistryComponent],
   templateUrl: './registries.component.html',
-  styleUrl: './registries.component.scss'
+  styleUrl: './registries.component.scss',
+  providers: [
+    ModalService
+  ]
 })
 export class RegistriesComponent {
 
   private registryService = inject(RegistryService)
   private injector = inject(Injector)
+  private modalService = inject(ModalService)
+  private toastrService = inject(ToastrService)
 
   public registrySelected?: IRegistry;
   public showDetail = false;
@@ -58,6 +66,19 @@ export class RegistriesComponent {
     this.openDetail(this.registrySelected.type);
   }
 
+  openModalConfirm(registry: IRegistry){
+    const modalConfirm: IModal ={
+      content: '¿Estás seguro de eliminar este registro?',
+    }
+    this.modalService.open(modalConfirm).subscribe({
+      next: () => {
+        this.deleteRegistry(registry)
+
+      }
+
+    })
+  }
+
   closeDetail(actionSuccess: boolean = false){
     this.showDetail = false;
     if(actionSuccess){
@@ -82,6 +103,26 @@ export class RegistriesComponent {
     this.registryService.resetPagination()
     this.next();
   }
+
+  deleteRegistry(registry: IRegistry){
+    const idRegistry = registry.id;
+    this.registryService.deleteRegistry(idRegistry).then( () => {
+      this.toastrService.success(
+        'Registro eliminado correctamente',
+        'Exito'
+      );
+      this.registryService.resetPagination()
+      this.next();
+      this.filterSignal.set({ ...this.filterSignal() })
+
+    }, (error) => {
+      console.error(error);
+      this.toastrService.error(
+        'no se ha podido eliminar el registro',
+        'Exito'
+      );
+  })
+}
 
   ngOnDestroy(){
     this.registryService.reset();
