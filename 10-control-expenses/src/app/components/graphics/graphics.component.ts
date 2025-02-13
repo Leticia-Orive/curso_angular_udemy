@@ -5,11 +5,13 @@ import { IFilter } from '../../shared/filter/models/filter.model';
 import moment from 'moment';
 import 'moment/locale/es';
 import { IRegistry } from '../../models/registry.model';
+import { FilterComponent } from '../../shared/filter/filter.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-graphics',
   standalone: true,
-  imports: [],
+  imports: [FilterComponent, FormsModule],
   templateUrl: './graphics.component.html',
   styleUrl: './graphics.component.scss'
 })
@@ -17,7 +19,7 @@ export class GraphicsComponent {
 
   private registryService = inject(RegistryService)
   private injector = inject(Injector)
-
+// referencia a la grafica
   public chartBar!: Chart
   public emptyData: boolean = false;
   public filterSignal: WritableSignal<IFilter>= signal({
@@ -28,10 +30,12 @@ export class GraphicsComponent {
 
   ngOnInit(){
 
-    this.registryService.getRegistries(this.filterSignal())
-
+    // Obtenemos los registros
+    this.onFilter()
+    // cuando cambien los registros, saltará effect
     effect(() => {
       const registries = this.registryService.registriesSignal.asReadonly();
+      // Comprobamos si esta o no vacio
       this.emptyData = registries().length == 0;
       console.log(registries());
       
@@ -138,8 +142,9 @@ export class GraphicsComponent {
         ]
       }
     })
-
-
+  }
+  onFilter(){
+    this.registryService.getRegistries(this.filterSignal())
   }
 
 }
