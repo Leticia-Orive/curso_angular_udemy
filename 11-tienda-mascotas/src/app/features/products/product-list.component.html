@@ -1,11 +1,18 @@
+<!--
+  Se actualizó este archivo para mostrar los productos en una cuadrícula (uno al lado del otro)
+  y se usan clases para los estilos definidos en product-list.component.scss.
+  También se muestran las imágenes de cada producto.
+-->
 <h2>Productos</h2>
 <button *ngIf="auth.getUserRole() === 'admin'">Crear producto</button>
-<ul>
-  <li *ngFor="let product of products">
-    <strong>{{ product.name }}</strong> - {{ product.price | currency }}
+<div class="product-list">
+  <div *ngFor="let product of products" class="product-card">
+    <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.name }}" />
+    <strong>{{ product.name }}</strong>
+    <span>{{ product.price | currency }}</span>
     <p>{{ product.description }}</p>
     <a [routerLink]="['/productos', product.id]">Ver detalle</a>
     <button *ngIf="auth.getUserRole() === 'admin'">Editar</button>
     <button *ngIf="auth.getUserRole() === 'admin'">Eliminar</button>
-  </li>
-</ul>
+  </div>
+</div>

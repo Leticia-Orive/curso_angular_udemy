@@ -1,3 +1,4 @@
+// Este componente muestra el detalle de un producto, incluyendo la imagen local y permite agregar al carrito.
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';

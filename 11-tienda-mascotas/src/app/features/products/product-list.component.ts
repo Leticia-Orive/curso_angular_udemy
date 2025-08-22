@@ -1,3 +1,4 @@
+// Este componente muestra la lista de productos en una cuadrícula, incluyendo imágenes locales y controles para admin.
 import { Component } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';

@@ -1,3 +1,4 @@
+// Caso de uso para crear un producto en el repositorio (puede incluir imagen local).
 import { ProductRepository } from '../../domain/repositories/product.repository';
 import { Product } from '../../domain/entities/product.entity';
 

@@ -1,3 +1,4 @@
+// Componente principal de la app. Integra autenticación, productos, imágenes y carrito.
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';

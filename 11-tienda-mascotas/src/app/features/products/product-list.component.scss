@@ -1,0 +1,27 @@
+// Estilos para mostrar los productos en cuadrícula y visualmente agradables.
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.product-card {
+  flex: 0 1 220px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px #0001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-card img {
+  max-width: 120px;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.product-card p {
+  text-align: center;
+}

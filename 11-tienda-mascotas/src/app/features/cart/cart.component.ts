@@ -1,3 +1,4 @@
+// Componente para mostrar el carrito de compras, integrando productos e imágenes locales.
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartUseCaseProvider } from '../../core/application/use-cases/cart-use-case.provider';
