@@ -1,0 +1,11 @@
+<h2>Productos</h2>
+<button *ngIf="auth.getUserRole() === 'admin'">Crear producto</button>
+<ul>
+  <li *ngFor="let product of products">
+    <strong>{{ product.name }}</strong> - {{ product.price | currency }}
+    <p>{{ product.description }}</p>
+    <a [routerLink]="['/productos', product.id]">Ver detalle</a>
+    <button *ngIf="auth.getUserRole() === 'admin'">Editar</button>
+    <button *ngIf="auth.getUserRole() === 'admin'">Eliminar</button>
+  </li>
+</ul>

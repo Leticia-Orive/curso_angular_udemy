@@ -1,0 +1,15 @@
+<h2>Carrito</h2>
+<ng-container *ngIf="cart && cart.items.length > 0; else emptyCart">
+  <ul>
+    <li *ngFor="let item of cart.items">
+      <ng-container *ngIf="getProduct(item.productId) as product">
+        <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.name }}" style="max-width:50px;vertical-align:middle;">
+        <strong>{{ product.name }}</strong> (ID: {{ product.id }}) | Cantidad: {{ item.quantity }}
+      </ng-container>
+      <button (click)="removeItem(item.productId)">Eliminar</button>
+    </li>
+  </ul>
+</ng-container>
+<ng-template #emptyCart>
+  <p>Tu carrito está vacío.</p>
+</ng-template>

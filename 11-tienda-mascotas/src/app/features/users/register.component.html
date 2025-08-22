@@ -1,0 +1,34 @@
+<h2>Registro</h2>
+<form (ngSubmit)="register()" #registerForm="ngForm" novalidate>
+  <label>Nombre:
+    <input type="text" [(ngModel)]="name" name="name" required #nameInput="ngModel">
+  </label>
+  <div *ngIf="registerForm.submitted && nameInput.errors">
+    <span *ngIf="nameInput.errors['required']">El nombre es obligatorio.</span>
+  </div>
+  <br>
+  <label>Email:
+    <input type="email" [(ngModel)]="email" name="email" required email #emailInput="ngModel">
+  </label>
+  <div *ngIf="registerForm.submitted && emailInput.errors">
+    <span *ngIf="emailInput.errors['required']">El email es obligatorio.</span>
+    <span *ngIf="emailInput.errors['email']">El formato de email no es válido.</span>
+  </div>
+  <br>
+  <label>Contraseña:
+    <input type="password" [(ngModel)]="password" name="password" required minlength="4" #passInput="ngModel">
+  </label>
+  <div *ngIf="registerForm.submitted && passInput.errors">
+    <span *ngIf="passInput.errors['required']">La contraseña es obligatoria.</span>
+    <span *ngIf="passInput.errors['minlength']">La contraseña debe tener al menos 4 caracteres.</span>
+  </div>
+  <br>
+  <label>Rol:
+    <select [(ngModel)]="role" name="role">
+      <option value="cliente">Cliente</option>
+      <option value="admin">Admin</option>
+    </select>
+  </label>
+  <br>
+  <button type="submit">Registrarse</button>
+</form>

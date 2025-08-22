@@ -1,0 +1,9 @@
+<h2>Usuarios</h2>
+<button *ngIf="auth.getUserRole() === 'admin'">Crear usuario</button>
+<ul>
+  <li *ngFor="let user of users">
+    {{ user.name }} - {{ user.email }} - {{ user.address }}
+    <button *ngIf="auth.getUserRole() === 'admin'">Editar</button>
+    <button *ngIf="auth.getUserRole() === 'admin'">Eliminar</button>
+  </li>
+</ul>
