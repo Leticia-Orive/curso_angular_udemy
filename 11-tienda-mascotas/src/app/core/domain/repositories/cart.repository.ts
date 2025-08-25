@@ -1,3 +1,4 @@
+// Interfaz CartRepository. Define las operaciones para gestionar el carrito de compras.
 import { Cart } from '../entities/cart.entity';
 
 export interface CartRepository {

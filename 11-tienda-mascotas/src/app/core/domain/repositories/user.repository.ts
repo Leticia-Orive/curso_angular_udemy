@@ -1,3 +1,4 @@
+// Interfaz UserRepository. Define las operaciones CRUD para usuarios.
 import { User } from '../entities/user.entity';
 
 export interface UserRepository {

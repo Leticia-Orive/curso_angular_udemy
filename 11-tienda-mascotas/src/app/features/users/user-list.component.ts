@@ -1,3 +1,4 @@
+// Componente para mostrar la lista de usuarios. Solo accesible para administradores.
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserUseCaseProvider } from '../../core/application/use-cases/user-use-case.provider';

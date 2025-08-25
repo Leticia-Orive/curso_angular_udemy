@@ -1,3 +1,4 @@
+// Guard de autenticación. Restringe el acceso a rutas solo a usuarios autenticados.
 import { Injectable } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';

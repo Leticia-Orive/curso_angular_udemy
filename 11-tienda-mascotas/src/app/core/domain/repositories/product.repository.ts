@@ -1,3 +1,4 @@
+// Interfaz ProductRepository. Define las operaciones CRUD para productos.
 import { Product } from '../entities/product.entity';
 
 export interface ProductRepository {

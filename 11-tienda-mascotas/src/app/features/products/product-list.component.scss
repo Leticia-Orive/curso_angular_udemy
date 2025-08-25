@@ -1,12 +1,11 @@
 // Estilos para mostrar los productos en cuadrícula y visualmente agradables.
 .product-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 2rem;
 }
 
 .product-card {
-  flex: 0 1 220px;
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 1rem;

@@ -1,3 +1,6 @@
+<!--
+  Plantilla del detalle de producto. Muestra la información, imagen y permite agregar al carrito.
+-->
 <ng-container *ngIf="product">
   <h2>{{ product.name }}</h2>
   <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.name }}" style="max-width:200px;">

@@ -1,3 +1,4 @@
+// Repositorio en memoria para carritos. Simula operaciones de carrito sin backend real.
 import { Injectable } from '@angular/core';
 import { CartRepository } from '../../domain/repositories/cart.repository';
 import { Cart, CartItem } from '../../domain/entities/cart.entity';

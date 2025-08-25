@@ -1,3 +1,4 @@
+// Archivo de rutas principales de la app. Define las rutas y los componentes asociados, así como los guards de autenticación.
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 

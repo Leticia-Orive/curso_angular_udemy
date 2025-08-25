@@ -1,3 +1,4 @@
+// Servicio de autenticación. Gestiona login, registro y roles de usuario.
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })

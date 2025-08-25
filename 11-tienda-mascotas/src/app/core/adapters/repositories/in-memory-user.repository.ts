@@ -1,3 +1,4 @@
+// Repositorio en memoria para usuarios. Simula operaciones CRUD sin backend real.
 import { Injectable } from '@angular/core';
 import { UserRepository } from '../../domain/repositories/user.repository';
 import { User } from '../../domain/entities/user.entity';

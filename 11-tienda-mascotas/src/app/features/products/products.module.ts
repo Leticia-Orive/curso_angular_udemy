@@ -1,3 +1,4 @@
+// Módulo de productos. Importa dependencias comunes, aunque el componente es standalone.
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // ProductListComponent es standalone, no se declara ni exporta en un NgModule
